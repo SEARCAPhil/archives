@@ -1,0 +1,53 @@
+.navbar-top{
+	border-radius: 0;
+	border:none;
+	background: #222;
+}
+
+.sub-nav{
+	background: rgb(255,255,255);
+	box-shadow: 0px 0px 3px rgba(10,10,10,0.3);
+
+	
+}
+
+.sub-navigation li a{
+	color:rgb(100,100,100) !important;
+	font-size: 0.9em;
+	text-shadow: none !important;
+}
+
+
+.sub-navigation li:hover a, .sub-navigation li a:active, .sub-navigation li a:visited  {
+	color:rgb(100,100,100) !important;
+}
+
+
+.sub-navigation li.active a {
+
+	background: rgb(0,150,200) !important;
+	color:rgb(255,255,255) !important;
+}
+
+
+.sub-navigation li.open a{
+	background: none !important;
+	color:rgb(100,100,100) !important;
+}
+
+/*table list*/
+#listTable thead th{
+	border:1px solid rgba(200,200,200,0.4);
+}
+
+.list-group-item.active{
+	background: rgb(0,150,200) !important;
+	border:1px solid rgb(0,150,200);
+}
+
+.list-details li{
+	padding:3px 0 3px 0;
+}
+.well-custom{
+	margin-bottom:100px;
+}

@@ -1,0 +1,67 @@
+<?php
+defined('BASEPATH') OR exit('No direct script access allowed');
+
+class Auth extends CI_Model {
+
+	public function __construct(){
+		parent::__construct();
+	}
+
+	public function login($username,$password){
+		$password=sha1($password);
+		$sql="SELECT login_db.accounts.id,login_db.doc_sys_privilege.priv,login_db.account_profile.profile_image,login_db.account_profile.profile_name,login_db.account_profile.profile_name,login_db.account_profile.position,login_db.account_profile.first_name,login_db.account_profile.last_name,login_db.account_profile.date_modified,login_db.department.dept_name,login_db.department.dept_id,login_db.department.dept_alias FROM login_db.accounts left join login_db.account_profile on login_db.account_profile.uid=accounts.id left JOIN login_db.department on department.dept_id=account_profile.dept_id left join login_db.doc_sys_privilege on login_db.doc_sys_privilege.uid=login_db.accounts.id where login_db.accounts.account_username=? and login_db.accounts.account_password=?";
+		$stmt = $this->db->query($sql,array($username,$password));
+		return $stmt->result();
+	}
+
+	function profile_exists($user_id,$date_modified){
+	
+		$this->user_id=htmlentities(htmlspecialchars($user_id));
+		$this->date=htmlentities(htmlspecialchars($date_modified));
+
+		$sql="SELECT * FROM account_profile where uid=? and date_modified=? ORDER BY id DESC LIMIT 1";
+		$statement=$this->db->query($sql,array($this->user_id,$this->date));
+		return $statement->result();
+
+		
+			
+	}
+
+
+
+	function create($uid,$full_name,$last_name,$first_name,$image,$department,$alias,$position,$date_modified){
+			
+		$this->uid=htmlentities(htmlspecialchars($uid));
+		$this->full_name=@htmlentities(htmlspecialchars($full_name));
+		$this->last_name=@htmlentities(htmlspecialchars($last_name));
+		$this->first_name=@htmlentities(htmlspecialchars($first_name));
+		$this->image=@htmlentities(htmlspecialchars($image));
+		$this->department=@htmlentities(htmlspecialchars($department));
+		$this->alias=@htmlentities(htmlspecialchars($alias));
+		$this->position=@htmlentities(htmlspecialchars($position));
+		$this->date_modified=@htmlentities(htmlspecialchars($date_modified));
+		
+		
+		$sql="INSERT INTO account_profile(profile_name,last_name,first_name,profile_image,department,department_alias,position,date_modified,uid)values(?,?,?,?,?,?,?,?,?)";
+		$statement=$this->db->query($sql,array($this->full_name,$this->last_name,$this->first_name,$this->image,$this->department,$this->alias,$this->position,$this->date_modified,$this->uid));
+		
+		return $this->db->insert_id();
+				
+			
+
+	}
+
+	function logout(){
+
+	    $user_data = $this->session->all_userdata();
+
+	    foreach ($user_data as $key => $value) {
+	        if ($key != 'session_id' && $key != 'ip_address' && $key != 'user_agent' && $key != 'last_activity') {
+	            $this->session->unset_userdata($key);
+	        }
+	    }
+
+	}
+
+
+}
