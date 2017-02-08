@@ -23,7 +23,7 @@ Read more: http://www.businessdictionary.com/definition/communication.html</p>
 		<br/>
 		
 		
-		<?php echo form_open('form','class="form-horizontal",action='.$_SERVER['PHP_SELF']); ?>
+		<?php echo form_open('form','class="form-horizontal",action='.$_SERVER['PHP_SELF']);  ?>
 		<div class=" well container-fluid">
 			<h3><span class="glyphicon glyphicon-file"></span> Material Form</h3>
 			<p class="text-muted">Instruction: Please fill out all necessary fields to add <em><b>new item</b></em> on this category. </p>
@@ -91,11 +91,11 @@ Read more: http://www.businessdictionary.com/definition/communication.html</p>
 						<div class="form-group has-feedback" id="form-title">
 							<label for="inputTitle" class="control-label col-xs-3 ">Content Description</label>
 							<div class="col-xs-9">
-								<textarea class="form-control" placeholder="Content Description" name="description" rows="10">
+								<textarea class="form-control" placeholder="Content Description" name="content_description" rows="10">
 									<?php echo strlen(set_value('content_description'))>0?set_value('content_description'):@$items[0]->content_description; ?>
 								</textarea> 
 								<!--<span class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"></span>-->
-								<span id="titleAlert" class="text-danger alert-data"></span>
+								<span id="titleAlert" class="text-danger alert-data"><?php echo form_error('content_description'); ?></span>
 								
 
 							</div>

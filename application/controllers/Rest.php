@@ -55,13 +55,14 @@ class Rest extends CI_Controller {
 		$details=$this->item->get_item_category($this->input->get('id',true));
 		$dir='./uploads/';
 		
+		
 	
 		$base=$this->category->get_category_details(@$details[0]->cat_id);
 		$dir.=@$base[0]->id.'/'.$this->input->get('id',true).'/'.$details[0]->file_name;
 
+		#var_dump(file_exists($dir)&&is_file($dir));
 		
-		
-		if(file_exists($dir)&&isset($details[0]->cat_id)){
+		if(file_exists($dir)&&isset($details[0]->cat_id)&&is_file($dir)){
 
 			$returnFile=header("Content-Description: File Transfer"); 
 			$returnFile+=header("Content-Type: application/octet-stream"); 

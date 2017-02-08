@@ -81,37 +81,49 @@ class Form extends CI_Controller {
 		$this->form_validation->set_rules('source', 'Source', 'required');
 		$this->form_validation->set_rules('creator', 'Creator', 'required');
 		$this->form_validation->set_rules('publisher', 'Publisher', 'required');
-		$this->form_validation->set_rules('description', 'Description', 'required');
+		$this->form_validation->set_rules('content_description', 'Description', 'required');
+
 		if ($this->form_validation->run() == FALSE)
-                {		
-                		//update
-                		if($this->input->get('id')){
-                			$this->load->view('forms/item.php',self::get_item_details());
-                		}else{
-                		//add new
-                			$this->load->view('forms/item.php');
-                		}
-                        
-                		#$this->load->view('pages/file-upload.php');	
-                }
-                else
-                {
-                		if($this->input->get('id')){
-                			//create new
-                    		$this->last_insert_result=self::set_item();
-                    	}else{
-                    		//update
-                    		$this->last_insert_result=self::update_item();
-                    	}
-                    	/*if($this->last_insert_result>0){
-                    		$this->load->view('pages/file-upload.php',array('last_id'=>$this->last_insert_result));	
-                    	}*/
-                    	setcookie("dms-upload-id",$this->last_insert_result['data'],time()+3600,'/');
-                    	setcookie("dms-upload-cat",$this->input->post('series'),time()+3600,'/');
-                    	header('location:'.site_url().'form/upload');
-                    	
-                        
-                }
+        {		
+        		//update
+        		if($this->input->get('id')){
+        			$this->load->view('forms/item.php',self::get_item_details());
+        		}else{
+        		//add new
+
+        			$this->load->view('forms/item.php');
+        		}
+                
+        		#$this->load->view('pages/file-upload.php');	
+        }
+        else
+        {
+        		
+        		if(is_null($this->input->post('id'))||empty($this->input->post('id'))){
+        			//create new
+            		$this->last_insert_result=self::set_item();
+
+            	}else{
+            		//update
+            		$this->last_insert_result=self::update_item();
+            	}
+            	
+				#var_dump($this->last_insert_result['data']);
+
+            	/*if($this->last_insert_result>0){
+            		$this->load->view('pages/file-upload.php',array('last_id'=>$this->last_insert_result));	
+            	}*/
+            	setcookie("dms-upload-id",$this->last_insert_result['data'],1,'/');
+            	setcookie("dms-upload-cat",$this->input->post('series'),1,'/');
+
+            	setcookie("dms-upload-id",$this->last_insert_result['data'],time()+3600,'/');
+            	setcookie("dms-upload-cat",$this->input->post('series'),time()+3600,'/');
+
+            	sleep(1);
+            	header('location:'.site_url().'form/upload');
+            	
+                
+        }
 		
 		$this->load->view('pages/footer.php');
 		
@@ -145,15 +157,16 @@ class Form extends CI_Controller {
 			
 			#config
  			$config['file_name']          = @$_COOKIE['dms-upload-cat'].'.'.@$inf['extension'];
-			$config['upload_path']          = './uploads/'.@$_COOKIE['dms-upload-id'].'/'.@$_COOKIE['dms-upload-cat'];
+			$config['upload_path']          = './uploads/'.@$_COOKIE['dms-upload-cat'].'/'.@$_COOKIE['dms-upload-id'];
             $config['allowed_types']        = 'gif|jpg|png|jpeg|pdf|bmp';
             $config['max_size']             = 10000;
+            $config['overwrite'] = TRUE;
 
 			$this->load->library('upload', $config);
-
+			
 			#create directory
-            if(!is_dir('./uploads/'.@$_COOKIE['dms-upload-id'].'/'.@$_COOKIE['dms-upload-cat'])){
-            	mkdir('./uploads/'.@$_COOKIE['dms-upload-id'].'/'.@$_COOKIE['dms-upload-cat'],0777,true);
+            if(!is_dir('./uploads/'.@$_COOKIE['dms-upload-cat'].'/'.@$_COOKIE['dms-upload-id'])){
+            	mkdir('./uploads/'.@$_COOKIE['dms-upload-cat'].'/'.@$_COOKIE['dms-upload-id'],0777,true);
             }
 
            #upload file
@@ -167,14 +180,25 @@ class Form extends CI_Controller {
             }
             else
             {
+            	
 
-            		$this->file->change_file_name(@$_COOKIE['dms-upload-cat'],$_FILES['file']['name'],$config['file_name']);
-                    $data = array('upload_data' => $this->upload->data());
+            		$is_name_updated=$this->file->change_file_name(@$_COOKIE['dms-upload-id'],$_FILES['file']['name'],$config['file_name']);
 
-                    echo json_encode(array('data'=>$this->upload->data('file_name')));
-                    #expire the cookie
-                    setcookie("dms-upload-id",'',1);
-                     setcookie("dms-upload-cat",'',1);
+            		if($is_name_updated==1){
+            			$data = array('upload_data' => $this->upload->data());
+
+	                    echo json_encode(array('data'=>$this->upload->data('file_name')));
+	                    #expire the cookie
+	                    setcookie("dms-upload-id",'',1);
+	                     setcookie("dms-upload-cat",'',1);
+	                 }else{
+	                 	$error = array('error' => 'Oops Something went wrong. Please check file name and size.');
+                    	echo json_encode($error);
+	                 }
+
+                    
+
+                     
             }
 
             //$this->load->view('ajax/file.php');	

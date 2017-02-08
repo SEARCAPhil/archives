@@ -16,7 +16,7 @@
 
 	<div class=" table-responsive col col-md-9 col-md-offset-1 ">
 		<div class="row page-header text-center">
-			<h1>&nbsp;Celebrating</h1>
+			<h1>&nbsp;Celebrating </h1>
 			<img src="<?php echo base_url(); ?>assets/images/SEARCA.png" width="50%"/>
 		</div><br/><br/><br/>
 		<p>
@@ -27,7 +27,7 @@
 						<a href="<?php echo base_url(); ?>form/?id=<?php echo $items[0]->id; ?>" class="modifier" data-menu="update" data-cat="<?php echo $items[0]->id; ?>">Update</a>
 					</li>
 					<li class="" data-toggle="modal" data-target="#myModal">
-						<a href="#" class="modifier" id="file" data-menu="update" data-cat="<?php echo $items[0]->id; ?>" data-parent="<?php echo @$details[0]->id; ?>">Attach File</a>
+						<a href="#" class="modifier" id="file" data-menu="update" data-cat="<?php echo $items[0]->id; ?>" data-parent="<?php echo @$items[0]->cat_id; ?>">Attach File</a>
 					</li>
 					<li class="" data-toggle="modal" data-target="#myModal">
 						<a href="#" class="modifier" data-menu="remove" data-toggle="modal" data-cat="<?php echo $items[0]->id; ?>">Remove</a>

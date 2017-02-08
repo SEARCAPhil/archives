@@ -67,7 +67,7 @@ class Item extends CI_Model {
 		$this->source_title=isset($item['source'])?htmlentities(htmlspecialchars($item['source'])):'';
 		$this->collation=isset($item['collation'])?htmlentities(htmlspecialchars($item['collation'])):'';
 		$this->datez=isset($item['datez'])?htmlentities(htmlspecialchars($item['datez'])):'';
-		$this->content_description=isset($item['description'])?htmlentities(htmlspecialchars($item['description'])):'';
+		$this->content_description=isset($item['content_description'])?htmlentities(htmlspecialchars($item['content_description'])):'';
 		$this->notes=isset($item['notes'])?htmlentities(htmlspecialchars($item['notes'])):'';
 		$this->keywords=isset($item['keywords'])?htmlentities(htmlspecialchars($item['keywords'])):'';
 		$this->provenance=isset($item['provenance'])?htmlentities(htmlspecialchars($item['provenance'])):'';
@@ -106,7 +106,7 @@ class Item extends CI_Model {
 		$this->source_title=isset($item['source'])?htmlentities(htmlspecialchars($item['source'])):'';
 		$this->collation=isset($item['collation'])?htmlentities(htmlspecialchars($item['collation'])):'';
 		$this->datez=isset($item['datez'])?htmlentities(htmlspecialchars($item['datez'])):'';
-		$this->content_description=isset($item['description'])?htmlentities(htmlspecialchars($item['description'])):'';
+		$this->content_description=isset($item['content_description'])?htmlentities(htmlspecialchars($item['content_description'])):'';
 		$this->notes=isset($item['notes'])?htmlentities(htmlspecialchars($item['notes'])):'';
 		$this->keywords=isset($item['keywords'])?htmlentities(htmlspecialchars($item['keywords'])):'';
 		$this->provenance=isset($item['provenance'])?htmlentities(htmlspecialchars($item['provenance'])):'';

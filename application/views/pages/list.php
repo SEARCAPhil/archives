@@ -26,6 +26,9 @@
 
 	<div class=" table-responsive col col-md-9 col-md-offset-1 ">
 		<div class="row page-header text-center">
+		<?php
+			var_dump(base_url());
+		?>
 			<h1>&nbsp;Celebrating</h1>
 			<img src="<?php echo base_url(); ?>assets/images/SEARCA.png" width="50%"/>
 		</div><br/><br/><br/>

@@ -9,8 +9,8 @@ $(document).ready(function(){
     			d.setTime(d.getTime() + (3600*100));
    				var expires = "expires="+ d.toUTCString();
 
-				document.cookie='dms-upload-id='+$(this).attr('data-parent')+';'+expires
-				document.cookie='dms-upload-cat='+$(this).attr('data-cat')+';'+expires
+				document.cookie='dms-upload-id='+$(this).attr('data-cat')+';'+expires+';path=/'
+				document.cookie='dms-upload-cat='+$(this).attr('data-parent')+';'+expires+';path=/'
 
 				window.location='/dms/form/upload'
 			}
