@@ -5,10 +5,11 @@
 
 <div class="container">
 	<div class=" table-responsive col col-md-7 col-md-offset-2 ">
-		<div class="row page-header text-center">
+		<br/>
+		<div class="row  text-center">
 			<h1>&nbsp;Search results</h1>
 			<h1><span class="glyphicon glyphicon-search"></span></h1>
-			<h4><b><?php echo isset($items['total'])?$items['total']:0; ?></b> result(s) found</h4>
+			<h4><small><b><?php echo isset($items['total'])?$items['total']:0; ?></b> result(s) found</small></h4>
 		</div>
 	</div>
 	<br/><br/><br/>
@@ -51,10 +52,11 @@
 			<tbody>
 
 				<?php for($x=0; $x<count($items['data']); $x++): ?>
+
 					<tr>
 						<td><?php echo $items['data'][$x]->id; ?></td>
 						<td>
-							<a href="<?php echo base_url(); ?>?id=<?php echo $items['data'][$x]->id; ?>&parent=<?php echo @$details[0]->id; ?>&category=<?php echo $details[0]->category; ?>&title=<?php echo urlencode(utf8_encode($items['data'][$x]->document_title)); ?>"><?php echo $items['data'][$x]->document_title; ?></a>
+							<a href="<?php echo base_url(); ?>?id=<?php echo @$items['data'][$x]->id; ?>&parent=<?php echo $items['data'][$x]->cat_id; ?>&category=<?php echo $items['data'][$x]->category; ?>&title=<?php echo urlencode(utf8_encode($items['data'][$x]->document_title)); ?>"><?php echo $items['data'][$x]->document_title; ?></a>
 						</td>
 						<td><?php echo $items['data'][$x]->content_description; ?></td>
 						<td><?php echo $items['data'][$x]->encoded_by; ?></td>
@@ -75,7 +77,7 @@
 		<?php }else{ ?>
 
 			<?php  for($x=0; $x<count($items['data']); $x++): ?>
-			<div class="well" id="item<?php echo $items['data'][$x]->id; ?>">
+			<div  id="item<?php echo $items['data'][$x]->id; ?>">
 				<p>
 					<li class="dropdown list-unstyled pull-right"><a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-cog"></span></a>
 					<ul class="dropdown dropdown-menu">
@@ -94,13 +96,24 @@
 				</li>
 
 				</p>
-				<h4><a href="?id=<?php echo $items['data'][$x]->id; ?>&title=<?php echo $items['data'][$x]->document_title; ?>"><span class="glyphicon glyphicon-bookmark"></span> <b>(<?php echo $items['data'][$x]->id; ?>)</b> <?php echo $items['data'][$x]->document_title; ?></a></h4>
+
+
+				<h4>
+					<a href="?id=<?php echo $items['data'][$x]->id; ?>&title=<?php echo $items['data'][$x]->document_title; ?>">
+						<span class="glyphicon glyphicon-bookmark"></span> 
+						<?php echo $items['data'][$x]->document_title; ?>
+					</a>
+				</h4>
+
+
 				<p><hr/></p>
-				<p><b> Main File</b></p>
-				<p><span class="glyphicon glyphicon-file"></span> <?php echo $items['data'][$x]->original_file_name; ?> <button class="btn btn-xs btn-success download" data-cat="<?php echo $items['data'][$x]->id; ?>">Download</button></p><br/>
+				
+				
 				<p><b>Description</b></p>
 				<p><?php echo $items['data'][$x]->content_description; ?></p>
-				<p class="text-muted"><br/><br/> <small><b><span class="glyphicon glyphicon-tags"></span> Tags</b>( <?php echo $items['data'][$x]->keywords; ?>)</small></p>
+				<p><small><span class="glyphicon glyphicon-file"></span> <?php echo $items['data'][$x]->original_file_name; ?> <button class="btn btn-xs btn-success download" data-cat="<?php echo $items['data'][$x]->id; ?>">Download</button></small></p><br/><br/>
+
+				<?php if(strlen(trim($items['data'][$x]->keywords))>0){ ?><p class="text-muted"><small><b><span class="glyphicon glyphicon-tags"></span> Tags</b>( <?php echo $items['data'][$x]->keywords; ?>)</small></p><br/> <?php } ?>
 			</div>
 
 			<?php endfor; ?>

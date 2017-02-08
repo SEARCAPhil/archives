@@ -10,7 +10,7 @@ function set_active($sid){
 <nav class="navbar navbar-inverse navbar-top-fixed navbar-top">
 	<div class="container">
 		<div class="navbar-header">
-			<a href="/dms" class="navbar-brand">Document Management System</a>
+			<a href="<?php base_url(); ?>" class="navbar-brand">Document Management System</a>
 		</div>
 		<div class="collapse navbar-collapse pull-right">
 			<ul class="nav navbar-nav">
@@ -49,7 +49,7 @@ function set_active($sid){
 			</ul>
 
 			<ul class="nav navbar-nav sub-navigation pull-right">
-				<li><a href="<?php echo base_url(); ?>form/">Add <label class="label label-warning"><small><span class="glyphicon glyphicon-plus"></span></small></label></a></li>
+				<li><a href="<?php echo base_url(); ?>form/">&nbsp;Add <div style="float: left;width:20px;height:20px;background: rgb(255,100,99);border-radius: 50%;color:rgb(255,255,255);text-align: center;">+</div> <!--<label class="label label-warning"><small><span class="glyphicon glyphicon-plus"></span></small></label>--></a></li>
 			</ul>
 		</div>
 	</div>

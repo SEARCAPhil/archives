@@ -39,7 +39,7 @@ class Item extends CI_Model {
 	}
 
 	public function get_item_details($id){
-		$query = "SELECT * FROM item where id=? LIMIT 0,20";
+		$query = "SELECT item.*,category.category FROM item LEFT JOIN category on item.cat_id=category.id where item.id=? LIMIT 0,20";
 		$stmt=$this->db->query($query,array($id));
 		return $stmt->result();
 	}
@@ -141,7 +141,7 @@ class Item extends CI_Model {
 	public function search($param,$page=1){
 		$this->page=(int) $page;
 		$limit=$this->page<2?0:( integer)($this->page-1)*10;
-		$query = "SELECT * FROM item where document_title LIKE ? or content_description LIKE ? LIMIT ?,20";
+		$query = "SELECT item.*,category.category FROM item LEFT JOIN category on category.id=item.cat_id where document_title LIKE ? or content_description LIKE ?  LIMIT ?,20";
 		$stmt=$this->db->query($query,array('%'.$param.'%', '%'.$param.'%',$limit));
 
 		$query2 = "SELECT count(*) as total FROM item where document_title LIKE ? or content_description LIKE ? ";
@@ -159,8 +159,15 @@ class Item extends CI_Model {
 				$no_pages=1;
 
 		}
+
+		#check for 0 value
+		if($no_pages<1) $no_pages=1;
+
 		#check if page request is < the actual page
-		$current_page=$this->page<=$no_pages?$this->page:$no_pages;
+		$current_page=$this->page<=$no_pages||$this->page>0?$this->page:$no_pages;
+
+		#check for 0 value
+		if($current_page<1) $current_page=1;
 
 		return array('total'=>$count,'pages'=>$no_pages,'current_page'=>$current_page,'data'=>$stmt->result());
 	

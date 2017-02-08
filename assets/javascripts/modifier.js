@@ -1,4 +1,7 @@
 $(document).ready(function(){
+
+	var base_url='/document_management_system/';
+
 	$('.modifier').click(function(e){
 		$('#modal-content').html(' . . .');
 
@@ -12,10 +15,10 @@ $(document).ready(function(){
 				document.cookie='dms-upload-id='+$(this).attr('data-cat')+';'+expires+';path=/'
 				document.cookie='dms-upload-cat='+$(this).attr('data-parent')+';'+expires+';path=/'
 
-				window.location='/dms/form/upload'
+				window.location=base_url+'form/upload'
 			}
 		}else{
-			$('#modal-content').load('/dms/modal/remove/?id='+$(this).attr('data-cat'));
+			$('#modal-content').load(base_url+'modal/remove/?id='+$(this).attr('data-cat'));
 		}
 
 		
@@ -28,7 +31,7 @@ $(document).ready(function(){
 		/*$.get('/dms/rest/file_download/?id='+id).success(function(){
 
 		})*/
-		window.open('/dms/rest/file_download/?id='+id);
+		window.open(base_url+'rest/file_download/?id='+id);
 	})
 })
 
