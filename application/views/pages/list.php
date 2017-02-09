@@ -44,55 +44,58 @@
 
 
 		<?php if(@$_COOKIE['dms-view']=='table'){ ?>
-		<table class="table table-striped table-hovered  tablesorter" id="listTable" style="font-size: 0.95em; border:1px solid rgb(220,220,220);border-radius: 5% !important;">
-			<thead style="background: rgb(150,150,150); color: rgb(240,240,240);">
-				<th>Record Number</th>
-				<th>Title</th>
-				<th>Desription</th>
-				<th>Encoded by</th>
-				<th>Date Encoded</th>
-				<th>Keywords</th>
-				<th>Files</th>
-				<th></th>
-			</thead>
-			<tfoot>
-				<tr>
-					<td colspan="8" class="text-muted"><span class="glyphicon glyphicon-th-list"></span> Results based on selected category</td>
-				</tr>
 
-			</tfoot>
-			<tbody>
+				<?php if(count($items['data'])>0){ ?>
+					<table class="table table-striped table-hovered  tablesorter" id="listTable" style="font-size: 0.95em; border:1px solid rgb(220,220,220);border-radius: 5% !important;">
+						<thead style="background: rgb(150,150,150); color: rgb(240,240,240);">
+							<th>Record Number</th>
+							<th>Title</th>
+							<th>Desription</th>
+							<th>Encoded by</th>
+							<th>Date Encoded</th>
+							<th>Keywords</th>
+							<th>Files</th>
+							<th></th>
+						</thead>
+						<tfoot>
+							<tr>
+								<td colspan="8" class="text-muted"><span class="glyphicon glyphicon-th-list"></span> Results based on selected category</td>
+							</tr>
 
-				<?php for($x=0; $x<count($items['data']); $x++): ?>
-					<tr>
-						<td><?php echo $items['data'][$x]->id; ?></td>
-						<td>
-							<a href="<?php echo base_url(); ?>?id=<?php echo $items['data'][$x]->id; ?>&parent=<?php echo $details[0]->id; ?>&category=<?php echo $details[0]->category; ?>&title=<?php echo urlencode(utf8_encode($items['data'][$x]->document_title)); ?>"><?php echo $items['data'][$x]->document_title; ?></a>
-						</td>
-						<td><?php echo $items['data'][$x]->content_description; ?></td>
-						<td><?php echo $items['data'][$x]->encoded_by; ?></td>
-						<td><?php echo $items['data'][$x]->date_of_input; ?></td>
-						<td><?php echo $items['data'][$x]->keywords; ?></td>
-						<td><?php echo $items['data'][$x]->original_file_name; ?></td>
-						<td>
-							<div class="dropdown">
-								<a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-print"></span></a>
-								<ul class="dropdown-menu pull-right">
-									<li><a href="report/short/" target="_blank"><span class="glyphicon glyphicon-th-list"></span> Short</a></li>
-									<li><a href="report/long/" target="_blank"><span class="glyphicon glyphicon-th"></span> Long</a></li>
-									<li><a href="#"><span class="glyphicon glyphicon-pencil"></span> Custom</a></li>
-								</ul>
+						</tfoot>
+						<tbody>
 
-							</div><br/>
-							<p><a href="#"  class="download" data-cat="<?php echo $items['data'][$x]->id; ?>"><span class="glyphicon glyphicon-download"></span></a></p>
-						</td>
-						
-					</tr>
-				<?php endfor; ?>
+							<?php for($x=0; $x<count($items['data']); $x++): ?>
+								<tr>
+									<td><?php echo $items['data'][$x]->id; ?></td>
+									<td>
+										<a href="<?php echo base_url(); ?>?id=<?php echo $items['data'][$x]->id; ?>&parent=<?php echo $details[0]->id; ?>&category=<?php echo $details[0]->category; ?>&title=<?php echo urlencode(utf8_encode($items['data'][$x]->document_title)); ?>"><?php echo $items['data'][$x]->document_title; ?></a>
+									</td>
+									<td><?php echo $items['data'][$x]->content_description; ?></td>
+									<td><?php echo $items['data'][$x]->encoded_by; ?></td>
+									<td><?php echo $items['data'][$x]->date_of_input; ?></td>
+									<td><?php echo $items['data'][$x]->keywords; ?></td>
+									<td><?php echo $items['data'][$x]->original_file_name; ?></td>
+									<td>
+										<!--<div class="dropdown">
+											<a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-print"></span></a>
+											<ul class="dropdown-menu pull-right">
+												<li><a href="report/short/" target="_blank"><span class="glyphicon glyphicon-th-list"></span> Short</a></li>
+												<li><a href="report/long/" target="_blank"><span class="glyphicon glyphicon-th"></span> Long</a></li>
+												<li><a href="#"><span class="glyphicon glyphicon-pencil"></span> Custom</a></li>
+											</ul>
 
-				
-			</tbody>
-		</table>
+										</div><br/>-->
+										<p><a href="#"  class="download" data-cat="<?php echo $items['data'][$x]->id; ?>"><span class="glyphicon glyphicon-download"></span></a></p>
+									</td>
+									
+								</tr>
+							<?php endfor; ?>
+
+							
+						</tbody>
+					</table>
+				<?php } ?>
 		<?php }else{ ?>
 
 			<?php for($x=0; $x<count($items['data']); $x++): ?>
@@ -136,6 +139,11 @@
 			<?php endfor; ?>
 
 		<?php } ?>
+
+<?php 
+	#if no result
+	if(count(@$items['data'])>0){ 
+?>
 		<div class="col-md-12 text-center">
 			<nav class="pages">
 					<ul class="pagination">
@@ -181,8 +189,12 @@
 			</nav>
 						
 		</div>
-		<?php }else{ ?>
 
+<?php } ?>
+
+
+		<?php }else{ ?>
+			<p><br/><br/><br/><br/><center><img src="<?php echo base_url(); ?>assets/images/SEARCA.png" width="40%"/></center></p><br/>
 			<p>A document management system (DMS) is a system (based on computer programs in the case of the management of digital documents) used to track, manage and store documents and reduce paper. Most are capable of keeping a record of the various versions created and modified by different users (history tracking).</p>
 			<p>Document management, often referred to as Document Management Systems (DMS), is the use of a computer system and software to store, manage and track electronic documents and electronic images of paper based information captured through the use of a document scanner. 
 

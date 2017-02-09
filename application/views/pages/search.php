@@ -120,6 +120,12 @@
 
 		<?php } ?>
 
+
+<?php 
+	#if no result
+	if(count($items)>0){ 
+?>
+
 		<div class="col-md-12 text-center">
 			<nav class="pages">
 					<ul class="pagination">
@@ -165,6 +171,8 @@
 			</nav>
 						
 		</div>
+
+<?php } ?>
 
 
 	</div>
