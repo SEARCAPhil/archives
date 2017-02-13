@@ -42,7 +42,7 @@
 			<center class="text-muted"><h1>Content Unavailable</h1></center>
 		<?php  } ?>
 
-
+		<?php if(!isset($_COOKIE['dms-view'])){$_COOKIE['dms-view']='table';} ?>
 		<?php if(@$_COOKIE['dms-view']=='table'){ ?>
 
 				<?php if(count($items['data'])>0){ ?>

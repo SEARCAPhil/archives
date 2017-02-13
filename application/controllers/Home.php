@@ -32,15 +32,35 @@ class Home extends CI_Controller {
 		$this->load->library(array('form_validation','session'));
 	}
 
+	public function isAdmin(){
+		$priv=@$this->session->priv;
+		return @$priv==='admin';
+	}
+
 	public function get_parent_categories(){
 
-		$this->categories=$this->category->get_parent_categories();
+		#prevent access for private categories
+		if(self::isAdmin()){
+
+			$this->categories=$this->category->get_parent_categories();
+
+		}else{
+
+			$this->categories=$this->category->get_parent_categories_for_user_only();	
+		}
+		
 		return $this->data=array('data'=>$this->categories,'param'=>$this->input->get(),'sub'=>self::get_children_categories()['data']);
 	}
 
 	public function get_children_categories(){
 
-		$this->sub_categories=$this->category->get_children_categories($this->input->get('id',true));
+		#prevent access for private categories
+		if(self::isAdmin()){
+			$this->sub_categories=$this->category->get_children_categories($this->input->get('id',true));
+		}else{
+			$this->sub_categories=$this->category->get_children_categories_for_user_only($this->input->get('id',true));
+		}
+		
 		return $this->data=array('data'=>$this->sub_categories,'param'=>$this->input->get(),'details'=>self::get_category_details(),'items'=>self::get_items());
 	}
 
@@ -75,6 +95,8 @@ class Home extends CI_Controller {
 
 		$this->load->view('pages/header.php');
 		
+		
+
 		if($this->session->id==NULL){
 			//sign-in
 			$this->load->view('forms/login.php',array('data'=>$this->input->get('login_error')));
