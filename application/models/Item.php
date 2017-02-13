@@ -39,7 +39,7 @@ class Item extends CI_Model {
 	}
 
 	public function get_item_details($id){
-		$query = "SELECT item.*,category.category FROM item LEFT JOIN category on item.cat_id=category.id where item.id=? LIMIT 0,20";
+		$query = "SELECT item.*,category.category,category.is_private FROM item LEFT JOIN category on item.cat_id=category.id where item.id=? LIMIT 0,20";
 		$stmt=$this->db->query($query,array($id));
 		return $stmt->result();
 	}

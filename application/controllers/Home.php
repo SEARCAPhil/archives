@@ -37,6 +37,11 @@ class Home extends CI_Controller {
 		return @$priv==='admin';
 	}
 
+	public function is_available_for_user($is_private=1){
+
+		return (!$is_private)||self::isAdmin();
+	}
+
 	public function get_parent_categories(){
 
 		#prevent access for private categories
@@ -79,6 +84,12 @@ class Home extends CI_Controller {
 	public function get_item_details(){
 
 		$this->item=$this->item->get_item_details($this->input->get('id',true));
+		
+		#check if details can be viewd by ordinary user
+		if(!self::is_available_for_user($this->item[0]->is_private)){
+			$this->item=[];
+		}
+
 		return $this->data=array('data'=>$this->sub_categories,'param'=>$this->input->get(),'details'=>self::get_category_details(),'items'=>$this->item);
 	}
 

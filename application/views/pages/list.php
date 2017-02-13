@@ -143,12 +143,13 @@
 <?php 
 	#if no result
 	if(count(@$items['data'])>0){ 
+
 ?>
 		<div class="col-md-12 text-center">
 			<nav class="pages">
 					<ul class="pagination">
 						<li>
-							<a href="#" aria-label="Previous"><span>Page <?php echo $items['current_page']>=1?$items['current_page']:1; ?> of <?php echo $items['pages']; ?></span>
+							<a href="?id=<?php echo $id; ?>&page=1" aria-label="Previous"><span>Page <?php echo $items['current_page']>=1?$items['current_page']:1; ?> of <?php echo $items['pages']; ?></span>
 			  					<span aria-hidden="true">«</span>
 			 				</a>
 						</li>
@@ -157,12 +158,12 @@
 							 <?php  $original_page=$items['pages']; if($page-10>0){  $page_nav=$page-10;  }else{$page_nav=$items['pages']-5;} $tracker=0; $data_pages=$items['pages']; while($data_pages>0){ --$data_pages; $page_nav++; $tracker++;  ?>
 		    			
 		    				<?php if($tracker<20 && $page_nav<=$original_page&&$page>10){ ?>
-		    					<li class="page-navigation <?php page_indicator($page_nav,$page); ?>" id="?id=<?php echo $page; ?>&page<?php echo $page_nav; ?>"><a href="&page=<?php echo $page_nav; ?>"><?php echo $page_nav;  ?></a></li>
+		    					<li class="page-navigation <?php page_indicator($page_nav,$page); ?>" id="?id=<?php echo $id; ?>&page<?php echo $page_nav; ?>"><a href="?id=<?php echo $id; ?>&page=<?php echo $page_nav; ?>"><?php echo $page_nav;  ?></a></li>
 		    			
 		    				<?php } ?>
 
 		    				<?php  if($page<=10&&$tracker<=10){ ?>
-		    					<li class="page-navigation <?php page_indicator($tracker,$page); ?>" id="<?php echo $page; ?>&page<?php echo $page_nav; ?>"><a href="?id=<?php echo $page; ?>&page=<?php echo $tracker;  ?>"><?php echo $tracker;  ?></a></li>
+		    					<li class="page-navigation <?php page_indicator($tracker,$page); ?>" id="<?php echo $id; ?>&page<?php echo $page_nav; ?>"><a href="?id=<?php echo $id; ?>&page=<?php echo $tracker;  ?>"><?php echo $tracker;  ?></a></li>
 		    					
 		    				<?php } ?>
 
@@ -172,7 +173,7 @@
 		    			<?php $page_nav=$original_page>0?$original_page:1; ?>
 		    					<li class="page-navigation disabled"><a href="#">. . .</a></li>
 		    					<li class="page-navigation <?php page_indicator($original_page-1,$page); ?>" id="?id=<?php echo $id; ?>&page<?php echo $original_page-1; ?>"><a href="?id=<?php echo $id; ?>&page=<?php echo $original_page-1;  ?>"><?php echo $original_page-1;  ?></a></li>
-		    					<li class="page-navigation <?php page_indicator($original_page,$page); ?>" id="?id=<?php echo $id; ?>&page<?php echo $original_page; ?>"><a href="?id=<?php echo $page; ?>&page=<?php echo $original_page;  ?>"><?php echo $original_page;  ?></a></li>
+		    					<li class="page-navigation <?php page_indicator($original_page,$page); ?>" id="?id=<?php echo $id; ?>&page<?php echo $original_page; ?>"><a href="?id=<?php echo $id; ?>&page=<?php echo $original_page;  ?>"><?php echo $original_page;  ?></a></li>
 		    			<?php } ?>
 						
 								
@@ -180,7 +181,7 @@
 						 <li>
 
 
-		  				<a href="?id=<?php echo $id; ?>&page=<?php echo $original_page;  ?>" aria-label="Next">
+		  				<a href="?id=<?php echo $id; ?>&page=<?php echo $items['pages']; ?>" aria-label="Next">
 		   					<span aria-hidden="true">»</span>
 		 				 </a>
 					</li>

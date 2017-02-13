@@ -14,6 +14,7 @@
 	</div>
 	<?php endif; ?>
 
+<?php if(isset($items[0])){ ?>
 	<div class=" table-responsive col col-md-10 col-md-offset-1 ">
 		
 		<p>
@@ -66,7 +67,7 @@
 				<li><b>Shelf Cabinet Number :</b>    <?php echo $items[0]->shelf_cabinet_number; ?></li>	
 				<li><b>Box Number :</b>    <?php echo $items[0]->box_number; ?></li>						
 				<li><b>Folder Number :</b>    <?php echo $items[0]->folder_number; ?></li>						
-				<li><b>Record Number :</b>    <?php echo $items[0]->record_number; ?></li>																					
+				<li><b>Record Number :</b>    <?php echo $items[0]->record_number; ?></li>						
 				<li><b>Creator :</b>    <?php echo $items[0]->creator; ?></li>				
 				<li><b>Collation :</b>    <?php echo $items[0]->collation; ?></li>
 				<li ><b>Provenance :</b>   <?php echo $items[0]->provenance; ?></li>
@@ -77,11 +78,11 @@
 				</ul>
 		</div>
 
-
-	
-		
-
 	</div>
+
+	<?php }else{ ?>
+		<center class="text-muted"><h1>Content Unavailable</h1></center>
+	<?php } ?>
 </div>
 <div class="col col-md-12">
 			<?php include_once('copyright.php'); ?>
