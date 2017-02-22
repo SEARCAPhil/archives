@@ -1,4 +1,14 @@
 $(document).ready(function(){
+
+	/**
+	*Site URL
+	*
+	*This must match against CodeIgniter's site URL
+	*/
+
+	var site_url='/document_management_system/';
+
+
 	$('.progress-div').hide();
 	$('#upload-file').change(function(e){
 		
@@ -50,7 +60,7 @@ $(document).ready(function(){
 				//post file
 
 				var xhr=new XMLHttpRequest();
-				xhr.open('POST','/dms/form/file');
+				xhr.open('POST',site_url+'form/file');
 
 				xhr.upload.addEventListener('progress',function(e){
 					console.log(e);
@@ -67,7 +77,7 @@ $(document).ready(function(){
 					try{
 						var result= JSON.parse(e.target.responseText);
 						if(result.data!= undefined){
-							window.location='/dms/form/success'
+							window.location=site_url+'form/success'
 						}else{
 							if(result.error!= undefined){
 
