@@ -177,8 +177,10 @@ class Home extends CI_Controller {
 		#check if details can be viewd by ordinary user
 		if(!self::is_available_for_user($this->item[0]->is_private)){
 			$this->item=[];
-		}
 
+
+		}
+		
 		return $this->data=array('data'=>$this->sub_categories,'param'=>$this->input->get(),'details'=>self::get_category_details(),'items'=>$this->item);
 	}
 

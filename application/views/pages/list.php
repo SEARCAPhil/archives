@@ -46,13 +46,11 @@
 		<?php if(@$_COOKIE['dms-view']=='table'){ ?>
 
 				<?php if(count($items['data'])>0){ ?>
-					<table class="table table-striped table-hovered  tablesorter" id="listTable" style="font-size: 0.95em; border:1px solid rgb(220,220,220);border-radius: 5% !important;">
+					<table class="table table-striped table-hovered  tablesorter table-responsive" id="listTable" style="font-size: 0.95em; border:1px solid rgb(220,220,220);border-radius: 5% !important;">
 						<thead style="background: rgb(150,150,150); color: rgb(240,240,240);">
 							<th>Record Number</th>
-							<th>Title</th>
+							<th width="30%">Title</th>
 							<th>Desription</th>
-							<th>Encoded by</th>
-							<th>Date Encoded</th>
 							<th>Keywords</th>
 							<th>Files</th>
 							<th></th>
@@ -69,11 +67,9 @@
 								<tr>
 									<td><?php echo $items['data'][$x]->id; ?></td>
 									<td>
-										<a href="<?php echo base_url(); ?>?id=<?php echo $items['data'][$x]->id; ?>&parent=<?php echo $details[0]->id; ?>&category=<?php echo $details[0]->category; ?>&title=<?php echo urlencode(utf8_encode($items['data'][$x]->document_title)); ?>"><?php echo $items['data'][$x]->document_title; ?></a>
+										<a href="<?php echo base_url(); ?>?id=<?php echo $items['data'][$x]->id; ?>&parent=<?php echo $details[0]->id; ?>&category=<?php echo $details[0]->category; ?>&title=<?php echo urlencode(utf8_encode($items['data'][$x]->document_title)); ?>"><?php echo nl2br($items['data'][$x]->document_title); ?></a>
 									</td>
-									<td><?php echo $items['data'][$x]->content_description; ?></td>
-									<td><?php echo $items['data'][$x]->encoded_by; ?></td>
-									<td><?php echo $items['data'][$x]->date_of_input; ?></td>
+									<td><?php echo nl2br($items['data'][$x]->content_description); ?></td>
 									<td><?php echo $items['data'][$x]->keywords; ?></td>
 									<td><?php echo $items['data'][$x]->original_file_name; ?></td>
 									<td>

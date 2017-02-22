@@ -1,18 +1,5 @@
 
 <div class="container">
-	<?php if(count($data)>0): ?>
-	<div class=" table-responsive col col-md-2 ">
-		<div class="row">
-			<img src="<?php echo base_url(); ?>assets/images/logo-new.png" width="100%"/>
-		</div><br/>
-		<div class="list-group row">
-			<?php for($x=0;$x<count($data);$x++){ ?>
-				<a href="<?php echo base_url(); ?>?id=<?php echo $data[$x]->id; ?>&parent=<?php echo @$param['id']; ?>" class="list-group-item"><?php echo $data[$x]->category; ?> <small class="text-muted">(<?php echo $data[$x]->code; ?>)</small></a>
-			<?php } ?>
-		</div>
-		
-	</div>
-	<?php endif; ?>
 
 <?php if(isset($items[0])){ ?>
 	<div class=" table-responsive col col-md-10 col-md-offset-1 ">
@@ -61,19 +48,165 @@
 		<br/>
 		<div>
 			<ul class="list-unstyled list-details">
-				<li><b>Category :</b><u><?php echo $items[0]->category; ?></u></li>
-				<li><b>Date Range :</b>    <?php echo $items[0]->date_range; ?></li>
-				<li><b>Language :</b>    <?php echo $items[0]->language; ?></li>	
-				<li><b>Shelf Cabinet Number :</b>    <?php echo $items[0]->shelf_cabinet_number; ?></li>	
-				<li><b>Box Number :</b>    <?php echo $items[0]->box_number; ?></li>						
-				<li><b>Folder Number :</b>    <?php echo $items[0]->folder_number; ?></li>						
-				<li><b>Record Number :</b>    <?php echo $items[0]->record_number; ?></li>						
-				<li><b>Creator :</b>    <?php echo $items[0]->creator; ?></li>				
-				<li><b>Collation :</b>    <?php echo $items[0]->collation; ?></li>
-				<li ><b>Provenance :</b>   <?php echo $items[0]->provenance; ?></li>
-				<li><b>Encoded By :</b>    <?php echo $items[0]->encoded_by; ?></li>
-				<li ><b>Date of Input :</b>    <?php echo $items[0]->date_of_input; ?></li>		
-				<li><b>Keywords :</b> <?php echo $items[0]->keywords; ?></li>				 
+				<?php function is_empty($text){
+
+					$value=(string) $text;
+					$value=trim($value);
+
+					if(!empty($value)) return 0;
+					return 1;
+
+				} ?>
+				<!--
+				<?php if(!is_empty($items[0]->category)){ ?> <li><b>Category :</b><u><?php echo $items[0]->category; ?></u></li> <?php } ?>
+				<?php if(!is_empty($items[0]->category)){ ?> <li><b>Date Range :</b>    <?php echo $items[0]->date_range; ?></li> <?php } ?>
+				<?php if(!is_empty($items[0]->category)){ ?> <li><b>Language :</b>    <?php echo $items[0]->language; ?></li> <?php } ?>	
+				<?php if(!is_empty($items[0]->category)){ ?> <li><b>Shelf Cabinet Number :</b>    <?php echo $items[0]->shelf_cabinet_number; ?></li> <?php } ?>	
+				<?php if(!is_empty($items[0]->category)){ ?> <li><b>Box Number :</b>    <?php echo $items[0]->box_number; ?></li> <?php } ?>						
+				<?php if(!is_empty($items[0]->category)){ ?> <li><b>Folder Number :</b>    <?php echo $items[0]->folder_number; ?></li>	<?php } ?>					
+				<?php if(!is_empty($items[0]->category)){ ?> <li><b>Record Number :</b>    <?php echo $items[0]->record_number; ?></li>	<?php } ?>					
+				<?php if(!is_empty($items[0]->category)){ ?> <li><b>Creator :</b>    <?php echo $items[0]->creator; ?></li>	<?php } ?>			
+				<?php if(!is_empty($items[0]->category)){ ?> <li><b>Collation :</b>    <?php echo $items[0]->collation; ?></li><?php } ?>
+				<?php if(!is_empty($items[0]->category)){ ?> <li ><b>Provenance :</b>   <?php echo $items[0]->provenance; ?></li><?php } ?>
+				<?php if(!is_empty($items[0]->category)){ ?> <li><b>Encoded By :</b>    <?php echo $items[0]->encoded_by; ?></li><?php } ?>
+				<?php if(!is_empty($items[0]->category)){ ?> <li ><b>Date of Input :</b>    <?php echo $items[0]->date_of_input; ?></li><?php } ?>		
+				<?php if(!is_empty($items[0]->category)){ ?> <li><b>Keywords :</b> <?php echo $items[0]->keywords; ?></li><?php } ?>
+				<?php if(!is_empty($items[0]->category)){ ?> <li><b>Source Title :</b> <?php echo $items[0]->source_title; ?></li><?php } ?>
+				-->		
+
+				<?php if(!is_empty($items[0]->document_title)){ ?> <li><span class="col col-md-3 row"><b>Document Title :</b></span> <span class="col col-md-9"><?php echo nl2br($items[0]->document_title); ?></span></li><?php } ?>
+				<?php if(!is_empty($items[0]->category)){ ?> <li><span class="col col-md-3 row"><b>Category :</b></span> <span class="col col-md-9"><?php echo nl2br($items[0]->category); ?></span></li><?php } ?>
+				<?php if(!is_empty($items[0]->source_title)){ ?> <li><span class="col col-md-3 row"><b>Source Title :</b></span> <span class="col col-md-9"><?php echo nl2br($items[0]->source_title); ?></span></li><?php } ?>
+				<?php if(!is_empty($items[0]->creator)){ ?> <li><span class="col col-md-3 row"><b>Creator :</b></span> <span class="col col-md-9"><?php echo nl2br($items[0]->creator); ?></span></li><?php } ?>
+				<?php if(!is_empty($items[0]->publisher)){ ?> <li><span class="col col-md-3 row"><b>Publisher :</b></span> <span class="col col-md-9"><?php echo nl2br($items[0]->publisher); ?></span></li><?php } ?>
+				<?php if(!is_empty($items[0]->content_description)){ ?> <li>
+					<span class="col col-md-3 row"><b>Content Description :</b></span>
+				 	<span class="col col-md-9"><?php echo nl2br($items[0]->content_description); ?></span></li>
+				<?php } ?>	
+				<?php if(!is_empty($items[0]->place)){ ?> <li><span class="col col-md-3 row"><b>Place :</b></span> <span class="col col-md-9"><?php echo $items[0]->place; ?></span></li><?php } ?>
+
+
+				<?php if(!is_empty($items[0]->date_of_input)){ ?> 
+					<li><span class="col col-md-3 row"><b>Date :</b></span> 
+					<span class="col col-md-9"><?php echo $items[0]->date_of_input; ?></span>
+				</li><?php } ?>
+
+
+				<?php if(!is_empty($items[0]->collation)){ ?> 
+					<li><span class="col col-md-3 row"><b>Collation :</b></span> 
+					<span class="col col-md-9"><?php echo $items[0]->collation; ?></span>
+				</li><?php } ?>
+
+
+				<?php if(!is_empty($items[0]->language)){ ?> 
+					<li><span class="col col-md-3 row"><b>Language :</b></span> 
+					<span class="col col-md-9"><?php echo $items[0]->language; ?></span>
+					</li>
+				<?php } ?>
+
+				<?php if(!is_empty($items[0]->access_condition)){ ?> 
+					<li><span class="col col-md-3 row"><b>Access Condition :</b></span> 
+						<span class="col col-md-9"><?php echo $items[0]->access_condition; ?></span>
+					</li>
+				<?php } ?>
+
+
+				<?php if(!is_empty($items[0]->physical_condition)){ ?> 
+					<li>
+						<span class="col col-md-3 row"><b>Physical Condition :</b></span> 
+						<span class="col col-md-9"><?php echo $items[0]->physical_condition; ?></span>
+					</li>
+				<?php } ?>
+
+
+				<?php if(!is_empty($items[0]->record_number)){ ?>
+					 <li>
+					 	<span class="col col-md-3 row"><b>Record Group :</b></span> 
+					 	<span class="col col-md-9"><?php echo $items[0]->record_number; ?></span>
+					 </li>
+				 <?php } ?>
+
+				<?php if(!is_empty($items[0]->material)){ ?> 
+					<li>
+						<span class="col col-md-3 row"><b>Material :</b></span> 
+						<span class="col col-md-9"><?php echo $items[0]->material; ?></span>
+					</li>
+				<?php } ?>
+
+
+				<?php if(!is_empty($items[0]->notes)){ ?>
+				 	<li><span class="col col-md-3 row"><b>Notes :</b></span> 
+				 		<span class="col col-md-9"><?php echo nl2br($items[0]->notes); ?></span>
+				 	</li>
+				 <?php } ?>
+
+
+				<?php if(!is_empty($items[0]->keywords)){ ?> 
+					<li><span class="col col-md-3 row"><b>Keywords :</b></span> 
+						<span class="col col-md-9"><?php echo $items[0]->keywords; ?></span>
+					</li>
+				<?php } ?>
+
+				<?php if(!is_empty($items[0]->provenance)){ ?> 
+					<li><span class="col col-md-3 row"><b>Provenance :</b></span> 
+					<span class="col col-md-9"><?php echo $items[0]->provenance; ?></span>
+					</li>
+				<?php } ?>
+
+				<?php if(!is_empty($items[0]->remarks)){ ?> 
+					<li><span class="col col-md-3 row"><b>Remarks :</b></span> 
+					<span class="col col-md-9"><?php echo $items[0]->remarks; ?></span>
+					</li>
+				<?php } ?>
+
+				<?php if(!is_empty($items[0]->location)){ ?> 
+					<li><span class="col col-md-3 row"><b>Location :</b></span> 
+						<span class="col col-md-9"><?php echo $items[0]->location; ?></span>
+					</li>
+				<?php } ?>
+
+				<?php if(!is_empty($items[0]->shelf_cabinet_number)){ ?> 
+					<li><span class="col col-md-3 row"><b>Shelf Cabinet Number :</b> </span>
+						<span class="col col-md-9"><?php echo $items[0]->shelf_cabinet_number; ?></span>
+					</li>
+				<?php } ?>
+
+				<?php if(!is_empty($items[0]->tier_number)){ ?> 
+					<li><span class="col col-md-3 row"><b>Tier Number :</b></span> 
+					<span class="col col-md-9"><?php echo $items[0]->tier_number; ?></span>
+					</li>
+				<?php } ?>
+
+				<?php if(!is_empty($items[0]->box_number)){ ?> 
+					<li><span class="col col-md-3 row"><b>Box Number :</b></span> 
+					<span class="col col-md-9"><?php echo $items[0]->box_number; ?></span>
+					</li>
+				<?php } ?>
+
+				<?php if(!is_empty($items[0]->folder_number)){ ?> 
+					<li><span class="col col-md-3 row"><b>Folder Number :</b></span> 
+					<span class="col col-md-9"><?php echo $items[0]->folder_number; ?></span>
+					</li>
+				<?php } ?>
+
+				<?php if(!is_empty($items[0]->id)){ ?> 
+					<li><span class="col col-md-3 row"><b>Record/Code Number :</b></span> 
+					<span class="col col-md-9"><?php echo $items[0]->id; ?></span>
+					</li>
+				<?php } ?>
+
+				<?php if(!is_empty($items[0]->date_range)){ ?> 
+					<li><span class="col col-md-3 row"><b>Date Range :</b></span> 
+					<span class="col col-md-9"><?php echo $items[0]->date_range; ?></span>
+					</li>
+				<?php } ?>
+
+				<?php if(!is_empty($items[0]->quantity)){ ?> 
+					<li><span class="col col-md-3 row"><b>Quantity :</b></span> 
+					<span class="col col-md-9"><?php echo $items[0]->quantity; ?></span>
+					</li>
+				<?php } ?>	
+
 						
 				</ul>
 		</div>

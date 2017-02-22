@@ -14,7 +14,7 @@ class Item extends CI_Model {
 		$count_sql="SELECT count(*) as total from item where cat_id=?";
 		$stmt=$this->db->query($query,array($id,$limit));
 		$stmt2=$this->db->query($count_sql,array($id));
-
+		
 		$count=$stmt2->result()[0]->total;
 		$no_pages=1;
 		if($count>=20){
@@ -25,6 +25,9 @@ class Item extends CI_Model {
 				$no_pages=1;
 
 		}
+
+	
+
 		#check if page request is < the actual page
 		$current_page=$this->page<=$no_pages?$this->page:$no_pages;
 
