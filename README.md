@@ -55,3 +55,36 @@ In your **assets/javascripts/modifier.js** change the **base_url** to your folde
 var base_url='/document_management_system/';
 ```
 
+
+************
+#####Database Configuration#####
+************
+
+Upload the **.sql** files inside the database_file folder to your MySQL/MariaDB server then configure 
+the database connection in **application/config/database.php**.
+
+Look for the lines below and change it with your server's configuration
+
+```php
+$db['pdo_local'] = array(
+	'dsn'	=> 'mysql:host=localhost;dbname=dms; charset=utf8;',
+	'hostname' => 'localhost',
+	'username' => 'root',
+	'password' => '',
+	'database' => '',
+	'dbdriver' => 'pdo',
+	'dbprefix' => '',
+	'pconnect' => FALSE,
+	'db_debug' => (ENVIRONMENT !== 'production'),
+	'cache_on' => FALSE,
+	'cachedir' => '',
+	'char_set' => 'utf8',
+	'dbcollat' => 'utf8_general_ci',
+	'swap_pre' => '',
+	'encrypt' => FALSE,
+	'compress' => FALSE,
+	'stricton' => FALSE,
+	'failover' => array(),
+	'save_queries' => TRUE
+);
+```

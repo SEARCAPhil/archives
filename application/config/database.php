@@ -120,7 +120,7 @@ $db['pdo'] = array(
 
 $db['pdo_local'] = array(
 	'dsn'	=> 'mysql:host=localhost;dbname=dms; charset=utf8;',
-	//'hostname' => '192.168.15.54',
+	'hostname' => 'localhost',
 	'username' => 'root',
 	'password' => '',
 	'database' => '',
