@@ -64,8 +64,8 @@
 						<td><?php echo $items['data'][$x]->keywords; ?></td>
 						<td><?php echo $items['data'][$x]->original_file_name; ?></td>
 						<td>
-							<p><a href="#"><span class="glyphicon glyphicon-print"></span></a></p>
-							<p><a href="#"><span class="glyphicon glyphicon-download"></span></a></p>
+							<!--<p><a href="#"><span class="glyphicon glyphicon-print"></span></a></p>-->
+							<p><a href="#"  class="download" data-cat="<?php echo $items['data'][$x]->id; ?>"><span class="glyphicon glyphicon-download"></span></a></p>
 						</td>
 						
 					</tr>

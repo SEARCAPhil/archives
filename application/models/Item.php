@@ -9,7 +9,7 @@ class Item extends CI_Model {
 
 	public function get_items($id,$page=1){
 		$this->page=(int) $page;
-		$limit=$this->page<2?0:( integer)($this->page-1)*10;
+		$limit=$this->page<2?0:( integer)($this->page-1)*20;
 		$query = "SELECT * FROM item where cat_id=? LIMIT ?,20";
 		$count_sql="SELECT count(*) as total from item where cat_id=?";
 		$stmt=$this->db->query($query,array($id,$limit));
@@ -140,11 +140,11 @@ class Item extends CI_Model {
 
 	public function search($param,$page=1){
 		$this->page=(int) $page;
-		$limit=$this->page<2?0:( integer)($this->page-1)*10;
+		$limit=$this->page<2?0:( integer)($this->page-1)*20;
 		$query = "SELECT item.*,category.category FROM item LEFT JOIN category on category.id=item.cat_id where document_title LIKE ? or content_description LIKE ?  LIMIT ?,20";
 		$stmt=$this->db->query($query,array('%'.$param.'%', '%'.$param.'%',$limit));
 
-		$query2 = "SELECT count(*) as total FROM item where document_title LIKE ? or content_description LIKE ? ";
+		$query2 = "SELECT count(*) as total FROM item LEFT JOIN category on category.id=item.cat_id where document_title LIKE ? or content_description LIKE ? ";
 		$stmt2=$this->db->query($query2,array('%'.$param.'%', '%'.$param.'%'));
 
 

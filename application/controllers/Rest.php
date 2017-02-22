@@ -22,6 +22,8 @@ class Rest extends CI_Controller {
 	public $data;
 	private $categories;
 	private $sub_categories;
+
+
 	public function __construct(){
 		parent::__construct();
 		$this->load->database();
@@ -31,11 +33,6 @@ class Rest extends CI_Controller {
 	}
 
 	
-
-	public function index()
-	{
-	
-	}
 
 	public function series(){
 		$data=json_decode($this->input->raw_input_stream);
@@ -60,7 +57,7 @@ class Rest extends CI_Controller {
 		$base=$this->category->get_category_details(@$details[0]->cat_id);
 		$dir.=@$base[0]->id.'/'.$this->input->get('id',true).'/'.$details[0]->file_name;
 
-		#var_dump(file_exists($dir)&&is_file($dir));
+		
 		
 		if(file_exists($dir)&&isset($details[0]->cat_id)&&is_file($dir)){
 
