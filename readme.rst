@@ -1,29 +1,16 @@
+
+
+![SEARCA 50th Logo](https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcRSdlTRWPD3W_5oirA-oPojE14dOnzEQ1tvD-MsMMrWhxfccDTO6Q)
+
+
 ###################
-What is CodeIgniter
+SEARCA DMS (Document Management System)
 ###################
 
-CodeIgniter is an Application Development Framework - a toolkit - for people
-who build web sites using PHP. Its goal is to enable you to develop projects
-much faster than you could if you were writing code from scratch, by providing
-a rich set of libraries for commonly needed tasks, as well as a simple
-interface and logical structure to access these libraries. CodeIgniter lets
-you creatively focus on your project by minimizing the amount of code needed
-for a given task.
+A document management system (DMS) is a system (based on computer programs in the case of the management of digital documents) used to track, manage and store documents and reduce paper. Most are capable of keeping a record of the various versions created and modified by different users (history tracking).
 
-*******************
-Release Information
-*******************
+Document management, often referred to as Document Management Systems (DMS), is the use of a computer system and software to store, manage and track electronic documents and electronic images of paper based information captured through the use of a document scanner. Document management is how your organization stores, manages and tracks its electronic documents. According to ISO 12651-2, a document is "recorded information or object which can be treated as a unit". While this sounds a little complicated, it is quite simply what you have been using to create, distribute and use for years. Now, we can define document management as the software that controls and organizes documents throughout an organization. It incorporates document and content capture, workflow, document repositories, COLD/ERM, and output systems, and information retrieval systems. Also, the processes used to track, store and control documents.
 
-This repo contains in-development code for future releases. To download the
-latest stable release please visit the `CodeIgniter Downloads
-<https://codeigniter.com/download>`_ page.
-
-**************************
-Changelog and New Features
-**************************
-
-You can find a list of all changes for each release in the `user
-guide change log <https://github.com/bcit-ci/CodeIgniter/blob/develop/user_guide_src/source/changelog.rst>`_.
 
 *******************
 Server Requirements
@@ -36,35 +23,36 @@ such old versions of PHP, because of potential security and performance
 issues, as well as missing features.
 
 ************
-Installation
+PHP Configuration
 ************
 
-Please see the `installation section <https://codeigniter.com/user_guide/installation/index.html>`_
-of the CodeIgniter User Guide.
+After you download or clone it to your machine, look for the **base_url**
+configuration in **application/config/config.php**
 
-*******
-License
-*******
+Uncomment this line
 
-Please see the `license
-agreement <https://github.com/bcit-ci/CodeIgniter/blob/develop/user_guide_src/source/license.rst>`_.
+```php
+$config['base_url'] = 'http://'. $_SERVER['HTTP_HOST'].'/document_management_system/';
+```
 
-*********
-Resources
-*********
+and paste
 
--  `User Guide <https://codeigniter.com/docs>`_
--  `Language File Translations <https://github.com/bcit-ci/codeigniter3-translations>`_
--  `Community Forums <http://forum.codeigniter.com/>`_
--  `Community Wiki <https://github.com/bcit-ci/CodeIgniter/wiki>`_
--  `Community IRC <https://webchat.freenode.net/?channels=%23codeigniter>`_
+```php
+$config['base_url'] = 'http://'. $_SERVER['HTTP_HOST'].'/document_management_system/';
+````
 
-Report security issues to our `Security Panel <mailto:security@codeigniter.com>`_
-or via our `page on HackerOne <https://hackerone.com/codeigniter>`_, thank you.
 
-***************
-Acknowledgement
-***************
+#####NOTE: Do not forget to change the ***/document_management_system/*** with the name of your folder#####
 
-The CodeIgniter team would like to thank EllisLab, all the
-contributors to the CodeIgniter project and you, the CodeIgniter user.
+
+
+************
+JS Configuration
+************
+
+In your **assets/javascripts/modifier.js** change the **base_url** to your folder name
+
+```javascript
+var base_url='/document_management_system/';
+```
+
