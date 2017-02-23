@@ -78,9 +78,7 @@ class Form extends CI_Controller {
 		$this->form_validation->set_error_delimiters('<br/><pclass="text-danger">', '</p>');
 
 		$this->form_validation->set_rules('title', 'Title', 'required');
-		$this->form_validation->set_rules('source', 'Source', 'required');
 		$this->form_validation->set_rules('creator', 'Creator', 'required');
-		$this->form_validation->set_rules('publisher', 'Publisher', 'required');
 		$this->form_validation->set_rules('content_description', 'Description', 'required');
 
 		if ($this->form_validation->run() == FALSE)
