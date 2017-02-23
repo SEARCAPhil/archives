@@ -145,10 +145,10 @@ class Item extends CI_Model {
 		$this->page=(int) $page;
 		$limit=$this->page<2?0:( integer)($this->page-1)*20;
 		$query = "SELECT item.*,category.category FROM item LEFT JOIN category on category.id=item.cat_id where document_title LIKE ? or content_description LIKE ?  LIMIT ?,20";
-		$stmt=$this->db->query($query,array('%'.$param.'%', '%'.$param.'%',$limit));
+		$stmt=$this->db->query($query,array($param.'%', $param.'%',$limit));
 
 		$query2 = "SELECT count(*) as total FROM item LEFT JOIN category on category.id=item.cat_id where document_title LIKE ? or content_description LIKE ? ";
-		$stmt2=$this->db->query($query2,array('%'.$param.'%', '%'.$param.'%'));
+		$stmt2=$this->db->query($query2,array($param.'%', $param.'%'));
 
 
 		
