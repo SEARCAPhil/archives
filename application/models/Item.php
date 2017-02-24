@@ -144,11 +144,11 @@ class Item extends CI_Model {
 	public function search($param,$page=1){
 		$this->page=(int) $page;
 		$limit=$this->page<2?0:( integer)($this->page-1)*20;
-		$query = "SELECT item.*,category.category FROM item LEFT JOIN category on category.id=item.cat_id where document_title LIKE ? or content_description LIKE ?  LIMIT ?,20";
-		$stmt=$this->db->query($query,array($param.'%', $param.'%',$limit));
+		$query = "SELECT item.*,category.category FROM item LEFT JOIN category on category.id=item.cat_id where document_title LIKE ? or content_description LIKE ? or publisher LIKE ? or creator LIKE ? or date_range LIKE ? or language LIKE ? or location LIKE ? or shelf_cabinet_number LIKE ? or tier_number LIKE ? or box_number LIKE ? or folder_number LIKE ? or record_number LIKE ? or material LIKE ? or access_condition LIKE ? or physical_condition LIKE ? or quantity LIKE ? or record_group LIKE ? or place LIKE ? or source_title LIKE ? or collation LIKE ? or datez LIKE ? or notes LIKE ? or keywords LIKE ? or provenance LIKE ? or encoded_by LIKE ? or date_of_input LIKE ?  or remarks LIKE ?  or original_file_name LIKE ? LIMIT ?,20";
+		$stmt=$this->db->query($query,array($param.'%', $param.'%', $param.'%', $param.'%', $param.'%', $param.'%', $param.'%', $param.'%', $param.'%', $param.'%', $param.'%', $param.'%', $param.'%', $param.'%', $param.'%', $param.'%', $param.'%', $param.'%', $param.'%', $param.'%', $param.'%', $param.'%', $param.'%', $param.'%', $param.'%', $param.'%', $param.'%', $param.'%',$limit));
 
-		$query2 = "SELECT count(*) as total FROM item LEFT JOIN category on category.id=item.cat_id where document_title LIKE ? or content_description LIKE ? ";
-		$stmt2=$this->db->query($query2,array($param.'%', $param.'%'));
+		$query2 = "SELECT count(*) as total FROM item LEFT JOIN category on category.id=item.cat_id where document_title LIKE ? or content_description LIKE ? or publisher LIKE ? or creator LIKE ? or date_range LIKE ? or language LIKE ? or location LIKE ? or shelf_cabinet_number LIKE ? or tier_number LIKE ? or box_number LIKE ? or folder_number LIKE ? or record_number LIKE ? or material LIKE ? or access_condition LIKE ? or physical_condition LIKE ? or quantity LIKE ? or record_group LIKE ? or place LIKE ? or source_title LIKE ? or collation LIKE ? or datez LIKE ? or notes LIKE ? or keywords LIKE ? or provenance LIKE ? or encoded_by LIKE ? or date_of_input LIKE ?  or remarks LIKE ?  or original_file_name LIKE ?";
+		$stmt2=$this->db->query($query2,array($param.'%', $param.'%', $param.'%', $param.'%', $param.'%', $param.'%', $param.'%', $param.'%', $param.'%', $param.'%', $param.'%', $param.'%', $param.'%', $param.'%', $param.'%', $param.'%', $param.'%', $param.'%', $param.'%', $param.'%', $param.'%', $param.'%', $param.'%', $param.'%', $param.'%', $param.'%', $param.'%', $param.'%'));
 
 
 		
