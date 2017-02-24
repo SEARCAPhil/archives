@@ -42,12 +42,12 @@ class Item extends CI_Model {
 	}
 
 	public function get_item_details($id){
-		$query = "SELECT item.*,category.category,category.is_private FROM item LEFT JOIN category on item.cat_id=category.id where item.id=? LIMIT 0,20";
+		$query = "SELECT item.*,category.category,category.is_private,account_profile.profile_name FROM item LEFT JOIN category on item.cat_id=category.id LEFT JOIN account_profile on account_profile.id=item.encoded_by_id where item.id=? LIMIT 0,20";
 		$stmt=$this->db->query($query,array($id));
 		return $stmt->result();
 	}
 
-	public function set_item($item=array()){
+	public function set_item($item=array(),$encoded_by_id){
 
 		$this->cat_id=isset($item['series'])?htmlentities(htmlspecialchars($item['series'])):'';
 		$this->date_range=isset($item['date_range'])?htmlentities(htmlspecialchars($item['date_range'])):'';
@@ -69,17 +69,17 @@ class Item extends CI_Model {
 		$this->publisher=isset($item['publisher'])?htmlentities(htmlspecialchars($item['publisher'])):'';
 		$this->source_title=isset($item['source'])?htmlentities(htmlspecialchars($item['source'])):'';
 		$this->collation=isset($item['collation'])?htmlentities(htmlspecialchars($item['collation'])):'';
-		$this->datez=isset($item['datez'])?htmlentities(htmlspecialchars($item['datez'])):'';
 		$this->content_description=isset($item['content_description'])?htmlentities(htmlspecialchars($item['content_description'])):'';
 		$this->notes=isset($item['notes'])?htmlentities(htmlspecialchars($item['notes'])):'';
 		$this->keywords=isset($item['keywords'])?htmlentities(htmlspecialchars($item['keywords'])):'';
 		$this->provenance=isset($item['provenance'])?htmlentities(htmlspecialchars($item['provenance'])):'';
 		$this->remarks=isset($item['remarks'])?htmlentities(htmlspecialchars($item['remarks'])):'';
 		$this->date_of_input=date('Y/m/d');
+		$this->encoded_by_id=isset($encoded_by_id)?htmlentities(htmlspecialchars($encoded_by_id)):'';
 
 
-		$query="INSERT INTO item(cat_id,date_range,language,location,shelf_cabinet_number,tier_number,box_number,folder_number,record_number,material,access_condition,physical_condition,quantity,record_group,document_title,creator,place,publisher,source_title,collation,datez,content_description,notes,keywords,provenance,remarks,date_of_input) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
-		$stmt=$this->db->query($query,array($this->cat_id,$this->date_range,$this->language,$this->location,$this->shelf_cabinet_number,$this->tier_number,$this->box_number,$this->folder_number,$this->record_number,$this->material,$this->access_condition,$this->physical_condition,$this->quantity,$this->record_group,$this->document_title,$this->creator,$this->place,$this->publisher,$this->source_title,$this->collation,$this->datez,$this->content_description,$this->notes,$this->keywords,$this->provenance,$this->remarks,$this->date_of_input));
+		$query="INSERT INTO item(cat_id,date_range,language,location,shelf_cabinet_number,tier_number,box_number,folder_number,record_number,material,access_condition,physical_condition,quantity,record_group,document_title,creator,place,publisher,source_title,collation,content_description,notes,keywords,provenance,remarks,date_of_input,encoded_by_id) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+		$stmt=$this->db->query($query,array($this->cat_id,$this->date_range,$this->language,$this->location,$this->shelf_cabinet_number,$this->tier_number,$this->box_number,$this->folder_number,$this->record_number,$this->material,$this->access_condition,$this->physical_condition,$this->quantity,$this->record_group,$this->document_title,$this->creator,$this->place,$this->publisher,$this->source_title,$this->collation,$this->content_description,$this->notes,$this->keywords,$this->provenance,$this->remarks,$this->date_of_input,$this->encoded_by_id));
 		
 		return $this->db->insert_id();
 	}
@@ -108,7 +108,6 @@ class Item extends CI_Model {
 		$this->publisher=isset($item['publisher'])?htmlentities(htmlspecialchars($item['publisher'])):'';
 		$this->source_title=isset($item['source'])?htmlentities(htmlspecialchars($item['source'])):'';
 		$this->collation=isset($item['collation'])?htmlentities(htmlspecialchars($item['collation'])):'';
-		$this->datez=isset($item['datez'])?htmlentities(htmlspecialchars($item['datez'])):'';
 		$this->content_description=isset($item['content_description'])?htmlentities(htmlspecialchars($item['content_description'])):'';
 		$this->notes=isset($item['notes'])?htmlentities(htmlspecialchars($item['notes'])):'';
 		$this->keywords=isset($item['keywords'])?htmlentities(htmlspecialchars($item['keywords'])):'';
@@ -117,8 +116,8 @@ class Item extends CI_Model {
 		$this->date_of_input=date('Y/m/d');
 
 
-		$query="UPDATE item set date_range=?,language=?,location=?,shelf_cabinet_number=?,tier_number=?,box_number=?,folder_number=?,record_number=?,material=?,access_condition=?,physical_condition=?,quantity=?,record_group=?,document_title=?,creator=?,place=?,publisher=?,source_title=?,collation=?,datez=?,content_description=?,notes=?,keywords=?,provenance=?,remarks=?,date_of_input=? where id=?";
-		$stmt=$this->db->query($query,array($this->date_range,$this->language,$this->location,$this->shelf_cabinet_number,$this->tier_number,$this->box_number,$this->folder_number,$this->record_number,$this->material,$this->access_condition,$this->physical_condition,$this->quantity,$this->record_group,$this->document_title,$this->creator,$this->place,$this->publisher,$this->source_title,$this->collation,$this->datez,$this->content_description,$this->notes,$this->keywords,$this->provenance,$this->remarks,$this->date_of_input,$this->id));
+		$query="UPDATE item set date_range=?,language=?,location=?,shelf_cabinet_number=?,tier_number=?,box_number=?,folder_number=?,record_number=?,material=?,access_condition=?,physical_condition=?,quantity=?,record_group=?,document_title=?,creator=?,place=?,publisher=?,source_title=?,collation=?,content_description=?,notes=?,keywords=?,provenance=?,remarks=?,date_of_input=? where id=?";
+		$stmt=$this->db->query($query,array($this->date_range,$this->language,$this->location,$this->shelf_cabinet_number,$this->tier_number,$this->box_number,$this->folder_number,$this->record_number,$this->material,$this->access_condition,$this->physical_condition,$this->quantity,$this->record_group,$this->document_title,$this->creator,$this->place,$this->publisher,$this->source_title,$this->collation,$this->content_description,$this->notes,$this->keywords,$this->provenance,$this->remarks,$this->date_of_input,$this->id));
 		
 		return $this->db->affected_rows();
 	}

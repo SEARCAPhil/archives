@@ -207,6 +207,20 @@
 					</li>
 				<?php } ?>	
 
+				<?php if(!is_empty($items[0]->profile_name)&&!is_null($items[0]->profile_name)){ ?> 
+					<li><span class="col col-md-3 row"><b>Encoded By :</b></span> 
+					<span class="col col-md-9"><?php echo $items[0]->profile_name; ?></span>
+					</li>
+				<?php }else{?>
+					<?php if(!empty($items[0]->encoded_by))	{ ?>
+						<li><span class="col col-md-3 row"><b>Encoded By :</b></span> 
+							<span class="col col-md-9"><?php echo $items[0]->encoded_by; ?></span>
+						</li>
+					<?php } ?>
+				<?php } ?>	
+
+
+
 						
 				</ul>
 		</div>

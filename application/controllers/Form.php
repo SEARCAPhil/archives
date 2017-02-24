@@ -46,7 +46,7 @@ class Form extends CI_Controller {
 	}
 
 	public function set_item(){
-		return $this->data=array('data'=>$this->item->set_item($this->input->post()));
+		return $this->data=array('data'=>$this->item->set_item($this->input->post(),$this->session->id));
 	}
 
 	public function update_item(){
