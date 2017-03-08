@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Form extends CI_Controller {
+class Form extends MY_Controller {
 
 
 	function __construct(){
@@ -13,6 +13,8 @@ class Form extends CI_Controller {
 		$this->load->helper(array('form','url'));
 		$this->load->library(array('form_validation','session'));
 		$this->last_insert_result=null;
+
+		parent::set_maintenance();
 	}
 
 	private function get_parent_categories(){

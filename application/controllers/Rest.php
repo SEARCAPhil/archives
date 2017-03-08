@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Rest extends CI_Controller {
+class Rest extends MY_Controller {
 
 	/**
 	 * Index Page for this controller.
@@ -30,6 +30,8 @@ class Rest extends CI_Controller {
 		$this->load->model('category');
 		$this->load->model('item');
 		$this->load->helper('url');
+
+		parent::set_maintenance();
 	}
 
 	

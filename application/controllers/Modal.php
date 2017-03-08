@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Modal extends CI_Controller {
+class Modal extends MY_Controller {
 
 
 	function __construct(){
@@ -9,6 +9,8 @@ class Modal extends CI_Controller {
 		$this->load->database();
 		$this->load->model('category');
 		$this->load->helper(array('form','url'));
+
+		parent::set_maintenance();
 
 	}
 

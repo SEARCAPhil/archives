@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Report extends CI_Controller {
+class Report extends MY_Controller {
 
 	/**
 	 * Index Page for this controller.
@@ -30,6 +30,8 @@ class Report extends CI_Controller {
 		$this->load->model('auth');
 		$this->load->helper(array('form','url','pager'));
 		$this->load->library(array('form_validation','session'));
+
+		parent::set_maintenance();
 	}
 
 	public function get_parent_categories(){

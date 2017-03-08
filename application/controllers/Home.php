@@ -11,7 +11,7 @@
 
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Home extends CI_Controller {
+class Home extends MY_Controller {
 
 	/**
 	 * Index Page for this controller.
@@ -44,6 +44,9 @@ class Home extends CI_Controller {
 		$this->load->model('auth');
 		$this->load->helper(array('form','url','pager'));
 		$this->load->library(array('form_validation','session'));
+
+		parent::set_maintenance();
+
 	}
 	
 
