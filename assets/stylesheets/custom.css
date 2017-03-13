@@ -25,14 +25,20 @@
 
 .sub-navigation li.active a {
 
-	background: rgb(0,150,200) !important;
+	/*background: rgb(0,150,200) !important;*/
+	background: rgb(55,164,249) !important;
 	color:rgb(255,255,255) !important;
+	box-shadow:none !important;
 }
 
 
 .sub-navigation li.open a{
 	background: none !important;
 	color:rgb(100,100,100) !important;
+
+}
+.sub-navigation li.open > a{
+	-webkit-box-shadow: 0px 5px 15px rgba(200,200,200,0.5) !important;
 }
 
 /*table list*/

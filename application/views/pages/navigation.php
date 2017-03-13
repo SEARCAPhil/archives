@@ -10,7 +10,8 @@ function set_active($sid){
 <nav class="navbar navbar-inverse navbar-top-fixed navbar-top">
 	<div class="container">
 		<div class="navbar-header">
-			<a href="<?php base_url(); ?>" class="navbar-brand">Document Management System</a>
+			<a href="<?php base_url(); ?>" class="navbar-brand"><img src="<?php echo base_url(); ?>assets/images/sample-logo.png" width="30px"/></a>
+			<a href="<?php base_url(); ?>" class="navbar-brand">Documents Management System</a>
 		</div>
 		<div class="collapse navbar-collapse pull-right">
 			<ul class="nav navbar-nav">

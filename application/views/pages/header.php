@@ -4,6 +4,7 @@
 		<meta charset="utf-8">
 		<title>Records and Archives Management System</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		 <link rel="shortcut icon" type="image/png" href="favicon.png" />
 		<!-- Latest compiled and minified CSS -->
 		<link rel="stylesheet" href="<?php echo base_url(); ?>vendor/bootstrap/css/bootstrap.min.css">
 		<!-- Optional theme -->

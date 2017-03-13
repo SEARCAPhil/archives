@@ -26,7 +26,6 @@
 
 	<div class=" table-responsive col col-md-10 col-md-offset-1 ">
 		
-
 		<?php if(count($details)>0){ ?>
 		<h3><span class="glyphicon glyphicon-bookmark"></span> <?php echo $details[0]->category; ?> <span class="text-muted">(<?php echo $details[0]->code; ?>)</span></h3>
 		<p class="text-muted"><?php echo ucfirst(utf8_encode($details[0]->description)); ?></p>
