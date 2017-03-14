@@ -229,12 +229,100 @@ class Home extends MY_Controller {
 
 
 			#check if authentication is successfull
-			if(isset($auth[0]->id)){
+			if(isset($auth[0]->id)&&isset($auth[0]->username)){
+				
+				#check if LOCAL account exist
+				$local_account=$this->auth->account_exists($auth[0]->username);
 
+				if(isset($local_account[0]->uid)){
+
+					#check if LOCAL Profile already exists
+					#check for local profile with the same ID and timestamp
+					#Timestamp should be check if user profile is already expired
+					$local_profile=$this->auth->profile_exists($local_account[0]->id,$auth[0]->date_modified);
+
+					#set session cofiguration for local profile
+					if(isset($local_profile[0]->id)){
+						
+						$token=md5('--boundery--'.(integer)$local_profile[0]->id);
+						$hash = password_hash($token, PASSWORD_BCRYPT);
+
+
+						$_SESSION['id']=$local_profile[0]->id;
+						$_SESSION['token']=$hash ;
+						$_SESSION['uid']=$local_profile[0]->uid;
+						$_SESSION['dept']=$local_profile[0]->department;
+						$_SESSION['priv']=$auth[0]->priv;
+						$_SESSION['position']=$local_profile[0]->position;
+						$_SESSION['name']=$local_profile[0]->profile_name;
+						$_SESSION['image']=$local_profile[0]->profile_image;
+
+
+						#redirect
+						header('location:'.base_url());
+					}else{
+
+						$local_profile=$this->auth->create($local_account[0]->id,$auth[0]->profile_name,$auth[0]->last_name,$auth[0]->first_name,$auth[0]->profile_image,$auth[0]->dept_name,$auth[0]->dept_alias,$auth[0]->position,$auth[0]->date_modified);
+
+						$token=md5('--boundery--'.(integer)$local_profile);
+						$hash = password_hash($token, PASSWORD_BCRYPT);
+
+
+						$_SESSION['id']=$local_profile;
+						$_SESSION['token']=$hash ;
+						$_SESSION['uid']=$auth[0]->uid;
+						$_SESSION['dept']=$auth[0]->dept_name;
+						$_SESSION['priv']=$auth[0]->priv;
+						$_SESSION['position']=$auth[0]->position;
+						$_SESSION['name']=$auth[0]->profile_name;
+						$_SESSION['image']=$auth[0]->profile_image;
+
+
+						#redirect
+						header('location:'.base_url());
+
+						
+
+						#redirect
+						header('location:'.base_url().'?login_error=true');
+					}
+
+
+				}else{
+					#create a new local account
+					$new_local_account=$this->auth->create_account($auth[0]->username,$auth[0]->id);
+
+					
+					if(!empty($new_local_account)){
+
+						#create local account profile
+
+						$local_profile=$this->auth->create($new_local_account,$auth[0]->profile_name,$auth[0]->last_name,$auth[0]->first_name,$auth[0]->profile_image,$auth[0]->dept_name,$auth[0]->dept_alias,$auth[0]->position,$auth[0]->date_modified);
+
+
+						$token=md5('--boundery--'.(integer)$local_profile);
+						$hash = password_hash($token, PASSWORD_BCRYPT);
+
+
+						$_SESSION['id']=$local_profile;
+						$_SESSION['token']=$hash ;
+						$_SESSION['uid']=$auth[0]->uid;
+						$_SESSION['dept']=$auth[0]->dept_name;
+						$_SESSION['priv']=$auth[0]->priv;
+						$_SESSION['position']=$auth[0]->position;
+						$_SESSION['name']=$auth[0]->profile_name;
+						$_SESSION['image']=$auth[0]->profile_image;
+
+
+						#redirect
+						header('location:'.base_url());
+					}
+
+				}
 
 				#check for local profile with the same ID and timestamp
 				#Timestamp should be check if user profile is already expired
-				$local_profile=$this->auth->profile_exists($auth[0]->id,$auth[0]->date_modified);
+				/*$local_profile=$this->auth->profile_exists($auth[0]->id,$auth[0]->date_modified);
 
 
 				#set session cofiguration for local profile
@@ -285,8 +373,8 @@ class Home extends MY_Controller {
 
 				#redirect
 				header('location:'.base_url());
-
-
+			*/
+	
 			}else{
 
 				#invalid credentials

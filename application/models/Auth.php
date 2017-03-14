@@ -9,10 +9,19 @@ class Auth extends CI_Model {
 
 	public function login($username,$password){
 		$password=sha1($password);
-		$sql="SELECT login_db.accounts.id,login_db.doc_sys_privilege.priv,login_db.account_profile.profile_image,login_db.account_profile.profile_name,login_db.account_profile.profile_name,login_db.account_profile.position,login_db.account_profile.first_name,login_db.account_profile.last_name,login_db.account_profile.date_modified,login_db.department.dept_name,login_db.department.dept_id,login_db.department.dept_alias FROM login_db.accounts left join login_db.account_profile on login_db.account_profile.uid=accounts.id left JOIN login_db.department on department.dept_id=account_profile.dept_id left join login_db.doc_sys_privilege on login_db.doc_sys_privilege.uid=login_db.accounts.id where login_db.accounts.account_username=? and login_db.accounts.account_password=?";
+		$sql="SELECT login_db.accounts.account_username as username,login_db.accounts.id,login_db.doc_sys_privilege.priv,login_db.account_profile.profile_image,login_db.account_profile.profile_name,login_db.account_profile.profile_name,login_db.account_profile.position,login_db.account_profile.first_name,login_db.account_profile.last_name,login_db.account_profile.date_modified,login_db.department.dept_name,login_db.department.dept_id,login_db.department.dept_alias FROM login_db.accounts left join login_db.account_profile on login_db.account_profile.uid=accounts.id left JOIN login_db.department on department.dept_id=account_profile.dept_id left join login_db.doc_sys_privilege on login_db.doc_sys_privilege.uid=login_db.accounts.id where login_db.accounts.account_username=? and login_db.accounts.account_password=?";
 		$stmt = $this->db->query($sql,array($username,$password));
 		return $stmt->result();
 	}
+
+
+	function account_exists($username){
+		$this->username=htmlentities(htmlspecialchars($username));
+		$sql="SELECT * FROM account where username=? ORDER BY id DESC LIMIT 1";
+		$statement=$this->db->query($sql,array($this->username));
+		return $statement->result();		
+	}
+
 
 	function profile_exists($user_id,$date_modified){
 	
@@ -21,12 +30,18 @@ class Auth extends CI_Model {
 
 		$sql="SELECT * FROM account_profile where uid=? and date_modified=? ORDER BY id DESC LIMIT 1";
 		$statement=$this->db->query($sql,array($this->user_id,$this->date));
-		return $statement->result();
-
-		
-			
+		return $statement->result();		
 	}
 
+
+	function create_account($username,$uid){
+		$this->username=htmlentities(htmlspecialchars($username));
+		$this->uid=htmlentities(htmlspecialchars($uid));
+		$sql="INSERT INTO account(username,uid)values(?,?)";
+		$statement=$this->db->query($sql,array($this->username,$this->uid));
+		
+		return $this->db->insert_id();
+	}
 
 
 	function create($uid,$full_name,$last_name,$first_name,$image,$department,$alias,$position,$date_modified){

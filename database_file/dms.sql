@@ -3,9 +3,9 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 22, 2017 at 07:15 AM
+-- Generation Time: Mar 14, 2017 at 08:24 AM
 -- Server version: 5.6.21-log
--- PHP Version: 5.6.3
+-- PHP Version: 7.1.2
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -19,6 +19,19 @@ SET time_zone = "+00:00";
 --
 -- Database: `dms`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `account`
+--
+
+CREATE TABLE IF NOT EXISTS `account` (
+`id` int(11) NOT NULL,
+  `username` varchar(255) NOT NULL,
+  `uid` int(11) NOT NULL,
+  `date_created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -39,7 +52,7 @@ CREATE TABLE IF NOT EXISTS `account_profile` (
   `position` varchar(255) DEFAULT NULL,
   `profile_image` varchar(255) DEFAULT NULL,
   `date_modified` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -86,20 +99,27 @@ CREATE TABLE IF NOT EXISTS `item` (
   `place` varchar(255) DEFAULT NULL,
   `source_title` varchar(255) DEFAULT NULL,
   `collation` varchar(255) DEFAULT NULL,
-  `datez` varchar(255) NOT NULL,
+  `datez` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `notes` text,
   `keywords` varchar(255) DEFAULT NULL,
   `provenance` varchar(255) DEFAULT NULL,
   `encoded_by` varchar(255) DEFAULT NULL,
+  `encoded_by_id` int(11) NOT NULL,
   `date_of_input` varchar(255) DEFAULT NULL,
   `remarks` text,
   `file_name` varchar(255) NOT NULL,
   `original_file_name` varchar(255) DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=12940 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=12944 DEFAULT CHARSET=latin1;
 
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `account`
+--
+ALTER TABLE `account`
+ ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `account_profile`
@@ -124,10 +144,15 @@ ALTER TABLE `item`
 --
 
 --
+-- AUTO_INCREMENT for table `account`
+--
+ALTER TABLE `account`
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=13;
+--
 -- AUTO_INCREMENT for table `account_profile`
 --
 ALTER TABLE `account_profile`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=6;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=21;
 --
 -- AUTO_INCREMENT for table `category`
 --
@@ -137,7 +162,7 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=197;
 -- AUTO_INCREMENT for table `item`
 --
 ALTER TABLE `item`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=12940;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=12944;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
