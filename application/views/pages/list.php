@@ -3,28 +3,8 @@
 	$id=($this->input->get('id',true)); 
 ?>
 <div class="container">
-	<?php /**if(count($data)>0):*/ ?>
-	<!--<div class=" table-responsive col col-md-2 hidden-sm hidden-xs ">
-		<div class="row">
-			<div class="col col-md-12" style="max-height: 200px;overflow:hidden;">
-				<img src="<?php echo base_url(); ?>assets/images/logo-new.png" width="100%"/>
-			</div>
-		</div>
-		<div class="row">
-			<br/>
-			<div class="col col-md-12">
-				<div class="list-group row">
-					<?php for($x=0;$x<count($data);$x++){ ?>
-						<a href="<?php echo base_url(); ?>?id=<?php echo $data[$x]->id; ?>&parent=<?php echo @$param['id']; ?>" class="list-group-item"><?php echo $data[$x]->category; ?> <small class="text-muted">(<?php echo $data[$x]->code; ?>)</small></a>
-					<?php } ?>
-				</div>
-			</div>
-		</div>
-		
-	</div>-->
-	<?php /*endif;*/ ?>
 
-	<div class=" table-responsive col col-md-10 col-md-offset-1 ">
+	<div class=" table-responsive col col-md-12 ">
 		
 		<?php if(count($details)>0){ ?>
 		<h3><span class="glyphicon glyphicon-bookmark"></span> <?php echo $details[0]->category; ?> <span class="text-muted">(<?php echo $details[0]->code; ?>)</span></h3>

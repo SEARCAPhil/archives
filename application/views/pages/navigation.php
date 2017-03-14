@@ -10,8 +10,8 @@ function set_active($sid){
 <nav class="navbar navbar-inverse navbar-top-fixed navbar-top">
 	<div class="container">
 		<div class="navbar-header">
-			<a href="<?php base_url(); ?>" class="navbar-brand"><img src="<?php echo base_url(); ?>assets/images/sample-logo.png" width="30px"/></a>
-			<a href="<?php base_url(); ?>" class="navbar-brand">Documents Management System</a>
+			<a href="<?php base_url(); ?>" class="navbar-brand" style="margin-left:0;background: rgb(255,169,18);"><img src="<?php echo base_url(); ?>assets/images/sample-logo.png" width="30px"/></a>
+			<a href="<?php base_url(); ?>" class="navbar-brand"  style="margin-left:0;"><small>Documents Management System</small></a>
 		</div>
 		<div class="collapse navbar-collapse pull-right">
 			<ul class="nav navbar-nav">
@@ -31,7 +31,7 @@ function set_active($sid){
 	<div class=" sub-nav">
 		<div class="container">
 			<ul class="nav navbar-nav sub-navigation">
-				<li class="dropdown active"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Sub Category <span class="caret"></span></a>
+				<li class="dropdown active"><a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-bookmark"></span>  Sub Categories <span class="caret"></span></a>
 					<ul class="dropdown dropdown-menu">
 						<?php for($x=0;$x<count($sub);$x++){ ?>
 							<li class="<?php echo set_active($sub[$x]->id); ?>" >

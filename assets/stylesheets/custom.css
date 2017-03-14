@@ -25,9 +25,11 @@
 
 .sub-navigation li.active a {
 
-	/*background: rgb(0,150,200) !important;*/
+	/*background: rgb(0,150,200) !important;
 	background: rgb(55,164,249) !important;
-	color:rgb(255,255,255) !important;
+	color:rgb(255,255,255) !important;*/
+	background: none !important;
+	
 	box-shadow:none !important;
 }
 
