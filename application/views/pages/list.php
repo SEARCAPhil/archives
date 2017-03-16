@@ -170,7 +170,8 @@
 
 
 		<?php }else{ ?>
-			<p><br/><br/><br/><br/><center><img src="<?php echo base_url(); ?>assets/images/SEARCA.png" width="40%"/></center></p><br/>
+
+		<p><br/><br/><br/><br/><center><img src="<?php echo base_url(); ?>assets/images/SEARCA.png" width="40%"/></center></p><br/>
 			<p>A document management system (DMS) is a system (based on computer programs in the case of the management of digital documents) used to track, manage and store documents and reduce paper. Most are capable of keeping a record of the various versions created and modified by different users (history tracking).</p>
 			<p>Document management, often referred to as Document Management Systems (DMS), is the use of a computer system and software to store, manage and track electronic documents and electronic images of paper based information captured through the use of a document scanner. 
 

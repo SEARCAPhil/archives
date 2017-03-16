@@ -42,10 +42,23 @@ class Home extends MY_Controller {
 		$this->load->model('category');
 		$this->load->model('item');
 		$this->load->model('auth');
+		$this->load->model('privilege');
 		$this->load->helper(array('form','url','pager'));
 		$this->load->library(array('form_validation','session'));
 
 		parent::set_maintenance();
+
+		$this->session_privileges=array();
+		$this->session_categories=array();
+		$this->session_sub_categories=array();
+		$this->session_category_is_accessible=0;
+
+
+		self::load_privileges();
+		self::get_parent_categories();
+		self::get_children_categories();
+		
+
 
 	}
 	
@@ -61,6 +74,10 @@ class Home extends MY_Controller {
 		return @$priv==='admin';
 	}
 
+
+	public function load_privileges(){
+		$this->session_privileges=($this->privilege->get_privilege(@$_SESSION['priv']));
+	}
 
 
 
@@ -79,32 +96,6 @@ class Home extends MY_Controller {
 
 
 
-	/**
-	 * Get parent categories
-	 * 
-	 * Display categories depending upon user/category privilege
-	 * @return array(data,param,sub)
-	 */
-
-	public function get_parent_categories(){
-
-		#prevent access for private categories
-		if(self::isAdmin()){
-
-			$this->categories=$this->category->get_parent_categories();
-
-		}else{
-
-			$this->categories=$this->category->get_parent_categories_for_user_only();	
-		}
-		
-		return $this->data=array('data'=>$this->categories,'param'=>$this->input->get(),'sub'=>self::get_children_categories()['data']);
-	}
-
-
-
-
-
 
 	/**
 	 * Get children categories
@@ -115,15 +106,20 @@ class Home extends MY_Controller {
 	 */
 
 	public function get_children_categories(){
+		$this->session_sub_categories=($this->category->get_children_categories(@$this->session_privileges[0]->role_id,$this->input->get('id',true)));	
+	}
 
-		#prevent access for private categories
-		if(self::isAdmin()){
-			$this->sub_categories=$this->category->get_children_categories($this->input->get('id',true));
-		}else{
-			$this->sub_categories=$this->category->get_children_categories_for_user_only($this->input->get('id',true));
-		}
-		
-		return $this->data=array('data'=>$this->sub_categories,'param'=>$this->input->get(),'details'=>self::get_category_details(),'items'=>self::get_items());
+	public function get_parent_categories(){
+
+		$this->session_categories=($this->category->get_parent_categories(@$this->session_privileges[0]->role_id));
+
+
+	}
+
+
+	public function get_categories(){
+		$details=self::get_category_details();
+		return array('data'=>$this->session_categories,'sub'=>$this->session_sub_categories,'param'=>$this->input->get(),'details'=>$details,'items'=>self::get_items());
 	}
 
 
@@ -140,8 +136,16 @@ class Home extends MY_Controller {
 
 	public function get_category_details(){
 
-		$this->category_details=$this->category->get_category_details($this->input->get('id',true));
-		return $this->data=$this->category_details;
+		$this->category_details=array();
+
+		if($this->category->is_accessible(@$this->session_privileges[0]->role_id,$this->input->get('id',true))){
+
+			$this->category_details=$this->category->get_category_details($this->input->get('id',true));
+
+		}
+
+		return $this->data=$this->category_details;		
+
 	}
 
 
@@ -175,14 +179,19 @@ class Home extends MY_Controller {
 
 	public function get_item_details(){
 
-		$this->item=$this->item->get_item_details($this->input->get('id',true));
+		$item=$this->item->get_item_details($this->input->get('id',true));
 		
+		$this->item=[];
 		#check if details can be viewd by ordinary user
-		if(!self::is_available_for_user($this->item[0]->is_private)){
-			$this->item=[];
+		if(isset($item[0]->cat_id)){
 
+			if($this->category->is_accessible(@$this->session_privileges[0]->role_id,$item[0]->cat_id)){
+
+				$this->item=$item;
+			}
 
 		}
+
 		
 		return $this->data=array('data'=>$this->sub_categories,'param'=>$this->input->get(),'details'=>self::get_category_details(),'items'=>$this->item);
 	}
@@ -320,61 +329,6 @@ class Home extends MY_Controller {
 
 				}
 
-				#check for local profile with the same ID and timestamp
-				#Timestamp should be check if user profile is already expired
-				/*$local_profile=$this->auth->profile_exists($auth[0]->id,$auth[0]->date_modified);
-
-
-				#set session cofiguration for local profile
-				if(isset($local_profile[0]->id)){
-					
-					$token=md5('--boundery--'.(integer)$local_profile[0]->id);
-					$hash = password_hash($token, PASSWORD_BCRYPT);
-
-
-					$_SESSION['id']=$local_profile[0]->id;
-					$_SESSION['token']=$hash ;
-					$_SESSION['uid']=$local_profile[0]->id;
-					$_SESSION['dept']=$auth[0]->dept_id;
-					$_SESSION['priv']=$auth[0]->priv;
-					$_SESSION['position']=$local_profile[0]->position;
-					$_SESSION['unit']=$auth[0]->dept_name;
-					$_SESSION['name']=$local_profile[0]->profile_name;
-					$_SESSION['image']=$local_profile[0]->profile_image;
-
-
-					#redirect
-					header('location:'.base_url());
-
-
-				}else{
-
-					#create a new local account
-					#this might be due to expired or outdated profile
-					$local_account=$this->auth->create($auth[0]->id,$auth[0]->profile_name,$auth[0]->last_name,$auth[0]->first_name,$auth[0]->profile_image,$auth[0]->dept_name,$auth[0]->dept_alias,$auth[0]->position,$auth[0]->date_modified);
-
-
-					if(!empty($local_account)){
-						$token=md5('--boundery--'.(integer)$local_account);
-						$hash = password_hash($token, PASSWORD_BCRYPT);
-						$_SESSION['id']=$local_account;
-						$_SESSION['token']=$hash ;
-						$_SESSION['uid']=$local_profile[0]->id;
-						$_SESSION['dept']=$auth[0]->dept_id;
-						$_SESSION['priv']=$auth[0]->priv;
-						$_SESSION['position']=$local_profile[0]->position;
-						$_SESSION['unit']=$auth[0]->dept_name;
-						$_SESSION['name']=$local_profile[0]->profile_name;
-						$_SESSION['image']=$local_profile[0]->profile_image;
-					}
-
-				}
-
-
-				#redirect
-				header('location:'.base_url());
-			*/
-	
 			}else{
 
 				#invalid credentials
@@ -401,7 +355,8 @@ class Home extends MY_Controller {
 
 	public function index()
 	{	
-		
+
+
 		#detect if user is logedout and logout parameter is give in the URI
 		if($this->input->get('logout')!=NULL){ $this->auth->logout(); unset($_SESSION);  }
 
@@ -418,9 +373,8 @@ class Home extends MY_Controller {
 
 		}else{
 
-
 			//load pages
-			$this->load->view('pages/navigation.php',self::get_parent_categories());
+			$this->load->view('pages/navigation.php',self::get_categories());
 			
 
 
@@ -443,7 +397,18 @@ class Home extends MY_Controller {
 					$this->load->view('pages/search.php',self::search());
 
 				}else{
-					$this->load->view('pages/list.php',self::get_children_categories());
+
+					#show list
+					if(count(self::get_category_details())>0){
+						$this->load->view('pages/list.php',self::get_categories());	
+					}
+
+					if(count(self::get_category_details())<=0){
+						$this->load->view('errors/html/error_permission.php');
+					}
+					
+
+
 				}
 				
 			}

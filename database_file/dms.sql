@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 14, 2017 at 08:24 AM
+-- Generation Time: Mar 16, 2017 at 07:14 AM
 -- Server version: 5.6.21-log
 -- PHP Version: 7.1.2
 
@@ -31,7 +31,7 @@ CREATE TABLE IF NOT EXISTS `account` (
   `username` varchar(255) NOT NULL,
   `uid` int(11) NOT NULL,
   `date_created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -52,7 +52,7 @@ CREATE TABLE IF NOT EXISTS `account_profile` (
   `position` varchar(255) DEFAULT NULL,
   `profile_image` varchar(255) DEFAULT NULL,
   `date_modified` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=47 DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -111,6 +111,56 @@ CREATE TABLE IF NOT EXISTS `item` (
   `original_file_name` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB AUTO_INCREMENT=12944 DEFAULT CHARSET=latin1;
 
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `role`
+--
+
+CREATE TABLE IF NOT EXISTS `role` (
+`id` int(11) NOT NULL,
+  `role` varchar(255) NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `role_category_exclusion`
+--
+
+CREATE TABLE IF NOT EXISTS `role_category_exclusion` (
+`id` int(11) NOT NULL,
+  `role_id` int(11) NOT NULL,
+  `category_id` int(11) NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `role_category_inclusion`
+--
+
+CREATE TABLE IF NOT EXISTS `role_category_inclusion` (
+`id` int(11) NOT NULL,
+  `role_id` int(11) NOT NULL,
+  `category_id` int(11) NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `role_privilege`
+--
+
+CREATE TABLE IF NOT EXISTS `role_privilege` (
+`id` int(11) NOT NULL,
+  `role_id` int(11) NOT NULL,
+  `read_public_category_privilege` int(11) NOT NULL,
+  `read_private_category_privilege` int(11) NOT NULL,
+  `read_included_category_only_privilege` int(11) NOT NULL,
+  `date_created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+
 --
 -- Indexes for dumped tables
 --
@@ -140,6 +190,30 @@ ALTER TABLE `item`
  ADD PRIMARY KEY (`id`), ADD KEY `cat_id` (`cat_id`);
 
 --
+-- Indexes for table `role`
+--
+ALTER TABLE `role`
+ ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `role_category_exclusion`
+--
+ALTER TABLE `role_category_exclusion`
+ ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `role_category_inclusion`
+--
+ALTER TABLE `role_category_inclusion`
+ ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `role_privilege`
+--
+ALTER TABLE `role_privilege`
+ ADD PRIMARY KEY (`id`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -147,12 +221,12 @@ ALTER TABLE `item`
 -- AUTO_INCREMENT for table `account`
 --
 ALTER TABLE `account`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=13;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=14;
 --
 -- AUTO_INCREMENT for table `account_profile`
 --
 ALTER TABLE `account_profile`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=21;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=47;
 --
 -- AUTO_INCREMENT for table `category`
 --
@@ -163,6 +237,26 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=197;
 --
 ALTER TABLE `item`
 MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=12944;
+--
+-- AUTO_INCREMENT for table `role`
+--
+ALTER TABLE `role`
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
+--
+-- AUTO_INCREMENT for table `role_category_exclusion`
+--
+ALTER TABLE `role_category_exclusion`
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
+--
+-- AUTO_INCREMENT for table `role_category_inclusion`
+--
+ALTER TABLE `role_category_inclusion`
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
+--
+-- AUTO_INCREMENT for table `role_privilege`
+--
+ALTER TABLE `role_privilege`
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
