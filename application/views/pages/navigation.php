@@ -15,6 +15,12 @@ function set_active($sid){
 		</div>
 		<div class="collapse navbar-collapse pull-right">
 			<ul class="nav navbar-nav">
+				<li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Permission<span class="caret"></span></a>
+					<ul class="dropdown dropdown-menu">
+						<li><a href="">Role</a></li>
+						<li><a href="">Account</a></li>
+					</ul>
+				</li>
 				<li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Category <span class="caret"></span></a>
 					<ul class="dropdown dropdown-menu">
 						<?php for($x=0;$x<count($data);$x++){ ?>

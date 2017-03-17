@@ -15,7 +15,10 @@ class Category extends CI_Model {
 	// Categories without parent_id
 	//
 	//////////////////////////////////////////////////////////////////////*/
-
+	public function get_all_parent_categories(){
+		$stmt = $this->db->query("SELECT * FROM category where parent_id=0  ORDER by category ASC");	 
+		return $stmt->result();
+	}
 
 	public function get_parent_categories($role_id=NULL){
 
@@ -48,6 +51,7 @@ class Category extends CI_Model {
 
 
 
+
 	public function get_included_parent_categories($role_id){
 
 		$stmt = $this->db->query("SELECT category.* FROM category LEFT JOIN role_category_inclusion on category.id=role_category_inclusion.category_id where role_category_inclusion.role_id=? and category.parent_id=0 ORDER by category.category ASC",array($role_id));
@@ -61,6 +65,14 @@ class Category extends CI_Model {
 	// Categories with a given parent_id
 	//
 	//////////////////////////////////////////////////////////////////////*/
+
+
+	public function get_all_children_categories($parent_id){
+		$this->parent_id=(int) htmlentities(htmlspecialchars($parent_id));
+		$query="SELECT * FROM category where parent_id=? ORDER by category ASC";
+		$stmt=$this->db->query($query,array($this->parent_id));
+		return $stmt->result();
+	}
 
 	public function get_children_categories($role_id,$parent_id){
 		$this->parent_id=(int) htmlentities(htmlspecialchars($parent_id));
