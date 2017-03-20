@@ -15,12 +15,14 @@ $('.checkbox-group').click(function(){
 		
 
 	}catch(e){}
+
+
 })
 
 
 
 $('.checkbox-group-all').click(function(){
-	//check all groupbox
+	/*//check all groupbox
 		if(this.checked){
 			
 			$('.checkbox-group').prop('checked',true);	
@@ -28,7 +30,23 @@ $('.checkbox-group-all').click(function(){
 		}else{
 			$('.checkbox-group').prop('checked',false);
 		}
+	*/
 
+
+	var check_groups=document.querySelectorAll('.checkbox-group-parents');
+	for(var x=0; x<check_groups.length; x++ ){
+
+		//do not check already checked
+		if(this.checked){
+			if(!check_groups[x].checked){
+				check_groups[x].click()
+			}
+		}else{
+			if(check_groups[x].checked){
+				check_groups[x].click()
+			}
+		}
+	}
 		
 
 		
@@ -128,7 +146,17 @@ $('.checkbox-group-set-remove').click(function(){
 	}
 })
 
+function ajax_sendPrivilege(id,json,callback){
+	$.post('../role/privilege',{id:id,data:json},function(data){
+		callback(data)
+	})
+}
+
 $('.save-button').click(function(){
+
+	$('.modal-content-body').html('<center>Setting up. . .</center>'); //clear content 
+	$('.modal-content-body').load('../modal/applying_changes');
+	var role_id=$('div[name="role"]').attr('data-content');
 	var group=($('.checkbox-group'));
 	var group_filter=new Array();
 	for(var x=0; x<group.length; x++){
@@ -142,8 +170,36 @@ $('.save-button').click(function(){
 			}
 			
 			group_filter.push(data)
-		}
+		}	
 	}
+
+	//stop if role id is not present
+	if(role_id<0||role_id.length<1) return 0;
+
+	ajax_sendPrivilege(role_id,JSON.stringify(group_filter),function(response){
+
+		var data=JSON.parse(response);
+
+		if(typeof data.status==undefined){ alert('Oops!Something went wrong. Please try again later'); return 0; }
+		
+		//success
+		if(data.status==200){
+
+			//success html
+			$('.modal-content-body').html('<center><h3 class="text-success">Changes Applied <span class="glyphicon glyphicon-ok"></span></h3></center>')
+
+			setTimeout(function(){
+				$('.modal').fadeOut();	
+			},2000)
+			
+		}else{
+			alert('Oops!Something went wrong. Please try again later'); return 0;
+		}
+		
+		
+	})
+
+
 
 })
 

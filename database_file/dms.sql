@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 16, 2017 at 07:14 AM
+-- Generation Time: Mar 20, 2017 at 10:31 AM
 -- Server version: 5.6.21-log
 -- PHP Version: 7.1.2
 
@@ -52,7 +52,7 @@ CREATE TABLE IF NOT EXISTS `account_profile` (
   `position` varchar(255) DEFAULT NULL,
   `profile_image` varchar(255) DEFAULT NULL,
   `date_modified` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-) ENGINE=InnoDB AUTO_INCREMENT=47 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=56 DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -68,7 +68,7 @@ CREATE TABLE IF NOT EXISTS `category` (
   `code` varchar(100) NOT NULL,
   `description` text NOT NULL,
   `is_private` int(11) NOT NULL DEFAULT '1'
-) ENGINE=InnoDB AUTO_INCREMENT=197 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=198 DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -109,7 +109,7 @@ CREATE TABLE IF NOT EXISTS `item` (
   `remarks` text,
   `file_name` varchar(255) NOT NULL,
   `original_file_name` varchar(255) DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=12944 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=12945 DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -119,7 +119,8 @@ CREATE TABLE IF NOT EXISTS `item` (
 
 CREATE TABLE IF NOT EXISTS `role` (
 `id` int(11) NOT NULL,
-  `role` varchar(255) NOT NULL
+  `role` varchar(255) NOT NULL,
+  `description` text NOT NULL
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -143,8 +144,12 @@ CREATE TABLE IF NOT EXISTS `role_category_exclusion` (
 CREATE TABLE IF NOT EXISTS `role_category_inclusion` (
 `id` int(11) NOT NULL,
   `role_id` int(11) NOT NULL,
-  `category_id` int(11) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+  `category_id` int(11) NOT NULL,
+  `read_privilege` int(11) NOT NULL DEFAULT '1',
+  `write_privilege` int(11) NOT NULL,
+  `update_privilege` int(11) NOT NULL,
+  `delete_privilege` int(11) NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=3017 DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -158,8 +163,10 @@ CREATE TABLE IF NOT EXISTS `role_privilege` (
   `read_public_category_privilege` int(11) NOT NULL,
   `read_private_category_privilege` int(11) NOT NULL,
   `read_included_category_only_privilege` int(11) NOT NULL,
+  `write_materials_privilege` int(11) NOT NULL,
+  `grant_role_privilege` int(11) NOT NULL,
   `date_created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 
 --
 -- Indexes for dumped tables
@@ -226,17 +233,17 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=14;
 -- AUTO_INCREMENT for table `account_profile`
 --
 ALTER TABLE `account_profile`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=47;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=56;
 --
 -- AUTO_INCREMENT for table `category`
 --
 ALTER TABLE `category`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=197;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=198;
 --
 -- AUTO_INCREMENT for table `item`
 --
 ALTER TABLE `item`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=12944;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=12945;
 --
 -- AUTO_INCREMENT for table `role`
 --
@@ -251,12 +258,12 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
 -- AUTO_INCREMENT for table `role_category_inclusion`
 --
 ALTER TABLE `role_category_inclusion`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3017;
 --
 -- AUTO_INCREMENT for table `role_privilege`
 --
 ALTER TABLE `role_privilege`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

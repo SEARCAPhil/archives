@@ -20,6 +20,10 @@ input[type="checkbox"].small + label span{
 	margin-bottom: -4px;
 }
 
+.btn-danger{
+	background-image: rgb(255,100,99) !important;
+	background: rgb(255,100,99) !important;
+}
 
 .category-header{
 	 font-weight: bolder;	
@@ -40,3 +44,22 @@ input[type="checkbox"].small + label span{
 	cursor:pointer;
 	color: rgb(255,168,48);
 }
+
+.loading{
+	width: 100px;
+	height: 100px;
+	background: url('../images/loading.png') no-repeat center center;
+}
+
+.rotate{
+	animation: rotate 0.5s infinite;
+}
+@keyframes rotate{
+	from{
+		transform: rotate(0deg);
+	}
+
+	to{
+		transform: rotate(180deg);
+	}
+} 

@@ -7,45 +7,150 @@ class Form extends MY_Controller {
 	function __construct(){
 		parent::__construct();
 		$this->load->database();
-		$this->load->model('category');
-		$this->load->model('item');
-		$this->load->model('file');
+		$this->load->model(array('privilege','category','item','file'));
 		$this->load->helper(array('form','url'));
 		$this->load->library(array('form_validation','session'));
 		$this->last_insert_result=null;
 
+		#detect maintenance mode
 		parent::set_maintenance();
+
+		$this->session_privileges=array();
+		$this->session_categories=array();
+		$this->session_sub_categories=array();
+		$this->session_category_is_accessible=0;
+
+
+		self::load_privileges();
+		self::load_menu();
+		self::get_parent_categories();
+		self::get_children_categories();
+
+
 	}
 
-	private function get_parent_categories(){
 
-		$this->categories=$this->category->get_parent_categories();
-		return $this->data=array('data'=>$this->categories,'param'=>$this->input->get(),'sub'=>self::get_children_categories()['data']);
+	/*
+	 * Load account privileges
+	 *
+	 * */
+
+	public function load_privileges(){
+		$this->session_privileges=($this->privilege->get_privilege(@$_SESSION['priv']));
 	}
 
-	private function get_children_categories(){
+	public function load_menu(){
+		
+		$this->menu=array(
+			'category'=>1,
+			'permission'=>$this->privilege->is_allowed_to_grant_role(),
+			'materials'=>$this->privilege->is_allowed_to_write_materials()
 
-		$this->sub_categories=$this->category->get_children_categories($this->input->get('id',true));
-		return $this->data=array('data'=>$this->sub_categories,'param'=>$this->input->get(),'details'=>self::get_category_details(),'items'=>self::get_items());
+		);
+
+
 	}
 
-	private function get_category_details(){
 
-		$this->category_details=$this->category->get_category_details($this->input->get('id',true));
-		return $this->data=$this->category_details;
+	/**
+	 * Get children categories
+	 * 
+	 * Display subcategories depending upon user/category privilege.
+	 * It relies on get parameter to detect its parent
+	 * @return array(data,param,details,items)
+	 */
+
+	public function get_children_categories(){
+		$this->session_sub_categories=($this->category->get_children_categories(@$this->session_privileges[0]->role_id,$this->input->get('id',true)));	
 	}
 
-	private function get_items(){
+	public function get_parent_categories(){
 
-		$this->items=$this->item->get_items($this->input->get('id',true));
+		$this->session_categories=($this->category->get_parent_categories(@$this->session_privileges[0]->role_id));
+
+
+	}
+
+
+	public function get_categories(){
+	
+		return array('data'=>$this->session_categories,'sub'=>$this->session_sub_categories,'param'=>$this->input->get(),'details'=>self::get_category_details(),'items'=>self::get_items(),'menu'=>$this->menu);
+	}
+
+
+
+
+
+
+	/**
+	 * Get details
+	 * 
+	 * Display category details
+	 * @return array()
+	 */
+
+	public function get_category_details(){
+
+		$this->category_details=array();
+
+		if($this->category->is_accessible(@$this->session_privileges[0]->role_id,$this->input->get('id',true))){
+
+			$this->category_details=$this->category->get_category_details($this->input->get('id',true));
+
+		}
+
+		return $this->data=$this->category_details;		
+
+	}
+
+
+
+
+
+	/**
+	 * Get Items
+	 * 
+	 * Display all items that fall under this category
+	 * @return array()
+	 */
+
+	public function get_items(){
+
+		$this->items=$this->item->get_items($this->input->get('id',true),$this->input->get('page',true));
 		return $this->data=$this->items;
 	}
 
-	private function get_item_details(){
 
-		$this->item=$this->item->get_item_details($this->input->get('id',true));
+
+
+
+	/**
+	 * Get Item details
+	 * 
+	 * Display all information aof the item
+	 * Items under a private category are only accessible by admin accounts
+	 * @return array()
+	 */
+
+	public function get_item_details(){
+
+		$item=$this->item->get_item_details($this->input->get('id',true));
+		
+		$this->item=[];
+		#check if details can be viewd by ordinary user
+		if(isset($item[0]->cat_id)){
+
+			if($this->category->is_accessible(@$this->session_privileges[0]->role_id,$item[0]->cat_id)){
+
+				$this->item=$item;
+			}
+
+		}
+		
 		return $this->data=array('data'=>$this->sub_categories,'param'=>$this->input->get(),'details'=>self::get_category_details(),'items'=>$this->item);
 	}
+
+
 
 	public function set_item(){
 		return $this->data=array('data'=>$this->item->set_item($this->input->post(),$this->session->id));
@@ -75,11 +180,34 @@ class Form extends MY_Controller {
 	{
 
 		$this->load->view('pages/header.php');
-		$this->load->view('pages/navigation.php',self::get_parent_categories());
+		$this->load->view('pages/navigation.php',self::get_categories());
 
 		$this->form_validation->set_error_delimiters('<br/><pclass="text-danger">', '</p>');
 		$this->form_validation->set_rules('title', 'Title', 'required');
 		$this->form_validation->set_rules('content_description', 'Description', 'required');
+
+
+		/*
+		 * Permission denied if add menu is not allowed
+		 * 
+		 * 
+		 */
+		if(!$this->menu['materials']){
+			$this->load->view('errors/html/error_permission');
+		}else{
+			self::_validate_form();
+		}
+
+
+
+		
+		$this->load->view('pages/footer.php');
+		
+	}
+
+	private function _validate_form(){
+
+
 
 		if ($this->form_validation->run() == FALSE)
         {		
@@ -122,16 +250,12 @@ class Form extends MY_Controller {
             	
                 
         }
-		
-		$this->load->view('pages/footer.php');
-		
 	}
-
 
 	public function upload(){
 
 		$this->load->view('pages/header.php');
-		$this->load->view('pages/navigation.php',self::get_parent_categories());
+		$this->load->view('pages/navigation.php',self::get_categories());
 		if(isset($_COOKIE['dms-upload-id'])&&isset($_COOKIE['dms-upload-cat'])){
                 $this->load->view('pages/file-upload.php',array('last_id'=>@$_COOKIE['dms-upload-id']));	
          }
@@ -209,7 +333,7 @@ class Form extends MY_Controller {
 	public function success(){
 
 		$this->load->view('pages/header.php');
-		$this->load->view('pages/navigation.php',self::get_parent_categories());
+		$this->load->view('pages/navigation.php',self::get_categories());
 		$this->load->view('pages/add-success.php');
 		$this->load->view('pages/footer.php');
 	}

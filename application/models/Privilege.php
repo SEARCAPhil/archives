@@ -31,5 +31,66 @@ class Privilege extends CI_Model {
 		return $result;
 	}
 
+	public function _get_privilege_details($role_id){
+
+
+		$sql="SELECT * FROM role where id=? ORDER BY role.id DESC LIMIT 1";
+
+		$stmt = $this->db->query($sql,array($role_id));
+
+		return $stmt->result();
+	}
+
+	public function _set_privilege($role_id,$data=array()){
+		/*---------------------------
+		* Flush old privilegews before adding new one
+		* response 200 -ok
+		* 300 - failed
+		*/
+
+		$response=array();
+		$response['status']=300;
+
+		$this->db->trans_begin();
+
+		$sql="DELETE FROM role_category_inclusion where role_id=?";
+
+		$stmt = $this->db->query($sql,array($role_id));
+		
+
+		for($x=0;$x<count($data);$x++){
+			$id=@$data[$x]->id; 	
+			$read=@$data[$x]->read; 
+			$write=@$data[$x]->write; 
+			$update=@$data[$x]->update; 
+			$delete=@$data[$x]->delete; 
+
+			$sql2="INSERT INTO role_category_inclusion(role_id,category_id,read_privilege,write_privilege,update_privilege,delete_privilege) values(?,?,?,?,?,?)";
+			$stmt2 = $this->db->query($sql2,array($role_id,$id,$read,$write,$update,$delete));
+		}
+
+
+		if ($this->db->trans_status() === FALSE)
+		{
+		        $this->db->trans_rollback();
+		}
+		else
+		{
+		        $this->db->trans_commit();
+		        $response['status']=200;
+		}
+
+		echo json_encode($response);
+	}
+
+	public function is_allowed_to_grant_role(){
+		return $this->session_privilege_data[0]->grant_role_privilege==1;
+	}
+
+	
+	public function is_allowed_to_write_materials(){
+		return $this->session_privilege_data[0]->write_materials_privilege==1;
+	}
+
 
 }

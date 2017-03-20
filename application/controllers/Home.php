@@ -55,6 +55,7 @@ class Home extends MY_Controller {
 
 
 		self::load_privileges();
+		self::load_menu();
 		self::get_parent_categories();
 		self::get_children_categories();
 		
@@ -62,39 +63,26 @@ class Home extends MY_Controller {
 
 	}
 	
-
-	/**
-	 * Detect user privilege
-	 * 
-	 * *@return int
-	 */
-
-	public function isAdmin(){
-		$priv=@$this->session->priv;
-		return @$priv==='admin';
-	}
-
+	/*
+	 * Load account privileges
+	 *
+	 * */
 
 	public function load_privileges(){
 		$this->session_privileges=($this->privilege->get_privilege(@$_SESSION['priv']));
 	}
 
+	public function load_menu(){
+		
+		$this->menu=array(
+			'category'=>1,
+			'permission'=>$this->privilege->is_allowed_to_grant_role(),
+			'materials'=>$this->privilege->is_allowed_to_write_materials()
+
+		);
 
 
-	/**
-	 *Detect if item is available for viewing 
-	 * 
-	 * This will prevent access of items from ordinary user
-	 * that should be only available for admin accounts
-	 */
-
-	public function is_available_for_user($is_private=1){
-
-		return (!$is_private)||self::isAdmin();
 	}
-
-
-
 
 
 	/**
@@ -118,8 +106,8 @@ class Home extends MY_Controller {
 
 
 	public function get_categories(){
-		$details=self::get_category_details();
-		return array('data'=>$this->session_categories,'sub'=>$this->session_sub_categories,'param'=>$this->input->get(),'details'=>$details,'items'=>self::get_items());
+	
+		return array('data'=>$this->session_categories,'sub'=>$this->session_sub_categories,'param'=>$this->input->get(),'details'=>self::get_category_details(),'items'=>self::get_items(),'menu'=>$this->menu);
 	}
 
 
@@ -138,9 +126,11 @@ class Home extends MY_Controller {
 
 		$this->category_details=array();
 
+
+
 		if($this->category->is_accessible(@$this->session_privileges[0]->role_id,$this->input->get('id',true))){
 
-			$this->category_details=$this->category->get_category_details($this->input->get('id',true));
+			$this->category_details=$this->category->get_category_details(@$this->session_privileges[0]->role_id,$this->input->get('id',true));
 
 		}
 
@@ -161,9 +151,17 @@ class Home extends MY_Controller {
 
 	public function get_items(){
 
-		$this->items=$this->item->get_items($this->input->get('id',true),$this->input->get('page',true));
+		$this->items=array('data'=>array());
+
+		#check category read privilege before viewing
+		if(@$this->category_details[0]->read_privilege){
+			$this->items=$this->item->get_items($this->input->get('id',true),$this->input->get('page',true));	
+		}
+
+		
 		return $this->data=$this->items;
 	}
+
 
 
 
@@ -191,9 +189,8 @@ class Home extends MY_Controller {
 			}
 
 		}
-
 		
-		return $this->data=array('data'=>$this->sub_categories,'param'=>$this->input->get(),'details'=>self::get_category_details(),'items'=>$this->item);
+		return $this->data=array('data'=>$this->sub_categories,'param'=>$this->input->get(),'details'=>self::get_category_details(),'items'=>$this->item,'menu'=>$this->menu);
 	}
 
 
@@ -370,7 +367,6 @@ class Home extends MY_Controller {
 			//sign-in
 			$this->load->view('forms/login.php',array('data'=>$this->input->get('login_error')));
 
-
 		}else{
 
 			//load pages
@@ -389,7 +385,7 @@ class Home extends MY_Controller {
 			#ID and title must be present to view the item
 			#if not it is detected as a search call
 			if(!is_null($this->input->get('id',true))&&!(is_null($this->input->get('title',true)))){
-				$this->load->view('pages/item.php',self::get_item_details());
+				$this->load->view('pages/item',self::get_item_details());
 			}else{
 
 				#detect search param
@@ -400,14 +396,24 @@ class Home extends MY_Controller {
 
 					#show list
 					if(count(self::get_category_details())>0){
-						$this->load->view('pages/list.php',self::get_categories());	
+						$this->load->view('pages/list',self::get_categories());	
 					}
 
-					if(count(self::get_category_details())<=0){
-						$this->load->view('errors/html/error_permission.php');
+					#no ID parameter in URI and no details available
+					if(count(self::get_category_details())<=0&&is_null($this->input->get('id',true))){
+						$this->load->view('pages/index');
+					}
+
+
+					#with ID but no details available
+					#check as well the category accessibility
+					if(count(self::get_category_details())<=0&&!is_null($this->input->get('id',true))&&!$this->category->is_accessible(@$this->session_privileges[0]->role_id,$this->input->get('id',true)))
+					{
+						$this->load->view('errors/html/error_permission');
+
 					}
 					
-
+					
 
 				}
 				

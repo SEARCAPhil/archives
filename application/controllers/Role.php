@@ -23,6 +23,7 @@ class Role extends MY_Controller {
 
 
 		self::load_privileges();
+		self::load_menu();
 		self::get_parent_categories();
 		self::get_children_categories();
 
@@ -33,22 +34,17 @@ class Role extends MY_Controller {
 		$this->session_privileges=($this->privilege->get_privilege(@$_SESSION['priv']));
 	}
 
+	public function load_menu(){
+		
+		$this->menu=array(
+			'category'=>1,
+			'permission'=>$this->privilege->is_allowed_to_grant_role(),
+			'materials'=>$this->privilege->is_allowed_to_write_materials()
+
+		);
 
 
-	/**
-	 *Detect if item is available for viewing 
-	 * 
-	 * This will prevent access of items from ordinary user
-	 * that should be only available for admin accounts
-	 */
-
-	public function is_available_for_user($is_private=1){
-
-		return (!$is_private)||self::isAdmin();
 	}
-
-
-
 
 
 	/**
@@ -67,114 +63,67 @@ class Role extends MY_Controller {
 
 		$this->session_categories=($this->category->get_parent_categories(@$this->session_privileges[0]->role_id));
 
-
 	}
-
-
-	public function get_categories(){
-		$details=self::get_category_details();
-		return array('data'=>$this->session_categories,'sub'=>$this->session_sub_categories,'param'=>$this->input->get(),'details'=>$details,'items'=>self::get_items());
-	}
-
-
-
-
 
 
 	public function get_all_children_categories($id){
-
-		return $this->category->get_all_children_categories($id);	
+		$role_id=(int) strip_tags(htmlentities(htmlspecialchars($this->input->get('role_id',true))));
+		return $this->category->get_all_children_categories($id,$role_id);	
 		
 	}
 
 	public function get_all_parent_categories(){
-
-		return $this->category->get_all_parent_categories();
-
+		$id=(int) strip_tags(htmlentities(htmlspecialchars($this->input->get('role_id',true))));
+		return $this->category->get_all_parent_categories($id);
 	}
 
 
+	public function privilege(){
+		$data=@json_decode($this->input->post('data',true));	
+		$id=(int) strip_tags(htmlentities(htmlspecialchars($this->input->post('id',true))));
 
+		if(!empty($id)&&$id>0){
 
-
-
-	/**
-	 * Get details
-	 * 
-	 * Display category details
-	 * @return array()
-	 */
-
-	public function get_category_details(){
-
-		$this->category_details=array();
-
-		if($this->category->is_accessible(@$this->session_privileges[0]->role_id,$this->input->get('id',true))){
-
-			$this->category_details=$this->category->get_category_details($this->input->get('id',true));
-
-		}
-
-		return $this->data=$this->category_details;		
-
-	}
-
-
-
-
-
-	/**
-	 * Get Items
-	 * 
-	 * Display all items that fall under this category
-	 * @return array()
-	 */
-
-	public function get_items(){
-
-		$this->items=$this->item->get_items($this->input->get('id',true),$this->input->get('page',true));
-		return $this->data=$this->items;
-	}
-
-
-
-
-
-	/**
-	 * Get Item details
-	 * 
-	 * Display all information aof the item
-	 * Items under a private category are only accessible by admin accounts
-	 * @return array()
-	 */
-
-	public function get_item_details(){
-
-		$item=$this->item->get_item_details($this->input->get('id',true));
-		
-		$this->item=[];
-		#check if details can be viewd by ordinary user
-		if(isset($item[0]->cat_id)){
-
-			if($this->category->is_accessible(@$this->session_privileges[0]->role_id,$item[0]->cat_id)){
-
-				$this->item=$item;
+			if(gettype($data)=='array'){			
+				$this->privilege->_set_privilege($id,$data);
 			}
-
-		}
-
-		
-		return $this->data=array('data'=>$this->sub_categories,'param'=>$this->input->get(),'details'=>self::get_category_details(),'items'=>$this->item);
+	
+		} 
 	}
-
 
 
 
 	public function index(){
 
+
 		$this->load->view('pages/header.php');
-		$this->load->view('pages/navigation.php',self::get_categories());
-		$this->load->view('pages/role.php');
+
+		//prevent empty id
+		$id=(int) strip_tags(htmlentities(htmlspecialchars($this->input->get('role_id',true))));
+		if(empty($id)||$id<=0) return 0;
+
+
+		//empty details if do not have privilege to view
+		if(!$this->privilege->is_allowed_to_grant_role()){
+			$details=array();
+		}else{
+			$details=($this->privilege->_get_privilege_details($id));	
+		}
+		
+		
+
+		$this->load->view('pages/navigation.php',array('data'=>$this->session_categories,'sub'=>$this->session_sub_categories,'param'=>$this->input->get(),'role'=>$details,'menu'=>$this->menu));
+
+
+		//show only if have privilege to view
+		if($this->privilege->is_allowed_to_grant_role()){
+			$this->load->view('pages/role.php');
+		}else{
+			$this->load->view('errors/html/error_permission.php');
+		}
+
+
+		
 		$this->load->view('pages/footer.php');
 	}
 

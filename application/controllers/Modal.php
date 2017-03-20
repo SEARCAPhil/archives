@@ -43,6 +43,12 @@ class Modal extends MY_Controller {
 		
 	}
 
+	public function applying_changes()
+	{
+		$this->load->view('modal/applying_changes');
+		
+	}
+
 
 	
 }

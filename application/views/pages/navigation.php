@@ -15,12 +15,17 @@ function set_active($sid){
 		</div>
 		<div class="collapse navbar-collapse pull-right">
 			<ul class="nav navbar-nav">
-				<li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Permission<span class="caret"></span></a>
-					<ul class="dropdown dropdown-menu">
-						<li><a href="">Role</a></li>
-						<li><a href="">Account</a></li>
-					</ul>
-				</li>
+
+			<!--permission-->
+				<?php if(@$menu['permission']){ ?>
+					<li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Permission<span class="caret"></span></a>
+						<ul class="dropdown dropdown-menu">
+							<li><a href="<?php echo base_url(); ?>role/">Role</a></li>
+						</ul>
+					</li>
+				<?php } ?>
+			<!--/permission-->
+
 				<li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Category <span class="caret"></span></a>
 					<ul class="dropdown dropdown-menu">
 						<?php for($x=0;$x<count($data);$x++){ ?>
@@ -55,9 +60,18 @@ function set_active($sid){
 				<li><form style="margin-top: 7px;margin-bottom: 0px;"><input type="text" class="form-control" name="search" value="<?php echo utf8_encode($this->input->get('search')); ?>"/></form></li>
 			</ul>
 
+	<!--materials-->
+		<?php if($menu['materials']){ ?>
 			<ul class="nav navbar-nav sub-navigation pull-right">
-				<li><a href="<?php echo base_url(); ?>form/">&nbsp;Add <div style="float: left;width:20px;height:20px;background: rgb(255,100,99);border-radius: 50%;color:rgb(255,255,255);text-align: center;">+</div> <!--<label class="label label-warning"><small><span class="glyphicon glyphicon-plus"></span></small></label>--></a></li>
+				<li>
+					<a href="<?php echo base_url(); ?>form/">&nbsp;Add 
+						<div style="float: left;width:20px;height:20px;background: rgb(255,100,99);border-radius: 50%;color:rgb(255,255,255);text-align: center;">+</div>
+					</a>
+				</li>
 			</ul>
+		<?php } ?>
+
+
 		</div>
 	</div>
 </nav>

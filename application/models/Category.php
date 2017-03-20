@@ -7,6 +7,7 @@ class Category extends CI_Model {
 		parent::__construct();
 
 		$this->hierarchy=array();
+		$this->categories_with_privilege=array();
 	}
 
 
@@ -15,9 +16,44 @@ class Category extends CI_Model {
 	// Categories without parent_id
 	//
 	//////////////////////////////////////////////////////////////////////*/
-	public function get_all_parent_categories(){
-		$stmt = $this->db->query("SELECT * FROM category where parent_id=0  ORDER by category ASC");	 
-		return $stmt->result();
+	public function get_all_parent_categories($role_id){
+		$stmt = $this->db->query("SELECT * FROM category where parent_id=0  ORDER by category ASC");
+
+		//check if it has privilege
+		$stmt2 = $this->db->query("SELECT * FROM role_category_inclusion  where role_id=?  ORDER by category_id ASC",array($role_id));
+
+		$priv=$stmt2->result();
+
+		
+
+		$categories=$stmt->result();
+
+
+
+		$priv_array=array();
+
+		$result=array();
+
+		//itirate categories with privileges
+		for($x=0;$x<count($priv);$x++){
+			$priv_array[$priv[$x]->category_id]=($priv[$x]);
+		}
+
+		//assign to category priv to be used by children
+		$this->categories_with_privilege=$priv_array;
+
+
+
+		//assign attributes
+		for($y=0;$y<count($categories);$y++){
+
+			$categories[$y]->attributes=@$priv_array[$categories[$y]->id];
+			
+			array_push($result, $categories[$y]);
+		}
+		
+
+		return $result;
 	}
 
 	public function get_parent_categories($role_id=NULL){
@@ -67,11 +103,23 @@ class Category extends CI_Model {
 	//////////////////////////////////////////////////////////////////////*/
 
 
-	public function get_all_children_categories($parent_id){
+	public function get_all_children_categories($parent_id,$role_id){
 		$this->parent_id=(int) htmlentities(htmlspecialchars($parent_id));
 		$query="SELECT * FROM category where parent_id=? ORDER by category ASC";
 		$stmt=$this->db->query($query,array($this->parent_id));
-		return $stmt->result();
+
+		$categories=$stmt->result();
+
+		$result=array();
+		//assign attributes
+		for($y=0;$y<count($categories);$y++){
+
+			$categories[$y]->attributes=@$this->categories_with_privilege[$categories[$y]->id];
+			
+			array_push($result, $categories[$y]);
+		}
+		
+		return $result;
 	}
 
 	public function get_children_categories($role_id,$parent_id){
@@ -101,10 +149,10 @@ class Category extends CI_Model {
 
 
 
-	public function get_category_details($id){
+	public function get_category_details($role_id,$id){
 		$this->id=(int) htmlentities(htmlspecialchars($id));
-		$query="SELECT * FROM category where id=?";
-		$stmt=$this->db->query($query,array($this->id));
+		$query="SELECT *,role_category_inclusion.id as role_category_inclusion_id,category.id as id FROM category  LEFT JOIN role_category_inclusion on category.id=role_category_inclusion.category_id where role_category_inclusion.role_id=? and category.id=?";
+		$stmt=$this->db->query($query,array($role_id,$this->id));
 		return $stmt->result();
 	}
 
@@ -119,10 +167,11 @@ class Category extends CI_Model {
 
 		if(isset($stmt->result()[0]->total)){
 			return $stmt->result()[0]->total>0;
-		}
-		
+		}		
 		return 0;
 	}
+
+
 
 
 
