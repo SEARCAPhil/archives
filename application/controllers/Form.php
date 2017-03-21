@@ -25,6 +25,7 @@ class Form extends MY_Controller {
 		self::load_menu();
 		self::get_parent_categories();
 		self::get_children_categories();
+		self::get_item_details();
 
 
 	}
@@ -95,7 +96,7 @@ class Form extends MY_Controller {
 
 		if($this->category->is_accessible(@$this->session_privileges[0]->role_id,$this->input->get('id',true))){
 
-			$this->category_details=$this->category->get_category_details($this->input->get('id',true));
+			$this->category_details=$this->category->get_category_details(@$this->session_privileges[0]->role_id,$this->input->get('id',true));
 
 		}
 
@@ -134,20 +135,8 @@ class Form extends MY_Controller {
 
 	public function get_item_details(){
 
-		$item=$this->item->get_item_details($this->input->get('id',true));
+		$this->item_details=$this->item->get_item_details($this->input->get('id',true));
 		
-		$this->item=[];
-		#check if details can be viewd by ordinary user
-		if(isset($item[0]->cat_id)){
-
-			if($this->category->is_accessible(@$this->session_privileges[0]->role_id,$item[0]->cat_id)){
-
-				$this->item=$item;
-			}
-
-		}
-		
-		return $this->data=array('data'=>$this->sub_categories,'param'=>$this->input->get(),'details'=>self::get_category_details(),'items'=>$this->item);
 	}
 
 
@@ -185,12 +174,11 @@ class Form extends MY_Controller {
 		$this->form_validation->set_error_delimiters('<br/><pclass="text-danger">', '</p>');
 		$this->form_validation->set_rules('title', 'Title', 'required');
 		$this->form_validation->set_rules('content_description', 'Description', 'required');
+		$this->form_validation->set_rules('series', 'Series', 'callback_series_check');
 
 
 		/*
 		 * Permission denied if add menu is not allowed
-		 * 
-		 * 
 		 */
 		if(!$this->menu['materials']){
 			$this->load->view('errors/html/error_permission');
@@ -205,22 +193,46 @@ class Form extends MY_Controller {
 		
 	}
 
+	public function series_check($str)
+    {
+    	if($str<=0){
+    		$this->form_validation->set_message('series_check', 'Invalid series');
+        	return FALSE;
+    	}
+
+    	return TRUE;
+        
+            
+    }
+
 	private function _validate_form(){
 
+		#get category details using ITEM category_id
+		$category_details=($this->category->get_category_details(@$this->session_privileges[0]->role_id,@$this->item_details[0]->cat_id));
+
+		#update form requires category_details
+		#this is not required for add form
+		if(isset($category_details[0])){
+			if(!@$category_details[0]->update_privilege||!@$category_details[0]->write_privilege){
+				$this->load->view('errors/html/error_permission');
+				return 0;
+			}
+		}
+		
+		
 
 
 		if ($this->form_validation->run() == FALSE)
         {		
         		//update
         		if($this->input->get('id')){
-        			$this->load->view('forms/item.php',self::get_item_details());
+        			$this->load->view('forms/item.php',array('data'=>$this->session_sub_categories,'param'=>$this->input->get(),'items'=>$this->item_details));
         		}else{
         		//add new
-
         			$this->load->view('forms/item.php');
         		}
                 
-        		#$this->load->view('pages/file-upload.php');	
+        			
         }
         else
         {
@@ -230,15 +242,15 @@ class Form extends MY_Controller {
             		$this->last_insert_result=self::set_item();
 
             	}else{
-            		//update
+
+					//update
             		$this->last_insert_result=self::update_item();
+					
+
+            		
             	}
             	
-				#var_dump($this->last_insert_result['data']);
-
-            	/*if($this->last_insert_result>0){
-            		$this->load->view('pages/file-upload.php',array('last_id'=>$this->last_insert_result));	
-            	}*/
+			
             	setcookie("dms-upload-id",$this->last_insert_result['data'],1,'/');
             	setcookie("dms-upload-cat",$this->input->post('series'),1,'/');
 

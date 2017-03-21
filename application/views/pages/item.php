@@ -28,7 +28,6 @@
 		<p class="text-muted"><?php echo ucfirst(utf8_encode($items[0]->content_description)); ?></p>
 		<p>
 			<small>
-				<span class="glyphicon glyphicon-paperclip"></span> 
 				<?php echo $items[0]->original_file_name; ?>
 					<span class="btn btn-xs btn-success download" data-cat="<?php echo $items[0]->id; ?>">
 						<span class="glyphicon glyphicon-download"></span> Download 
@@ -231,9 +230,7 @@
 		<center class="text-muted"><h1>Content Unavailable</h1></center>
 	<?php } ?>
 </div>
-<div class="col col-md-12">
-			<?php include_once('copyright.php'); ?>
-		</div>
+
 <!-- Modal -->
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog" role="document">

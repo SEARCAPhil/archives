@@ -58,20 +58,31 @@ class Home extends MY_Controller {
 		self::load_menu();
 		self::get_parent_categories();
 		self::get_children_categories();
+		self::get_category_details();
+		self::get_items();
+		self::get_item_details();
 		
 
 
 	}
+
+
 	
 	/*
 	 * Load account privileges
 	 *
 	 * */
-
 	public function load_privileges(){
 		$this->session_privileges=($this->privilege->get_privilege(@$_SESSION['priv']));
 	}
 
+
+
+
+	/*
+	* Load Menu Based on privilege
+	*
+	*/
 	public function load_menu(){
 		
 		$this->menu=array(
@@ -85,17 +96,19 @@ class Home extends MY_Controller {
 	}
 
 
+
+
 	/**
 	 * Get children categories
 	 * 
-	 * Display subcategories depending upon user/category privilege.
+	 * Get children categories based on role privilege
 	 * It relies on get parameter to detect its parent
-	 * @return array(data,param,details,items)
 	 */
 
 	public function get_children_categories(){
 		$this->session_sub_categories=($this->category->get_children_categories(@$this->session_privileges[0]->role_id,$this->input->get('id',true)));	
 	}
+
 
 	public function get_parent_categories(){
 
@@ -105,40 +118,14 @@ class Home extends MY_Controller {
 	}
 
 
-	public function get_categories(){
-	
-		return array('data'=>$this->session_categories,'sub'=>$this->session_sub_categories,'param'=>$this->input->get(),'details'=>self::get_category_details(),'items'=>self::get_items(),'menu'=>$this->menu);
-	}
-
-
-
-
-
-
-	/**
-	 * Get details
-	 * 
-	 * Display category details
-	 * @return array()
-	 */
-
 	public function get_category_details(){
 
 		$this->category_details=array();
-
-
-
 		if($this->category->is_accessible(@$this->session_privileges[0]->role_id,$this->input->get('id',true))){
-
 			$this->category_details=$this->category->get_category_details(@$this->session_privileges[0]->role_id,$this->input->get('id',true));
-
-		}
-
-		return $this->data=$this->category_details;		
+		}	
 
 	}
-
-
 
 
 
@@ -154,16 +141,19 @@ class Home extends MY_Controller {
 		$this->items=array('data'=>array());
 
 		#check category read privilege before viewing
-		if(@$this->category_details[0]->read_privilege){
-			$this->items=$this->item->get_items($this->input->get('id',true),$this->input->get('page',true));	
-		}
-
+		if(@$this->category_details[0]->read_privilege) $this->items=$this->item->get_items(@$this->input->get('id',true),@$this->input->get('page',true));	
 		
-		return $this->data=$this->items;
 	}
 
 
 
+	/**
+	 * Show all categories,sub,para,details,menu and items
+	 */
+	public function get_categories(){
+	
+		return array('data'=>$this->session_categories,'sub'=>$this->session_sub_categories,'param'=>$this->input->get(),'details'=>$this->category_details,'items'=>$this->items,'menu'=>$this->menu);
+	}
 
 
 
@@ -179,18 +169,18 @@ class Home extends MY_Controller {
 
 		$item=$this->item->get_item_details($this->input->get('id',true));
 		
-		$this->item=[];
+		$this->item_details=[];
 		#check if details can be viewd by ordinary user
 		if(isset($item[0]->cat_id)){
 
 			if($this->category->is_accessible(@$this->session_privileges[0]->role_id,$item[0]->cat_id)){
 
-				$this->item=$item;
+				$this->item_details=$item;
 			}
 
 		}
 		
-		return $this->data=array('data'=>$this->sub_categories,'param'=>$this->input->get(),'details'=>self::get_category_details(),'items'=>$this->item,'menu'=>$this->menu);
+		return $this->data=array('data'=>$this->sub_categories,'param'=>$this->input->get(),'details'=>self::get_category_details(),'items'=>$this->item_details,'menu'=>$this->menu);
 	}
 
 
@@ -236,6 +226,7 @@ class Home extends MY_Controller {
 
 			#check if authentication is successfull
 			if(isset($auth[0]->id)&&isset($auth[0]->username)){
+
 				
 				#check if LOCAL account exist
 				$local_account=$this->auth->account_exists($auth[0]->username);
@@ -358,7 +349,7 @@ class Home extends MY_Controller {
 		if($this->input->get('logout')!=NULL){ $this->auth->logout(); unset($_SESSION);  }
 
 
-
+		#header
 		$this->load->view('pages/header.php');
 		
 		
@@ -382,10 +373,28 @@ class Home extends MY_Controller {
 
 
 
+
 			#ID and title must be present to view the item
 			#if not it is detected as a search call
 			if(!is_null($this->input->get('id',true))&&!(is_null($this->input->get('title',true)))){
-				$this->load->view('pages/item',self::get_item_details());
+
+
+				//get item category
+				$cat_id=isset($this->item_details[0]->cat_id)?$this->item_details[0]->cat_id:NULL;
+
+				//update category details based on category_id of the Item
+				$this->category_details=$this->category->get_category_details(@$this->session_privileges[0]->role_id,$cat_id);
+
+
+				//check if readable content
+				if(@$this->category_details[0]->read_privilege){
+					$this->load->view('pages/item',self::get_item_details());
+				}else{
+					$this->load->view('errors/html/error_permission');	
+				}
+
+
+				
 			}else{
 
 				#detect search param
@@ -395,19 +404,19 @@ class Home extends MY_Controller {
 				}else{
 
 					#show list
-					if(count(self::get_category_details())>0){
+					if(count($this->category_details)>0){
 						$this->load->view('pages/list',self::get_categories());	
 					}
 
 					#no ID parameter in URI and no details available
-					if(count(self::get_category_details())<=0&&is_null($this->input->get('id',true))){
+					if(is_null($this->input->get('id',true))){
 						$this->load->view('pages/index');
 					}
 
 
 					#with ID but no details available
 					#check as well the category accessibility
-					if(count(self::get_category_details())<=0&&!is_null($this->input->get('id',true))&&!$this->category->is_accessible(@$this->session_privileges[0]->role_id,$this->input->get('id',true)))
+					if(!is_null($this->input->get('id',true))&&!$this->category->is_accessible(@$this->session_privileges[0]->role_id,$this->input->get('id',true)))
 					{
 						$this->load->view('errors/html/error_permission');
 
@@ -421,7 +430,7 @@ class Home extends MY_Controller {
 
 		}
 		
-
+		$this->load->view('pages/copyright.php');
 		$this->load->view('pages/footer.php');
 
 	}

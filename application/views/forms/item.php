@@ -264,6 +264,7 @@ Read more: http://www.businessdictionary.com/definition/communication.html</p>
 							<label for="inputTitle" class="control-label col-xs-3 ">Series</label>
 							<div class="col-xs-9"> 
 								<select name="series" class="form-control series main-series" id="series">
+										<option value="0">Select category</option>
 								<?php for($x=0;$x<count($data);$x++): ?>
 										<option value="<?php echo $data[$x]->id; ?>"><?php echo $data[$x]->category; ?></option>
 								<?php endfor; ?>		
@@ -273,7 +274,9 @@ Read more: http://www.businessdictionary.com/definition/communication.html</p>
 									
 								</div>
 								<!--<span class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"></span>-->
-								<span id="titleAlert" class="text-danger alert-data"></span>
+								<span id="titleAlert" class="text-danger alert-data">
+									<?php echo form_error('series'); ?>
+								</span>
 								
 
 							</div>

@@ -75,7 +75,7 @@
 
 			<?php for($x=0; $x<count($items['data']); $x++): ?>
 			<div class="well-custom" id="item<?php echo $items['data'][$x]->id; ?>">
-				<p>
+				<!--<p>
 					<li class="dropdown list-unstyled pull-right"><a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-cog"></span></a>
 					<ul class="dropdown dropdown-menu">
 						
@@ -93,7 +93,7 @@
 					</ul>
 				</li>
 
-				</p>
+				</p>-->
 				<h4><a href="<?php echo base_url(); ?>?id=<?php echo $items['data'][$x]->id; ?>&parent=<?php echo $details[0]->id; ?>&category=<?php echo $details[0]->category; ?>&title=<?php echo urlencode(utf8_encode($items['data'][$x]->document_title)); ?>"><?php echo $items['data'][$x]->document_title; ?></a></h4>
 				<p><hr/></p>
 				
@@ -173,9 +173,7 @@
 
 
 		<?php } ?>
-		<div class="col col-md-12">
-			<?php include_once('copyright.php'); ?>
-		</div>
+
 	</div>
 
 </div>

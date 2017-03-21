@@ -60,9 +60,7 @@ class Auth extends CI_Model {
 		$sql="INSERT INTO account_profile(profile_name,last_name,first_name,profile_image,department,department_alias,position,date_modified,uid)values(?,?,?,?,?,?,?,?,?)";
 		$statement=$this->db->query($sql,array($this->full_name,$this->last_name,$this->first_name,$this->image,$this->department,$this->alias,$this->position,$this->date_modified,$this->uid));
 		
-		return $this->db->insert_id();
-				
-			
+		return $this->db->insert_id();	
 
 	}
 
