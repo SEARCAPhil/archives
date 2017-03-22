@@ -196,7 +196,7 @@ class Home extends MY_Controller {
 	 */
 	public function search(){
 
-		$this->search_result=$this->item->search($this->input->get('search',true),$this->input->get('page',true));
+		$this->search_result=$this->item->search(@$this->session_privileges[0]->role_id,$this->input->get('search',true),$this->input->get('page',true));
 		return $this->data=array('items'=>$this->search_result,'param'=>$this->input->get());
 	}
 

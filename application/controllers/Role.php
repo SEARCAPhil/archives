@@ -98,9 +98,10 @@ class Role extends MY_Controller {
 
 		$this->load->view('pages/header.php');
 
+
 		//prevent empty id
 		$id=(int) strip_tags(htmlentities(htmlspecialchars($this->input->get('role_id',true))));
-		if(empty($id)||$id<=0) return 0;
+		
 
 
 		//empty details if do not have privilege to view
@@ -115,16 +116,39 @@ class Role extends MY_Controller {
 		$this->load->view('pages/navigation.php',array('data'=>$this->session_categories,'sub'=>$this->session_sub_categories,'param'=>$this->input->get(),'role'=>$details,'menu'=>$this->menu));
 
 
-		//show only if have privilege to view
-		if($this->privilege->is_allowed_to_grant_role()){
-			$this->load->view('pages/role.php');
+		/**
+		 * Role with ROLE_ID parameter
+		 * URL= /role/?id=role_id
+		 * 
+		 */
+
+		if(!empty($id)){
+			//show only if have privilege to view
+			if($this->privilege->is_allowed_to_grant_role()){
+				$this->load->view('pages/role_privilege.php');
+			}else{
+				$this->load->view('errors/html/error_permission.php');
+			}
 		}else{
-			$this->load->view('errors/html/error_permission.php');
+			$role=array();
+
+			$role=$this->privilege->_get_roles();
+
+
+			if(@$this->session_privileges[0]->grant_role_privilege){
+				$this->load->view('pages/role.php',array('data'=>$this->session_categories,'sub'=>$this->session_sub_categories,'param'=>$this->input->get(),'role'=>$role,'menu'=>$this->menu));	
+			}else{
+				$this->load->view('errors/html/error_permission.php');			
+			}
+
 		}
 
 
 		
 		$this->load->view('pages/footer.php');
 	}
+
+
+
 
 }

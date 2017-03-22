@@ -10,6 +10,19 @@ class Privilege extends CI_Model {
 		$this->session_privilege_data=array();
 	}
 
+	public function _get_roles(){
+
+	
+
+		$sql="SELECT * from role";
+
+		$stmt = $this->db->query($sql);
+
+		$result=$stmt->result();
+
+		return $result;
+	}
+
 	public function get_privilege($role){
 
 		/*-----------------------------------------
@@ -91,6 +104,9 @@ class Privilege extends CI_Model {
 	public function is_allowed_to_write_materials(){
 		return $this->session_privilege_data[0]->write_materials_privilege==1;
 	}
+
+
+
 
 
 }

@@ -54,7 +54,7 @@
 					<tr>
 						<td><?php echo $items['data'][$x]->id; ?></td>
 						<td>
-							<a href="<?php echo base_url(); ?>?id=<?php echo @$items['data'][$x]->id; ?>&parent=<?php echo $items['data'][$x]->cat_id; ?>&category=<?php echo $items['data'][$x]->category; ?>&title=<?php echo urlencode(utf8_encode($items['data'][$x]->document_title)); ?>"><?php echo $items['data'][$x]->document_title; ?></a>
+							<a href="<?php echo base_url(); ?>?id=<?php echo @$items['data'][$x]->id; ?>&parent=<?php echo $items['data'][$x]->cat_id; ?>&title=<?php echo urlencode(utf8_encode($items['data'][$x]->document_title)); ?>"><?php echo $items['data'][$x]->document_title; ?></a>
 						</td>
 						<td><?php echo $items['data'][$x]->content_description; ?></td>
 						<td><?php echo $items['data'][$x]->keywords; ?></td>
