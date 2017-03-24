@@ -48,11 +48,6 @@ class Home extends MY_Controller {
 
 		parent::set_maintenance();
 
-		$this->session_privileges=array();
-		$this->session_categories=array();
-		$this->session_sub_categories=array();
-		$this->session_category_is_accessible=0;
-
 
 		self::load_privileges();
 		self::load_menu();

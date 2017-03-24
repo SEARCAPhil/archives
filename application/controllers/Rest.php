@@ -59,14 +59,11 @@ class Rest extends MY_Controller {
 
 	public function series(){
 		$data=json_decode($this->input->raw_input_stream);
-		
-
 		echo json_encode($this->category->get_children_categories(@$this->session_privileges[0]->role_id,$data->id));
 	}
 
 	public function remove(){
 		$data= (json_decode($this->input->raw_input_stream));
-
 		echo $this->item->remove($data->id);
 	}
 

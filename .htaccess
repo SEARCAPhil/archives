@@ -5,3 +5,5 @@
 	RewriteRule ^(.*)$ index.php/$1 [L]
 
 </ifModule>
+
+Options -Indexes
