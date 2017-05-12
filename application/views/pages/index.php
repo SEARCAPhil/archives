@@ -1,12 +1,12 @@
 
 <div class="container">
-	<div class="col col-md-5" style="margin-top: 10vh;">
+	<div class="col col-md-10 col-md-offset-1" style="margin-top: 10vh;">
 		
-		<center><img src="<?php echo base_url(); ?>assets/images/cover.png"  width="85%" /></center>
+		<center><img src="<?php echo base_url(); ?>assets/images/SEARCA.png"  width="45%" /></center>
 		
 	</div>
 
-	<div class="col col-md-7" style="margin-top: 10vh;">
+	<div class="col col-md-10 col-md-offset-1" style="margin-top: 5vh;">
 		<br/><br/>
 		Document management, often referred to as <b>Document Management Systems (DMS)</b>, is the use of a computer system and software to store, manage and track electronic documents and electronic images of paper based information captured through the use of a document scanner. 
 

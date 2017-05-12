@@ -10,7 +10,7 @@ function set_active($sid){
 <nav class="navbar navbar-inverse navbar-top-fixed navbar-top">
 	<div class="container">
 		<div class="navbar-header">
-			<a href="<?php echo base_url(); ?>" class="navbar-brand" style="margin-left:0;background: rgb(255,169,18);"><img src="<?php echo base_url(); ?>assets/images/sample-logo.png" width="30px"/></a>
+			<a href="<?php echo base_url(); ?>" class="navbar-brand" style="margin-left:0;background: rgb(255,169,18);color:rgb(255,255,255);"><span class="glyphicon glyphicon-th"></span></a>
 			<a href="<?php echo base_url(); ?>" class="navbar-brand"  style="margin-left:0;"><small>Documents Management System</small></a>
 		</div>
 		<div class="collapse navbar-collapse pull-right">
