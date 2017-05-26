@@ -1,20 +1,88 @@
 
-<div class="container">
-	<div class="col col-md-10 col-md-offset-1" style="margin-top: 10vh;">
-		
-		<center><img src="<?php echo base_url(); ?>assets/images/SEARCA.png"  width="45%" /></center>
-		
+<div class="container-fluid">
+<!--banner-->
+	<div class="row xx" style="background: rgba(192, 57, 43,1.0);padding: 20px;">
+		<div class="container">
+			<div class="col col-md-4" style="margin-top: 10vh;">
+				
+				<center><img src="<?php echo base_url(); ?>assets/images/mac.png"  width="500px" /></center>
+				
+			</div>
+
+			<div class="col col-md-4 col-md-offset-2" style="margin-top: 10vh;color:rgb(250,250,250);">
+				
+				<h1>DMS</h1>
+				<p style="line-height: 2em;color: rgb(200,200,200);">Document management system was crafted by Information Technology Services Unit
+				to easily classify and categorize different  SEARCA knowledge resources. 
+				<div>
+					<div class="col col-md-1"><span class="glyphicon glyphicon-search"></span></div>
+					 <div class="col col-md-11">
+					 	<form style="margin-top: 7px;margin-bottom: 0px;">
+					 		<input type="text" class="form-control search-box" placeholder="Search" name="search"/>
+					 	</form>
+					 </div>
+				 </div>
+
+				</p>
+				
+			</div>
+
+		</div>
 	</div>
+<!--/banner-->
 
-	<div class="col col-md-10 col-md-offset-1" style="margin-top: 5vh;">
-		<br/><br/>
-		Document management, often referred to as <b>Document Management Systems (DMS)</b>, is the use of a computer system and software to store, manage and track electronic documents and electronic images of paper based information captured through the use of a document scanner. 
 
-		Document management is how your organization stores, manages and tracks its electronic documents.
+<!--banner-->
+	<div class="row" style="background: ;padding: 20px;">
+		<div class="container">
 
-		According to ISO 12651-2, a document is "recorded information or object which can be treated as a unit". While this sounds a little complicated, it is quite simply what you have been using to create, distribute and use for years.
+			<div class="col col-md-4 text-center" style="margin-top: 10vh;">
+				
+				<center>
+					<h1 class="text-success">SECURE</h1></center>
+					<img src="<?php echo base_url(); ?>assets/images/secure.png"  width="300px" />
+					<p class="text-justify">We store your files in a secured storage and protect them from anyone trying to access it without permission.</p>
+				</center>
 
-		Now, we can define document management as the software that controls and organizes documents throughout an organization. It incorporates document and content capture, workflow, document repositories, COLD/ERM, and output systems, and information retrieval systems.  Also, the processes used to track, store and control documents.<small><em>Source :</em><a href="http://www.aiim.org/What-Is-Document-Imaging">www.aiiim.org</a></small>
+				
+			</div>
+
+
+			<div class="col col-md-4 text-center" style="margin-top: 10vh;">
+				
+				<center>
+					<h1 class="text-success">RELIABLE</h1></center>
+					<img src="<?php echo base_url(); ?>assets/images/maintenance-server.png"  width="300px" />
+					<p class="text-justify">Data are regularly backed up to make sure that nothing is loss whenever any unexpected things happen. Rest assured that you will always have what you need.  </p>
+				</center>
+
+				
+			</div>
+
+
+			<div class="col col-md-4 text-center" style="margin-top: 10vh;">
+				
+				<center>
+					<h1 class="text-success">SUPPORT</h1></center>
+					<img src="<?php echo base_url(); ?>assets/images/time.png"  width="300px" />
+					<p class="text-justify">We ensure that system is regularly checked and examined.Running  24/7 and no downtime.</p>
+					<p class="text-justify">For any further questions, please email our <a href="maito:jkga@searca.org">support team</a></p>
+				</center>
+
+				
+			</div>
+
+
+			
+
+		</div>
 	</div>
-	
+<!--/banner-->
+
 </div>
+<script type="text/javascript">
+	//auto click category dropdown
+	$('.category-dropdown-button').addClass('open');
+	//do not allow toggle
+	//$('.category-dropdown-button > a.dropdown-toggle').removeAttr('data-toggle');
+</script>

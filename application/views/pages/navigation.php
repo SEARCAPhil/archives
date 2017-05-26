@@ -7,11 +7,22 @@ function set_active($sid){
 	return $id==$sid?'active':'';
 }
 ?>
-<nav class="navbar navbar-inverse navbar-top-fixed navbar-top">
+<style type="text/css">
+	.search-box{
+		box-shadow: none;
+		border-radius: 0;
+		border:none;
+		border-bottom: 1px solid #ccc;
+	}
+	.search-box:focus{
+		box-shadow: none;
+	}
+</style>
+<nav class="navbar navbar-inverse navbar-top-fixed navbar-top" style="margin-bottom: 0;">
 	<div class="container">
 		<div class="navbar-header">
-			<a href="<?php echo base_url(); ?>" class="navbar-brand" style="margin-left:0;background: rgb(255,169,18);color:rgb(255,255,255);"><span class="glyphicon glyphicon-th"></span></a>
-			<a href="<?php echo base_url(); ?>" class="navbar-brand"  style="margin-left:0;"><small>Documents Management System</small></a>
+			<a href="<?php echo base_url(); ?>" class="navbar-brand" style="margin-left:0;color:rgb(255,169,18);"><span class="glyphicon glyphicon-th"></span></a>
+			<a href="<?php echo base_url(); ?>" class="navbar-brand"  style="margin-left:0;"><small> </small></a>
 		</div>
 		<div class="collapse navbar-collapse pull-right">
 			<ul class="nav navbar-nav">
@@ -26,7 +37,7 @@ function set_active($sid){
 				<?php } ?>
 			<!--/permission-->
 
-				<li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Category <span class="caret"></span></a>
+				<li class="dropdown category-dropdown-button"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Category <span class="caret"></span></a>
 					<ul class="dropdown dropdown-menu">
 						<?php for($x=0;$x<count($data);$x++){ ?>
 							<li class="<?php echo set_active($data[$x]->id); ?>" ><a href="<?php echo base_url(); ?>?id=<?php echo $data[$x]->id; ?>&category=<?php echo urlencode($data[$x]->category); ?>"><?php echo $data[$x]->category; ?> <small class="text-muted">(<?php echo $data[$x]->code; ?>)</small></a></li>
@@ -56,8 +67,8 @@ function set_active($sid){
 				</li>
 				<li class="view" id="table"><a href="#"><span class="glyphicon glyphicon-th"></span> Table view</a></li>		
 				<li class="view"><a href="#"><span class="glyphicon glyphicon-list"></span> List view</a></li>
-				<li><a href="#"><span class="glyphicon glyphicon-search"></span> search</a></li>
-				<li><form style="margin-top: 7px;margin-bottom: 0px;"><input type="text" class="form-control" name="search" value="<?php echo utf8_encode($this->input->get('search')); ?>"/></form></li>
+				<li><a href="#"><span class="glyphicon glyphicon-search"></span></a></li>
+				<li><div class="col col-md-12"><form style="margin-top: 7px;margin-bottom: 0px;"><input type="text" class="form-control search-box" placeholder="Search" name="search" value="<?php echo utf8_encode($this->input->get('search')); ?>"/></form></div></li>
 			</ul>
 
 	<!--materials-->

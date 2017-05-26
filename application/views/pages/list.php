@@ -18,7 +18,20 @@
 			if(count(@$items['data'])<=0){ 
 		?>
 
-			<center class="text-muted"><h1>Content Unavailable</h1></center>
+		<ul class="list-unstyled folder-list">
+			
+			<?php for($x=0;$x<count(@$sub);$x++): ?>
+				<li onclick="window.location='<?php echo base_url(); ?>?id=<?php echo @$sub[$x]->id; ?>'">
+					<a href="<?php echo base_url(); ?>?id=<?php echo @$sub[$x]->id; ?>">
+						<span class="glyphicon glyphicon-folder-open"></span>  &nbsp;<?php echo @$sub[$x]->category; ?> &nbsp;<small class="text-muted">(<?php echo @$sub[$x]->code; ?>)</small>
+					</a>
+				</li>
+			<?php endfor; ?>
+			
+		</ul>
+			<center class="col col-xs-12 text-muted"><h1>Content Unavailable</h1></center>
+
+
 		<?php  } ?>
 
 		<?php if(!isset($_COOKIE['dms-view'])){$_COOKIE['dms-view']='table';} ?>
