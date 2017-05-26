@@ -15,10 +15,15 @@
 
 <style type="text/css">
   input[type="text"],input[type="password"]{
-    border: 1px solid #ccc !important;
+    border:none;
+    border-bottom: 1px solid #ccc !important;
     border-radius: 0 !important;
     -webkit-border-radius: 0 !important;
     padding:20px;
+    box-shadow: none;
+  }
+
+  input[type="text"]:focus,input[type="password"]:focus{
     box-shadow: none;
   }
 
@@ -45,25 +50,26 @@
 <div class="col col-lg-4 col-lg-offset-4 col-md-8 col-md-offset-2 col-sm-8 col-sm-offset-2">	
 
         <div class="row">
-          <div class="col col-md-2 col-sm-2 col-xs-2" style="min-width: 70px !important;">
+         <div class="col col-md-12 text-center" style="min-width: 70px !important;">
             <!--  <img src="<?php echo base_url(); ?>assets/images/logo-new.png" width="100px">-->
-            <img src="<?php echo base_url(); ?>assets/images/sample-logo.png" width="70px">
+            <img src="<?php echo base_url(); ?>assets/images/logo-new.png" width="260px">
             <h1></h1>
           </div>
-          <div class="col col-md-10 col-sm-10 col-xs-10" style="line-height: 0;">
+
+          <div class="col col-md-12 text-center" style="margin-bottom: 20px;">
             <h1 style="padding-right: 0px !important;"> Sign In </h1>
-            <p><small class="text-muted"><a href="#" style="color:rgb(180,180,180);">Documents Management System</a></b></small></p>
+            <p><small class="text-muted">Document Management System</b></small></p>
           </div>
         </div>
 
-		  <div class="form-group col col-md-12 has-feedback">
-     	  		<input type="text" class="form-control" id="inputUser" placeholder="username" name="username" ng-model="username" required>   	   
+		  <div class="form-group col col-md-12 text-center"  style="margin-bottom: 30px;">
+     	  		<input type="text" class="form-control text-center" id="inputUser" placeholder="Username" name="username" required autocomplete="off">   	   
    		 		<!--<span class="glyphicon glyphicon-user form-control-feedback"></span>-->
    		 </div>
-   		 <div class="form-group col col-md-12 ">
+   		 <div class="form-group col col-md-12"  style="line-height: 0;margin-bottom: 30px;">
      	  
      	   <div>
-        		<input type="password" class="form-control" placeholder="Password" id="inputPassword" name="password" ng-model="password" required>
+        		<input type="password" class="form-control text-center" placeholder="Password" id="inputPassword" name="password" required>
      	   </div>
    		 </div>
 
@@ -81,28 +87,10 @@
 
 
        <!--submit-button-->
-   		 <div class="form-group col col-md-12 ">
+   		 <div class="form-group col col-md-12 " style="margin-top: 30px;">
     		<button class="btn btn-block btn-submit">Login</button>
   		 </div>
-  	  <!--end submit button-->
-<div style="clear: both;"></div>
-<div class="searca-about">  
-   <center>
-        <p>The Southeast Asian Regional Center for Graduate Study and Research in Agriculture (SEARCA) was established by the Southeast Asian Ministers of Education Organization (SEAMEO) in 1966 “to provide to the participating countries high quality graduate study in agriculture; promote, undertake, and coordinate research programs related to the needs and problems of the Southeast Asian region; and disseminate the findings of agricultural research and experimentation.</p>
-    </center>
-</div>
 
-
-<footer class="searca-footer"> 
-   <center>
-      <p>Created By</p>
-      <p>Information Technology Services Unit</p>
-      <p>&copy;2017 SEAMEO SEARCA</p>
-      <p><a href="www.searca.org" style="color:rgb(6,148,66);">www.searca.org</a></p>
-      <p><img src="<?php echo base_url(); ?>assets/images/logo-new.png" width="40px"></p>
-   </center>
-</footer>
-     
 
 </div>
 
