@@ -2,34 +2,44 @@
 	$page=$this->input->get('page',true)!=null?$this->input->get('page',true):1; 
 	$id=($this->input->get('id',true)); 
 ?>
+<div class="container-fluid" style="/*background: rgba(41, 128, 185,1.0);color:rgb(250,250,250);*/background:rgba(250,250,250,0.9);padding: 20px;margin-bottom: 30px;border-bottom: 1px solid #ccc;">
+	<div class="container">
+		<?php if(count($details)>0){ ?>
+			<h1> <?php echo $details[0]->category; ?></h1>
+			<p  style="opacity:0.3;"> <small>CODE : (<?php echo $details[0]->code; ?>)</small></p>
+			<p  style="line-height: 2em;opacity:0.9;"><?php echo ucfirst(utf8_encode($details[0]->description)); ?></p>
+		<?php } ?>
+	</div>
+</div>
 <div class="container">
 
-	<div class=" table-responsive col col-md-12 ">
+	<div class=" table-responsive col col-md-12 row ">
 		
 		<?php if(count($details)>0){ ?>
-		<h3><span class="glyphicon glyphicon-bookmark"></span> <?php echo $details[0]->category; ?> <span class="text-muted">(<?php echo $details[0]->code; ?>)</span></h3>
-		<p class="text-muted"><?php echo ucfirst(utf8_encode($details[0]->description)); ?></p>
-		<br/>
-		<!--<h3><span class="glyphicon glyphicon-list"></span> List </h3>-->
-		<br/>
 
 		<?php 
 			#if no result
 			if(count(@$items['data'])<=0){ 
 		?>
 
-		<ul class="list-unstyled folder-list">
-			
-			<?php for($x=0;$x<count(@$sub);$x++): ?>
-				<li onclick="window.location='<?php echo base_url(); ?>?id=<?php echo @$sub[$x]->id; ?>'">
-					<a href="<?php echo base_url(); ?>?id=<?php echo @$sub[$x]->id; ?>">
-						<span class="glyphicon glyphicon-folder-open"></span>  &nbsp;<?php echo @$sub[$x]->category; ?> &nbsp;<small class="text-muted">(<?php echo @$sub[$x]->code; ?>)</small>
-					</a>
-				</li>
-			<?php endfor; ?>
-			
-		</ul>
-			<center class="col col-xs-12 text-muted"><h1>Content Unavailable</h1></center>
+		<?php if (count(@$sub)>0){?>
+			<div class="col col-md-12 row"><h4 class="text-muted">Sub Directories <span class="glyphicon glyphicon-chevron-down"></span></h4></div>
+			<ul class="list-unstyled folder-list">
+				
+
+				<?php for($x=0;$x<count(@$sub);$x++): ?>
+					<li onclick="window.location='<?php echo base_url(); ?>?id=<?php echo @$sub[$x]->id; ?>'">
+						<a href="<?php echo base_url(); ?>?id=<?php echo @$sub[$x]->id; ?>">
+							<span class="glyphicon glyphicon-folder-open"></span>  &nbsp;<?php echo @$sub[$x]->category; ?> &nbsp;<small class="text-muted">(<?php echo @$sub[$x]->code; ?>)</small>
+						</a>
+					</li>
+				<?php endfor; ?>
+				
+			</ul>
+		<?php } ?>
+		
+
+		<?php if (@$x<1){?>	<center class="col col-xs-12 text-muted"><h1>Content Unavailable</h1></center> <?php } ?>
 
 
 		<?php  } ?>
@@ -74,7 +84,9 @@
 											</ul>
 
 										</div><br/>-->
+										<?php if(!empty($items['data'][$x]->original_file_name)){ ?>
 										<p><a href="#"  class="download" data-cat="<?php echo $items['data'][$x]->id; ?>"><span class="glyphicon glyphicon-download"></span></a></p>
+										<?php } ?>
 									</td>
 									
 								</tr>

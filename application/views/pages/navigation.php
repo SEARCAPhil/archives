@@ -45,7 +45,8 @@ function set_active($sid){
 						<?php } ?>
 					</ul>
 				</li>
-				<li><a href="<?php echo base_url(); ?>?logout=true"> <span class="glyphicon glyphicon-off"></span> Logout</a></li>
+				<li><a href="<?php echo base_url(); ?>?logout=true"> Logout</a></li>
+				<li><a href="#"> <img src="<?php echo base_url(); ?>assets/images/guest.png"  width="25px" /></a></li>
 			</ul>
 
 		</div>
@@ -68,7 +69,7 @@ function set_active($sid){
 				<li class="view" id="table"><a href="#"><span class="glyphicon glyphicon-th"></span> Table view</a></li>		
 				<li class="view"><a href="#"><span class="glyphicon glyphicon-list"></span> List view</a></li>
 				<li><a href="#"><span class="glyphicon glyphicon-search"></span></a></li>
-				<li><div class="col col-md-12"><form style="margin-top: 7px;margin-bottom: 0px;"><input type="text" class="form-control search-box" placeholder="Search" name="search" value="<?php echo utf8_encode($this->input->get('search')); ?>"/></form></div></li>
+				<li><div class="col col-md-12"><form style="margin-top: 7px;margin-bottom: 0px;"><input type="text" class="form-control search-box search-box-top" placeholder="Search" name="search" value="<?php echo utf8_encode($this->input->get('search')); ?>"/></form></div></li>
 			</ul>
 
 	<!--materials-->

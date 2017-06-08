@@ -1,4 +1,31 @@
+<div class="container-fluid" style="/*background: rgba(41, 128, 185,1.0);color:rgb(250,250,250);*/background:rgba(250,250,250,0.9);padding: 20px;margin-bottom: 30px;border-bottom: 1px solid #ccc;">
+	<div class="container">
+		<div class="col col-md-offset-1">
+			<h3><span class="glyphicon glyphicon-bookmark"></span> <?php echo $items[0]->document_title; ?></h3>
+			<p class="text-muted"><?php echo ucfirst(utf8_encode($items[0]->content_description)); ?></p>
 
+
+			<!--download button-->
+			<?php if(!empty(@$items[0]->original_file_name)){ ?>
+			<p>
+				<small>
+					<?php echo $items[0]->original_file_name; ?>
+						<span class="btn btn-xs btn-success download" data-cat="<?php echo $items[0]->id; ?>">
+							<span class="glyphicon glyphicon-download"></span> Download 
+						</span>
+				</small>
+			</p>
+
+			<?php } ?>
+
+			
+			<br/>
+		
+
+
+		</div>
+	</div>
+</div>
 <div class="container">
 
 <?php if(isset($items[0])){ ?>
@@ -24,20 +51,9 @@
 
 		</p>
 
-		<h3><span class="glyphicon glyphicon-bookmark"></span> <?php echo $items[0]->document_title; ?></h3>
-		<p class="text-muted"><?php echo ucfirst(utf8_encode($items[0]->content_description)); ?></p>
-		<p>
-			<small>
-				<?php echo $items[0]->original_file_name; ?>
-					<span class="btn btn-xs btn-success download" data-cat="<?php echo $items[0]->id; ?>">
-						<span class="glyphicon glyphicon-download"></span> Download 
-					</span>
-			</small>
-		</p>
+		<!--<h3><span class="glyphicon glyphicon-bookmark"></span> <?php echo $items[0]->document_title; ?></h3>
+		<p class="text-muted"><?php echo ucfirst(utf8_encode($items[0]->content_description)); ?></p>-->
 
-		
-		<br/>
-		
 		
 		
 
