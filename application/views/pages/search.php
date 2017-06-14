@@ -3,8 +3,8 @@
 	$id=($this->input->get('id',true)); 
 ?>
 
-<div class="container">
-	<div class=" table-responsive col col-md-7 col-md-offset-2 ">
+
+	<div class=" table-responsive col col-md-8 col-md-offset-1 ">
 		<br/>
 		<div class="row  text-center">
 			<h1>&nbsp;Search results</h1>
@@ -13,7 +13,7 @@
 		</div>
 	</div>
 	<br/><br/><br/>
-</div>
+
 
 
 <?php 
@@ -25,10 +25,10 @@
 		<?php  } ?>
 
 
-<div class="container ">
 
 
-<div class=" table-responsive col col-md-9 col-md-offset-1 ">
+
+<div class=" table-responsive col col-md-8 col-md-offset-1 ">
 
 
 <?php if(@$_COOKIE['dms-view']=='table'){ ?>
@@ -56,12 +56,14 @@
 						<td>
 							<a href="<?php echo base_url(); ?>?id=<?php echo @$items['data'][$x]->id; ?>&parent=<?php echo $items['data'][$x]->cat_id; ?>&title=<?php echo urlencode(utf8_encode($items['data'][$x]->document_title)); ?>"><?php echo $items['data'][$x]->document_title; ?></a>
 						</td>
-						<td><?php echo $items['data'][$x]->content_description; ?></td>
+						<td><?php echo nl2br($items['data'][$x]->content_description); ?></td>
 						<td><?php echo $items['data'][$x]->keywords; ?></td>
 						<td><?php echo $items['data'][$x]->original_file_name; ?></td>
 						<td>
+							<?php if(!empty($items['data'][$x]->original_file_name)){ ?>
 							<!--<p><a href="#"><span class="glyphicon glyphicon-print"></span></a></p>-->
-							<p><a href="#"  class="download" data-cat="<?php echo $items['data'][$x]->id; ?>"><span class="glyphicon glyphicon-download"></span></a></p>
+								<p><a href="#"  class="download" data-cat="<?php echo $items['data'][$x]->id; ?>"><span class="glyphicon glyphicon-download"></span></a></p>
+							<?php } ?>
 						</td>
 						
 					</tr>
@@ -73,9 +75,9 @@
 		<?php }else{ ?>
 
 			<?php  for($x=0; $x<count($items['data']); $x++): ?>
-			<div  id="item<?php echo $items['data'][$x]->id; ?>">
+			<div class="well-custom" id="item<?php echo $items['data'][$x]->id; ?>">
 				<p>
-					<li class="dropdown list-unstyled pull-right"><a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-cog"></span></a>
+					<li class="dropdown list-unstyled pull-right"><a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="material-icons pull-right">keyboard_arrow_down</i></a>
 					<ul class="dropdown dropdown-menu">
 
 						<li class="" >
@@ -96,18 +98,18 @@
 
 				<h4>
 					<a href="?id=<?php echo $items['data'][$x]->id; ?>&title=<?php echo $items['data'][$x]->document_title; ?>">
-						<span class="glyphicon glyphicon-bookmark"></span> 
-						<?php echo $items['data'][$x]->document_title; ?>
+						
+						<?php echo ucwords($items['data'][$x]->document_title); ?>
 					</a>
 				</h4>
 
+				<p><?php echo nl2br($items['data'][$x]->content_description); ?></p>
 
-				<p><hr/></p>
-				
-				
-				<p><b>Description</b></p>
-				<p><?php echo $items['data'][$x]->content_description; ?></p>
-				<p><small><span class="glyphicon glyphicon-file"></span> <?php echo $items['data'][$x]->original_file_name; ?> <button class="btn btn-xs btn-success download" data-cat="<?php echo $items['data'][$x]->id; ?>">Download</button></small></p><br/><br/>
+				<?php if(!empty($items['data'][$x]->original_file_name)){ ?>
+				<p><small><?php echo $items['data'][$x]->original_file_name; ?> <button class="btn btn-xs btn-success download" data-cat="<?php echo $items['data'][$x]->id; ?>"><i class="material-icons">cloud_download</i></button></small></p>
+				<?php } ?>
+
+				<br/><br/>
 
 				<?php if(strlen(trim($items['data'][$x]->keywords))>0){ ?><p class="text-muted"><small><b><span class="glyphicon glyphicon-tags"></span> Tags</b>( <?php echo $items['data'][$x]->keywords; ?>)</small></p><br/> <?php } ?>
 			</div>
@@ -172,7 +174,7 @@
 
 
 	</div>
-</div>
+
 <!-- Modal -->
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog" role="document">

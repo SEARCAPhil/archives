@@ -1,7 +1,7 @@
 <div class="container">
 	
 
-	<div class=" table-responsive col col-md-9 col-md-offset-1 ">
+	<div class=" table-responsive col col-md-9 col-md-offset-3 ">
 		<br/><br/><br/>
 		<h3><span class="glyphicon glyphicon-cloud-upload"></span> Step 2/2  <span class="text-muted">(File Upload)</span> <span class="pull-right"> <button class="btn btn-success" onclick="window.location='<?php echo base_url().'form/success'; ?>';">Skip &raquo;</button></span></h3>
 	
@@ -9,7 +9,7 @@
 		</p>
 	</div>
 
-	<div class="col col-md-9 col-md-offset-1 file-div">
+	<div class="col col-md-9 col-md-offset-3 file-div">
 		<center>
 			<h3 class="page-header">Please select a file</h3>
 			<h1><span class="glyphicon glyphicon-paperclip" style="cursor: pointer;" id="upload-file-button" onclick="document.getElementById('upload-file').click()"></span></h1>

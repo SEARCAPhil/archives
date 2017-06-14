@@ -2,18 +2,38 @@
 	$page=$this->input->get('page',true)!=null?$this->input->get('page',true):1; 
 	$id=($this->input->get('id',true)); 
 ?>
-<div class="container-fluid" style="/*background: rgba(41, 128, 185,1.0);color:rgb(250,250,250);*/background:rgba(250,250,250,0.9);padding: 20px;margin-bottom: 30px;border-bottom: 1px solid #ccc;">
-	<div class="container">
-		<?php if(count($details)>0){ ?>
-			<h1> <?php echo $details[0]->category; ?></h1>
-			<p  style="opacity:0.3;"> <small>CODE : (<?php echo $details[0]->code; ?>)</small></p>
-			<p  style="line-height: 2em;opacity:0.9;"><?php echo ucfirst(utf8_encode($details[0]->description)); ?></p>
-		<?php } ?>
+
+<?php include_once('panel_subcategory.php'); ?>
+
+
+<?php if(@$items['total']>0): ?>
+<div class="col col-lg-8 col-sm-9 col-md-6 " style="background: rgba(250,250,250,0.5);border:1px solid rgba(230,230,230,0.9);" >
+	<div class="text-muted  text-right">
+		<h3><b><?php echo @($items['total']); ?> Files <i class="material-icons md-24">insert_drive_files</i></b></h3>
+		<p><small>Available under this category</small></p>
+
 	</div>
 </div>
-<div class="container">
+<?php endif; ?>
 
-	<div class=" table-responsive col col-md-12 row ">
+<?php if(!isset($items['total'])){ ?>
+
+	<center>
+		<i class="material-icons" style="font-size: 12em;margin-top: 5vh;">cloud_off</i>
+
+		<h2 class="text-muted">Empty section</h2>
+		<p  class="text-muted">This page doesn't contain any document. Please check back soon!</p>
+
+
+	</center>
+
+<?php } ?>
+
+
+
+<div class="col col-lg-8 col-sm-9 col-md-6 col-xs-12">
+
+	<div class="row col col-md-12 col-xs-12">
 		
 		<?php if(count($details)>0){ ?>
 
@@ -22,122 +42,28 @@
 			if(count(@$items['data'])<=0){ 
 		?>
 
-		<?php if (count(@$sub)>0){?>
-			<div class="col col-md-12 row"><h4 class="text-muted">Sub Directories <span class="glyphicon glyphicon-chevron-down"></span></h4></div>
-			<ul class="list-unstyled folder-list">
-				
 
-				<?php for($x=0;$x<count(@$sub);$x++): ?>
-					<li onclick="window.location='<?php echo base_url(); ?>?id=<?php echo @$sub[$x]->id; ?>'">
-						<a href="<?php echo base_url(); ?>?id=<?php echo @$sub[$x]->id; ?>">
-							<span class="glyphicon glyphicon-folder-open"></span>  &nbsp;<?php echo @$sub[$x]->category; ?> &nbsp;<small class="text-muted">(<?php echo @$sub[$x]->code; ?>)</small>
-						</a>
-					</li>
-				<?php endfor; ?>
-				
-			</ul>
-		<?php } ?>
-		
+				<?php if (@$x<1&&isset($items['total'])){?>	
 
-		<?php if (@$x<1){?>	<center class="col col-xs-12 text-muted"><h1>Content Unavailable</h1></center> <?php } ?>
+					<center>
+							<img src="<?php echo base_url(); ?>assets/images/share2.png"  width="50%" />
+
+							<h2 class="text-muted">Document Management System</h2>
+							<p  class="text-muted">Keep your files safe, organize, and accessible everywhere</p>
+
+
+						</center>
+				<?php } ?>
 
 
 		<?php  } ?>
 
 		<?php if(!isset($_COOKIE['dms-view'])){$_COOKIE['dms-view']='table';} ?>
+
 		<?php if(@$_COOKIE['dms-view']=='table'){ ?>
-
-				<?php if(count($items['data'])>0){ ?>
-					<table class="table table-striped table-hovered  tablesorter table-responsive" id="listTable" style="font-size: 0.95em; border:1px solid rgb(220,220,220);border-radius: 5% !important;">
-						<thead style="background: rgb(150,150,150); color: rgb(240,240,240);">
-							<th>Record Number</th>
-							<th width="30%">Title</th>
-							<th>Desription</th>
-							<th>Keywords</th>
-							<th>Files</th>
-							<th></th>
-						</thead>
-						<tfoot>
-							<tr>
-								<td colspan="8" class="text-muted"><span class="glyphicon glyphicon-th-list"></span> Results based on selected category</td>
-							</tr>
-
-						</tfoot>
-						<tbody>
-
-							<?php for($x=0; $x<count($items['data']); $x++): ?>
-								<tr>
-									<td><?php echo $items['data'][$x]->id; ?></td>
-									<td>
-										<a href="<?php echo base_url(); ?>?id=<?php echo $items['data'][$x]->id; ?>&parent=<?php echo $details[0]->id; ?>&category=<?php echo $details[0]->category; ?>&title=<?php echo urlencode(utf8_encode($items['data'][$x]->document_title)); ?>"><?php echo nl2br($items['data'][$x]->document_title); ?></a>
-									</td>
-									<td><?php echo nl2br($items['data'][$x]->content_description); ?></td>
-									<td><?php echo $items['data'][$x]->keywords; ?></td>
-									<td><?php echo $items['data'][$x]->original_file_name; ?></td>
-									<td>
-										<!--<div class="dropdown">
-											<a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-print"></span></a>
-											<ul class="dropdown-menu pull-right">
-												<li><a href="report/short/" target="_blank"><span class="glyphicon glyphicon-th-list"></span> Short</a></li>
-												<li><a href="report/long/" target="_blank"><span class="glyphicon glyphicon-th"></span> Long</a></li>
-												<li><a href="#"><span class="glyphicon glyphicon-pencil"></span> Custom</a></li>
-											</ul>
-
-										</div><br/>-->
-										<?php if(!empty($items['data'][$x]->original_file_name)){ ?>
-										<p><a href="#"  class="download" data-cat="<?php echo $items['data'][$x]->id; ?>"><span class="glyphicon glyphicon-download"></span></a></p>
-										<?php } ?>
-									</td>
-									
-								</tr>
-							<?php endfor; ?>
-
-							
-						</tbody>
-					</table>
-				<?php } ?>
+				<?php include_once('list_table_view.php'); ?>
 		<?php }else{ ?>
-
-			<?php for($x=0; $x<count($items['data']); $x++): ?>
-			<div class="well-custom" id="item<?php echo $items['data'][$x]->id; ?>">
-				<!--<p>
-					<li class="dropdown list-unstyled pull-right"><a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-cog"></span></a>
-					<ul class="dropdown dropdown-menu">
-						
-							<li class="" >
-								<a href="<?php echo base_url(); ?>form/?id=<?php echo $items['data'][$x]->id; ?>" class="modifier" data-menu="update" data-cat="<?php echo $items['data'][$x]->id; ?>">Update</a>
-							</li>
-							<li class="" data-toggle="modal" data-target="#myModal">
-								<a href="#" class="modifier" id="file" data-menu="update" data-cat="<?php echo $items['data'][$x]->id; ?>" data-parent="<?php echo @$details[0]->id; ?>">Attach File</a>
-							</li>
-							<li class="" data-toggle="modal" data-target="#myModal">
-								<a href="#" class="modifier" data-menu="remove" data-toggle="modal" data-cat="<?php echo $items['data'][$x]->id; ?>">Remove</a>
-							</li>
-							
-						
-					</ul>
-				</li>
-
-				</p>-->
-				<h4><a href="<?php echo base_url(); ?>?id=<?php echo $items['data'][$x]->id; ?>&parent=<?php echo $details[0]->id; ?>&category=<?php echo $details[0]->category; ?>&title=<?php echo urlencode(utf8_encode($items['data'][$x]->document_title)); ?>"><?php echo $items['data'][$x]->document_title; ?></a></h4>
-				<p><hr/></p>
-				
-				<p><b>Description</b></p>
-				<p><?php echo $items['data'][$x]->content_description; ?></p>
-				<p>
-					<span class="glyphicon glyphicon-file"></span> 
-					<?php echo $items['data'][$x]->original_file_name; ?> 
-					<button class="btn btn-xs btn-success download" data-cat="<?php echo $items['data'][$x]->id; ?>">Download</button>
-				</p>
-
-
-				<?php if(strlen(trim($items['data'][$x]->keywords))>0){ ?><p class="text-muted"><br/><small><b><span class="glyphicon glyphicon-tags"></span></b> <?php echo $items['data'][$x]->keywords; ?> </small></p><?php } ?>
-
-			
-			</div>
-
-			<?php endfor; ?>
-
+				<?php include_once('list_list_view.php'); ?>
 		<?php } ?>
 
 <?php 

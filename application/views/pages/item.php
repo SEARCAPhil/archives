@@ -1,5 +1,4 @@
-<div class="container-fluid" style="/*background: rgba(41, 128, 185,1.0);color:rgb(250,250,250);*/background:rgba(250,250,250,0.9);padding: 20px;margin-bottom: 30px;border-bottom: 1px solid #ccc;">
-	<div class="container">
+<div class="col col-md-10" style="/*background: rgba(41, 128, 185,1.0);color:rgb(250,250,250);*/background:rgba(250,250,250,0.9);padding: 20px;margin-bottom: 30px;border-bottom: 1px solid #ccc;">
 		<div class="col col-md-offset-1">
 			<h3><span class="glyphicon glyphicon-bookmark"></span> <?php echo $items[0]->document_title; ?></h3>
 			<p class="text-muted"><?php echo ucfirst(utf8_encode($items[0]->content_description)); ?></p>
@@ -24,7 +23,6 @@
 
 
 		</div>
-	</div>
 </div>
 <div class="container">
 
@@ -32,7 +30,7 @@
 	<div class=" table-responsive col col-md-10 col-md-offset-1 ">
 		
 		<p>
-			<li class="dropdown list-unstyled pull-right"><a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-cog"></span></a>
+			<li class="dropdown list-unstyled pull-right"><a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="material-icons pull-right">keyboard_arrow_down</i></a>
 			<ul class="dropdown dropdown-menu">
 				
 					<li class="" >

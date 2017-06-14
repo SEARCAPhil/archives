@@ -19,13 +19,13 @@ function set_active($sid){
 	}
 </style>
 <nav class="navbar navbar-inverse navbar-top-fixed navbar-top" style="margin-bottom: 0;">
-	<div class="container">
+	<div class="container-fluid">
 		<div class="navbar-header">
-			<a href="<?php echo base_url(); ?>" class="navbar-brand" style="margin-left:0;color:rgb(255,169,18);"><span class="glyphicon glyphicon-th"></span></a>
+			<span href="<?php echo base_url(); ?>" class="navbar-brand" data-toggle="collapse" data-target="#right-navbar" style="margin-left:0;color:rgb(255,169,18);"><span class="glyphicon glyphicon-th"></span></span>
 			<a href="<?php echo base_url(); ?>" class="navbar-brand"  style="margin-left:0;"><small> </small></a>
 		</div>
-		<div class="collapse navbar-collapse pull-right">
-			<ul class="nav navbar-nav">
+		<div class="collapse navbar-collapse" id="right-navbar">
+			<ul class="nav navbar-nav pull-right">
 
 			<!--permission-->
 				<?php if(@$menu['permission']){ ?>
@@ -51,42 +51,53 @@ function set_active($sid){
 
 		</div>
 	</div>
-	<div class=" sub-nav">
-		<div class="container">
-			<ul class="nav navbar-nav sub-navigation">
-				<li class="dropdown active"><a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-bookmark"></span>  Sub Categories <span class="caret"></span></a>
-					<ul class="dropdown dropdown-menu">
-						<?php for($x=0;$x<count($sub);$x++){ ?>
-							<li class="<?php echo set_active($sub[$x]->id); ?>" >
-								<a href="<?php echo base_url(); ?>?id=<?php echo $sub[$x]->id; ?>"><?php echo $sub[$x]->category; ?> 
-									<small class="text-muted">(<?php echo $sub[$x]->code; ?>)</small>
-								</a>
-							</li>
-							
-						<?php } ?>
-					</ul>
-				</li>
-				<li class="view" id="table"><a href="#"><span class="glyphicon glyphicon-th"></span> Table view</a></li>		
-				<li class="view"><a href="#"><span class="glyphicon glyphicon-list"></span> List view</a></li>
-				<li><a href="#"><span class="glyphicon glyphicon-search"></span></a></li>
-				<li><div class="col col-md-12"><form style="margin-top: 7px;margin-bottom: 0px;"><input type="text" class="form-control search-box search-box-top" placeholder="Search" name="search" value="<?php echo utf8_encode($this->input->get('search')); ?>"/></form></div></li>
-			</ul>
-
-	<!--materials-->
-		<?php if($menu['materials']){ ?>
-			<ul class="nav navbar-nav sub-navigation pull-right">
-				<li>
-					<a href="<?php echo base_url(); ?>form/">&nbsp;Add 
-						<div style="float: left;width:20px;height:20px;background: rgb(255,100,99);border-radius: 50%;color:rgb(255,255,255);text-align: center;">+</div>
-					</a>
-				</li>
-			</ul>
-		<?php } ?>
-
-
-		</div>
-	</div>
 </nav>
+
+
+<?php include_once('panel_category.php'); ?>
+
+		<div class="col col-lg-10 col-sm-9 col-md-9 hidden-xs">
+			<div class=" sub-nav row">
+				<div class="container-fluid">
+					<ul class="nav navbar-nav sub-navigation">
+						<li class="dropdown active visible-xs visible-sm"><a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-bookmark"></span>  Sub Categories <span class="caret"></span></a>
+							<ul class="dropdown dropdown-menu">
+								<?php for($x=0;$x<count($sub);$x++){ ?>
+									<li class="<?php echo set_active($sub[$x]->id); ?>" >
+										<a href="<?php echo base_url(); ?>?id=<?php echo $sub[$x]->id; ?>"><?php echo $sub[$x]->category; ?> 
+											<small class="text-muted">(<?php echo $sub[$x]->code; ?>)</small>
+										</a>
+									</li>
+									
+								<?php } ?>
+							</ul>
+						</li>
+						<li><a href="#"><span class="glyphicon glyphicon-search"></span></a></li>
+						<li><div class="col col-md-12"><form style="margin-top: 7px;margin-bottom: 0px;"><input type="text" class="form-control search-box search-box-top" placeholder="Search" name="search" value="<?php echo utf8_encode($this->input->get('search')); ?>"/></form></div></li>
+												<li class="view hidden-sm" id="table"><a href="#"><span class="glyphicon glyphicon-th"></span> Table view</a></li>		
+						<li class="view hidden-sm"><a href="#"><span class="glyphicon glyphicon-list"></span> List view</a></li>
+					</ul>
+
+			<!--materials-->
+				<?php if($menu['materials']){ ?>
+					<ul class="nav navbar-nav sub-navigation pull-right">
+						<li>
+							<a href="<?php echo base_url(); ?>form/">&nbsp;Add 
+								<div style="float: left;width:20px;height:20px;background: rgb(255,100,99);border-radius: 50%;color:rgb(255,255,255);text-align: center;">+</div>
+							</a>
+						</li>
+					</ul>
+				<?php } ?>
+
+
+				</div>
+			</div>
+		</div>
+
+
+
+
+
 <script type="text/javascript">
 $(document).ready(function(){
 	$('.view').click(function(){
