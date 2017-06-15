@@ -162,7 +162,7 @@ class Home extends MY_Controller {
 
 	public function get_item_details(){
 
-		$item=$this->item->get_item_details($this->input->get('id',true));
+		$item=$this->item->get_item_details($this->input->get('item_id',true));
 		
 		$this->item_details=[];
 		#check if details can be viewd by ordinary user
@@ -371,7 +371,7 @@ class Home extends MY_Controller {
 
 			#ID and title must be present to view the item
 			#if not it is detected as a search call
-			if(!is_null($this->input->get('id',true))&&!(is_null($this->input->get('title',true)))){
+			if(!is_null($this->input->get('item_id',true))&&!(is_null($this->input->get('title',true)))){
 
 
 				//get item category

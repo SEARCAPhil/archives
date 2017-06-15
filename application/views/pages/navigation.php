@@ -37,7 +37,7 @@ function set_active($sid){
 				<?php } ?>
 			<!--/permission-->
 
-				<li class="dropdown category-dropdown-button"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Category <span class="caret"></span></a>
+				<li class="dropdown category-dropdown-button visible-xs"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Category <span class="caret"></span></a>
 					<ul class="dropdown dropdown-menu">
 						<?php for($x=0;$x<count($data);$x++){ ?>
 							<li class="<?php echo set_active($data[$x]->id); ?>" ><a href="<?php echo base_url(); ?>?id=<?php echo $data[$x]->id; ?>&category=<?php echo urlencode($data[$x]->category); ?>"><?php echo $data[$x]->category; ?> <small class="text-muted">(<?php echo $data[$x]->code; ?>)</small></a></li>
@@ -56,7 +56,7 @@ function set_active($sid){
 
 <?php include_once('panel_category.php'); ?>
 
-		<div class="col col-lg-10 col-sm-9 col-md-9 hidden-xs">
+		<div class="col col-lg-10 col-sm-9 col-md-9">
 			<div class=" sub-nav row">
 				<div class="container-fluid">
 					<ul class="nav navbar-nav sub-navigation">
@@ -72,7 +72,7 @@ function set_active($sid){
 								<?php } ?>
 							</ul>
 						</li>
-						<li><a href="#"><span class="glyphicon glyphicon-search"></span></a></li>
+						<li class="hidden-xs"><a href="#"><span class="glyphicon glyphicon-search"></span></a></li>
 						<li><div class="col col-md-12"><form style="margin-top: 7px;margin-bottom: 0px;"><input type="text" class="form-control search-box search-box-top" placeholder="Search" name="search" value="<?php echo utf8_encode($this->input->get('search')); ?>"/></form></div></li>
 												<li class="view hidden-sm" id="table"><a href="#"><span class="glyphicon glyphicon-th"></span> Table view</a></li>		
 						<li class="view hidden-sm"><a href="#"><span class="glyphicon glyphicon-list"></span> List view</a></li>

@@ -34,12 +34,12 @@
 <?php if(@$_COOKIE['dms-view']=='table'){ ?>
 		<table class="table table-striped table-hovered  tablesorter" id="listTable" style="font-size: 0.95em; border:1px solid rgb(220,220,220);border-radius: 5% !important;">
 			<thead style="background: rgb(150,150,150); color: rgb(240,240,240);">
-				<th>Record Number</th>
+				<th class="display-record_number  display-field">Record Number</th>
 				<th width="30%">Title</th>
-				<th>Desription</th>
-				<th>Keywords</th>
-				<th>Files</th>
-				<th></th>
+				<th class="display-description  display-field">Desription</th>
+				<th class="display-keywords  display-field">Keywords</th>
+				<th class="display-files  display-field">Files</th>
+				<th  class="display-menu  display-field"></th>
 			</thead>
 			<tfoot>
 				<tr>
@@ -52,14 +52,14 @@
 				<?php for($x=0; $x<count($items['data']); $x++): ?>
 
 					<tr>
-						<td><?php echo $items['data'][$x]->id; ?></td>
+						<td class="display-record_number  display-field"><?php echo $items['data'][$x]->id; ?></td>
 						<td>
-							<a href="<?php echo base_url(); ?>?id=<?php echo @$items['data'][$x]->id; ?>&parent=<?php echo $items['data'][$x]->cat_id; ?>&title=<?php echo urlencode(utf8_encode($items['data'][$x]->document_title)); ?>"><?php echo $items['data'][$x]->document_title; ?></a>
+							<a href="<?php echo base_url(); ?>?item_id=<?php echo @$items['data'][$x]->id; ?>&id=<?php echo $items['data'][$x]->cat_id; ?>&title=<?php echo urlencode(utf8_encode($items['data'][$x]->document_title)); ?>"><?php echo $items['data'][$x]->document_title; ?></a>
 						</td>
-						<td><?php echo nl2br($items['data'][$x]->content_description); ?></td>
-						<td><?php echo $items['data'][$x]->keywords; ?></td>
-						<td><?php echo $items['data'][$x]->original_file_name; ?></td>
-						<td>
+						<td class="display-description  display-field"><?php echo nl2br($items['data'][$x]->content_description); ?></td>
+						<td  class="display-keywords  display-field"><?php echo $items['data'][$x]->keywords; ?></td>
+						<td  class="display-files  display-field"><?php echo $items['data'][$x]->original_file_name; ?></td>
+						<td class="display-menu  display-field">
 							<?php if(!empty($items['data'][$x]->original_file_name)){ ?>
 							<!--<p><a href="#"><span class="glyphicon glyphicon-print"></span></a></p>-->
 								<p><a href="#"  class="download" data-cat="<?php echo $items['data'][$x]->id; ?>"><span class="glyphicon glyphicon-download"></span></a></p>
@@ -81,7 +81,7 @@
 					<ul class="dropdown dropdown-menu">
 
 						<li class="" >
-								<a href="<?php echo base_url(); ?>form/?id=<?php echo $items['data'][$x]->id; ?>" class="modifier" data-menu="update" data-cat="<?php echo $items['data'][$x]->id; ?>">Update</a>
+								<a href="<?php echo base_url(); ?>form/?item_id=<?php echo $items['data'][$x]->id; ?>&id=<?php echo @$items['data'][$x]->cat_id; ?>" class="modifier" data-menu="update" data-cat="<?php echo $items['data'][$x]->id; ?>">Update</a>
 							</li>
 							<li class="" data-toggle="modal" data-target="#myModal">
 								<a href="#" class="modifier" id="file" data-menu="update" data-cat="<?php echo $items['data'][$x]->id; ?>" data-parent="attach">Attach File</a>
@@ -97,21 +97,21 @@
 
 
 				<h4>
-					<a href="?id=<?php echo $items['data'][$x]->id; ?>&title=<?php echo $items['data'][$x]->document_title; ?>">
+					<a href="?item_id=<?php echo $items['data'][$x]->id; ?>&title=<?php echo $items['data'][$x]->document_title; ?>&id=<?php echo @$items['data'][$x]->cat_id; ?>">
 						
 						<?php echo ucwords($items['data'][$x]->document_title); ?>
 					</a>
 				</h4>
 
-				<p><?php echo nl2br($items['data'][$x]->content_description); ?></p>
+				<p class="display-description  display-field"><?php echo nl2br($items['data'][$x]->content_description); ?></p>
 
 				<?php if(!empty($items['data'][$x]->original_file_name)){ ?>
-				<p><small><?php echo $items['data'][$x]->original_file_name; ?> <button class="btn btn-xs btn-success download" data-cat="<?php echo $items['data'][$x]->id; ?>"><i class="material-icons">cloud_download</i></button></small></p>
+				<p class="display-files  display-field"><small><?php echo $items['data'][$x]->original_file_name; ?> <button class="btn btn-xs btn-success download" data-cat="<?php echo $items['data'][$x]->id; ?>"><i class="material-icons">cloud_download</i></button></small></p>
 				<?php } ?>
 
 				<br/><br/>
 
-				<?php if(strlen(trim($items['data'][$x]->keywords))>0){ ?><p class="text-muted"><small><b><span class="glyphicon glyphicon-tags"></span> Tags</b>( <?php echo $items['data'][$x]->keywords; ?>)</small></p><br/> <?php } ?>
+				<?php if(strlen(trim($items['data'][$x]->keywords))>0){ ?><p class="text-muted  display-keywords  display-field"><small><b><span class="glyphicon glyphicon-tags"></span> Tags</b>( <?php echo $items['data'][$x]->keywords; ?>)</small></p><br/> <?php } ?>
 			</div>
 
 			<?php endfor; ?>

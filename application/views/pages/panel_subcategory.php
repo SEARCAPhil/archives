@@ -1,7 +1,7 @@
 <div class="col col-lg-2 col-sm-2 col-md-3 pull-left hidden-sm hidden-xs" style="font-size: 0.9em;height: 100%;">
 	<div class="row" style="background: rgb(60,60,60); padding: 5px 0px 5px 30px;color:rgb(250,250,250);">
 
-		<p><span class="text-muted"><b><?php echo $details[0]->category; ?></b> \ </span><b>Sub-categories</b> <i class="material-icons md-18">keyboard_arrow_down</i></p>
+		<p><span class="text-muted"><b><?php echo @isset($details[0]->category)?$details[0]->category:@utf8_encode(htmlentities(htmlspecialchars($_GET['category']))); ?></b> \ </span><b>Sub-categories</b> <i class="material-icons md-18">keyboard_arrow_down</i></p>
 	</div>
 
 	<div class="col col-md-12 row">

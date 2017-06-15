@@ -1,23 +1,38 @@
+<style type="text/css">
+	body{
+		background: rgba(250,250,250,0.8);
+	}
+</style>
+<div class="col col-md-9 col-sm-9 col-lg-10">
 
-<div class="col col-md-9 col-sm-9 col-lg-7 col-lg-offset-1">
+	
 
-	<div class=" table-responsive col col-xs-12">
-		<br/><br/><br/>
-		<h3><span class="glyphicon glyphicon-pencil"></span> Step 1/2  <span class="text-muted">(Details)</span> <span class="pull-right"><button class="btn btn-primary" onclick="document.getElementById('next').click()">Next &raquo;</button></span></h3>
-		<p class="text-muted">Two-way process of reaching mutual understanding, in which participants not only exchange (encode-decode) information, news, ideas and feelings but also create and share meaning. In general, communication is a means of connecting people or places. In business, it is a key function of management--an organization cannot operate without communication between levels, departments and employees. See also communications.
+	<div class="col col-xs-12">
 
-Read more: http://www.businessdictionary.com/definition/communication.html</p>
-		<br/>
+			<div class="col row">			<!--first-->
+				<article class="col col-md-12 col-lg-6">
+					<div class="col col-lg-12"  style="background: #fff;border-radius: 10px;box-shadow: 0px 0px 3px rgba(200,200,200,0.7);padding: 20px 20px;margin-top: 50px;">
+
+						<h3 class="text-muted"><i class="material-icons md-36">find_in_page</i> Advance Search</h3>	
+					</div>
+				</article>
+			</div>
+			<div class="row">
+
+				<article  class="col col-md-12 col-lg-6"><br/>
+					<div class="col col-lg-12 text-muted text-justify">	
+						<p>Advanced search is a full search of the entire dictionary text. It finds your term wherever it occurs in the dictionary. This could be in the form of an entry name, part of another word's definition, in a quotation, etc. An Advanced search also allows you to search for words that occur near one another, such as bread before butter.</p>
+					</div>
+				</article>
+			</div>
+				<?php echo form_open('advance/search/','class="form-horizontal",action='.$_SERVER['PHP_SELF']);  ?>
 		
-		
-		<?php echo form_open('form','class="form-horizontal",action='.$_SERVER['PHP_SELF']);  ?>
-		<div class=" well container-fluid">
-			<h3><span class="glyphicon glyphicon-file"></span> Material Form</h3>
-			<p class="text-muted">Instruction: Please fill out all necessary fields to add <em><b>new item</b></em> on this category. </p>
-			<hr style="border:1px solid rgb(150,150,150);" />
+
 			<!--first-->
-			<article class="col col-md-6">
-				<h5 class="page-header text-muted"><b><span class="badge badge-success"><span class="glyphicon glyphicon-pushpin"></span></span> Basic Information</b></h5><br/>
+			<article class="col col-md-12 col-lg-6">
+				<div class="col col-lg-12"  style="background: #fff;border-radius: 10px;box-shadow: 0px 0px 3px rgba(200,200,200,0.7);padding: 20px 20px;margin-top: 50px;">
+
+				<h5 class="page-header text-muted"><b><i class="material-icons">laptop</i> Basic Information</b></h5><br/>
 						<div class="form-group has-feedback" id="form-title">
 							<label for="inputTitle" class="control-label col-xs-3 ">Document Tile</label>
 							<div class="col-xs-9">
@@ -145,7 +160,7 @@ Read more: http://www.businessdictionary.com/definition/communication.html</p>
 
 				<!--second-->
 				
-						<br/><h5 class="page-header text-muted"><b><span class="badge badge-success"><span class="glyphicon glyphicon-pushpin"></span></span> Location</b></h5><br/>	
+						<br/><h5 class="page-header text-muted"><b><i class="material-icons">cloud</i> Location</b></h5><br/>	
 							<div class="form-group has-feedback" id="form-title">
 								<label for="inputTitle" class="control-label col-xs-3 ">Location</label>
 								<div class="col-xs-9">
@@ -297,15 +312,15 @@ Read more: http://www.businessdictionary.com/definition/communication.html</p>
 							</div>
 						<?php endif; ?>
 
-
+						</div>
 
 					</article>
 					<!--/second-->
 					<!--third-->
-					<article class="col col-md-6">
-						
+					<article class="col col-md-12 col-lg-6">
+						<div class="col col-lg-12"  style="background: #fff;border-radius: 10px;box-shadow: 0px 0px 3px rgba(200,200,200,0.7);padding: 20px 20px;margin-top: 50px;">	
 						<!--title-->
-						<h5 class="page-header text-muted"><b><span class="badge badge-success"><span class="glyphicon glyphicon-pushpin"></span></span> Condition</b></h5><br/>
+						<h5 class="page-header text-muted"><b><i class="material-icons">insert_drive_file</i> Condition</b></h5><br/>
 
 
 						
@@ -442,11 +457,31 @@ Read more: http://www.businessdictionary.com/definition/communication.html</p>
 							</div>
 						</div>
 
-					
-						</article>
+				
+						
+						<!--title-->
+						<h5 class="page-header text-muted"><b><i class="material-icons">filter_list</i> Expression</b></h5><br/>
 
-		</div>
+
+						
+						<div class="col col-md-12">
+							<p><input type="radio" name="expression" /> AND </p>
+							<p><input type="radio" name="expression" /> OR </p>
+							<p><input type="radio" name="expression" /> NOT </p>
+						</div>
+
+
+
+					</div>
+					</article>
+
+
+
+		
 	</form>
+
+
+
 	</div>
+
 </div>
-<script type="text/javascript" src="<?php echo site_url().'assets/javascripts/series.selector.js'; ?>"></script>

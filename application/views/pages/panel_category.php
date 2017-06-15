@@ -23,6 +23,62 @@
 				<ul class="list-unstyled collapse display-section" style="height: 100%;">
 					<li class="view" id="table"><a href="#"><span class="glyphicon glyphicon-th"></span> Table view</a></li>		
 					<li class="view"><a href="#"><span class="glyphicon glyphicon-list"></span> List view</a></li>
+					<li class="view"></li>
+					<li data-role="none" class="text-muted"><i class="material-icons text-muted">filter_list</i> <span class="text-muted">Filter fields</span></li>
+					<li data-role="none" class="divider"></li>
+					<li>
+						<ul class="list-unstyled" style="font-size: 12px;">
+
+		    				<li>
+								<span>
+		    						<input type="checkbox" id="recordNumberCheckBox" name="record_number" class="checkbox-group report-field" value="6" data-sort="0" > 
+
+		    						<label for="recordNumberCheckBox"><span></span></label> Record Number
+		    					</span>	
+		    				</li>
+
+		    				<li>
+								<span>
+		    						<input type="checkbox" id="descriptionCheckBox" name="description" class="checkbox-group report-field" value="6" data-sort="1"> 
+
+		    						<label for="descriptionCheckBox"><span></span></label> Description
+		    					</span>	
+		    				</li>
+
+
+		    				<li>
+								<span>
+		    						<input type="checkbox" id="keywordsCheckBox" name="keywords" class="checkbox-group report-field" value="6"  data-sort="2" > 
+
+		    						<label for="keywordsCheckBox"><span></span></label> Keywords
+		    					</span>	
+		    				</li>
+
+
+		    				<li>
+								<span>
+		    						<input type="checkbox" id="filesCheckBox" name="files" class="checkbox-group report-field" value="6"  data-sort="3"> 
+
+		    						<label for="filesCheckBox"><span></span></label> Files
+		    					</span>	
+		    				</li>
+
+
+		    				<li>
+								<span>
+		    						<input type="checkbox" id="menuCheckBox" name="menu" class="checkbox-group report-field" value="6"  data-sort="4"> 
+
+		    						<label for="menuCheckBox"><span></span></label> Menu
+		    					</span>	
+		    				</li>
+
+		    				
+		    			</ul>
+						
+					</li>	
+
+
+
 				</ul>
 
 
@@ -43,5 +99,16 @@
 				</ul>
 
 
+				<div class="row">
+					<span class="left-navigation-header"   data-toggle="collapse" data-target=".advance-settings-section"><i class="material-icons">settings</i> Advance Settings <i class="material-icons pull-right" onclick="$(this).html()=='keyboard_arrow_right'?$(this).html('keyboard_arrow_down'):$(this).html('keyboard_arrow_right')">keyboard_arrow_right</i></span>
+				</div>
+
+
+				<ul class="list-unstyled collapse advance-settings-section" style="height: 100%;">
+					<li><a href="<?php echo base_url(); ?>advance/search/"><i class="material-icons">find_in_page</i> Advance Search</a></li>	
+				</ul>
+
+
 			</div>
 		</div>
+<script type="text/javascript" src="<?php echo base_url();?>assets/javascripts/panel.js"></script>

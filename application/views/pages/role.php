@@ -1,7 +1,7 @@
 
-<div class="container" name="role">
+<div class="col col-sm-9 col-md-9 col-lg-8 col-lg-offset-1" name="role">
 	<?php for($x=0;$x<count($role); $x++){ ?>
-		<article class="col col-md-10 col-md-offset-1">
+		<article class="col col-md-12">
 
 			<div class="col col-md-12" style="margin-bottom: 50px;">
 				<h3><a href="?role_id=<?php echo ucfirst($role[$x]->id); ?>"><?php echo ucfirst($role[$x]->role); ?></a></h3>

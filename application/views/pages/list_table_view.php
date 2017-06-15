@@ -2,12 +2,12 @@
 <?php if(count($items['data'])>0){ ?><br/><br/>
 <table class="table table-striped table-hovered  tablesorter table-responsive" id="listTable" style="font-size: 0.95em; border:1px solid rgb(220,220,220);border-radius: 5% !important;">
 	<thead style="background: rgb(150,150,150); color: rgb(240,240,240);">
-		<th>Record Number</th>
+		<th class="display-record_number  display-field">Record Number</th>
 		<th width="30%">Title</th>
-		<th>Desription</th>
-		<th>Keywords</th>
-		<th>Files</th>
-		<th></th>
+		<th class="display-description  display-field">Desription</th>
+		<th class="display-keywords  display-field">Keywords</th>
+		<th class="display-files  display-field">Files</th>
+		<th  class="display-menu  display-field"></th>
 	</thead>
 	<tfoot>
 		<tr>
@@ -19,18 +19,18 @@
 
 		<?php for($x=0; $x<count($items['data']); $x++): ?>
 			<tr>
-				<td><?php echo $items['data'][$x]->id; ?></td>
+				<td class="display-record_number  display-field"><?php echo $items['data'][$x]->id; ?></td>
 				<td>
-					<a href="<?php echo base_url(); ?>?id=<?php echo $items['data'][$x]->id; ?>&parent=<?php echo $details[0]->id; ?>&category=<?php echo $details[0]->category; ?>&title=<?php echo urlencode(utf8_encode($items['data'][$x]->document_title)); ?>"><?php echo nl2br($items['data'][$x]->document_title); ?></a>
+					<a href="<?php echo base_url(); ?>?item_id=<?php echo $items['data'][$x]->id; ?>&id=<?php echo $details[0]->id; ?>&category=<?php echo $details[0]->category; ?>&title=<?php echo urlencode(utf8_encode($items['data'][$x]->document_title)); ?>"><?php echo nl2br($items['data'][$x]->document_title); ?></a>
 
 					<?php if(empty($items['data'][$x]->document_title)): ?>
-						<a href="<?php echo base_url(); ?>?id=<?php echo $items['data'][$x]->id; ?>&parent=<?php echo $details[0]->id; ?>&category=<?php echo $details[0]->category; ?>&title=<?php echo urlencode(utf8_encode($items['data'][$x]->document_title)); ?>">UNTITLED</a>
+						<a href="<?php echo base_url(); ?>?item_id=<?php echo $items['data'][$x]->id; ?>&id=<?php echo $details[0]->id; ?>&category=<?php echo $details[0]->category; ?>&title=<?php echo urlencode(utf8_encode($items['data'][$x]->document_title)); ?>">UNTITLED</a>
 					<?php endif; ?>
 				</td>
-				<td><?php echo nl2br($items['data'][$x]->content_description); ?></td>
-				<td><?php echo $items['data'][$x]->keywords; ?></td>
-				<td><?php echo $items['data'][$x]->original_file_name; ?></td>
-				<td>
+				<td class="display-description  display-field"><?php echo nl2br($items['data'][$x]->content_description); ?></td>
+				<td class="display-keywords  display-field"><?php echo $items['data'][$x]->keywords; ?></td>
+				<td class="display-files  display-field"><?php echo $items['data'][$x]->original_file_name; ?></td>
+				<td class="display-menu  display-field">
 					<!--<div class="dropdown">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-print"></span></a>
 						<ul class="dropdown-menu pull-right">

@@ -47,13 +47,13 @@
   }
 </style>
   
-<div class="col col-lg-4 col-lg-offset-4 col-md-8 col-md-offset-2 col-sm-8 col-sm-offset-2">	
+<div class="col col-lg-4 col-lg-offset-4 col-md-5 col-md-offset-4 col-sm-7 col-sm-offset-3 col-xs-10 col-xs-offset-1">	
 
         <div class="row">
-         <div class="col col-md-12 text-center" style="min-width: 70px !important;">
+         <div class="col col-md-12 text-center" style="min-width: 70px !important;margin-bottom: 40px;">
             <!--  <img src="<?php echo base_url(); ?>assets/images/logo-new.png" width="100px">-->
-            <img src="<?php echo base_url(); ?>assets/images/logo-new.png" width="260px">
-            <h1></h1>
+            <img src="<?php echo base_url(); ?>assets/images/SEARCA.png" width="70%">
+            
           </div>
 
           <div class="col col-md-12 text-center" style="margin-bottom: 20px;">

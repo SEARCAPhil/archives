@@ -63,6 +63,30 @@ html{
 	box-shadow: none;
 	border: none;
 }
+
+
+input[type="checkbox"] {
+    display:none;
+}
+
+
+input[type="checkbox"] + label span {
+    display:inline-block;
+    width:19px;
+    height:19px;
+    background: rgb(150,150,150);
+}
+
+input[type="checkbox"]:checked + label span {
+	background: url('../images/checked.png');
+}
+
+input[type="checkbox"].small + label span{
+	transform: scale(0.6);
+	margin-bottom: -4px;
+}
+
+
 .navbar-top{
 	border-radius: 0;
 	border:none;
@@ -154,10 +178,24 @@ html{
 }
 .left-navigation li{
 	padding: 10px;
+	color: rgb(200,200,200);
+	cursor: pointer;
+}
+
+.left-navigation li.divider{
+	border-bottom: 1px inset rgba(180,180,180,0.1);
+	height: 1px;
+	padding: 0;
+
 }
 
 .left-navigation li a {
 	color: rgb(200,200,200);
+}
+
+.left-navigation li:hover{
+
+	color: rgb(240,240,240);
 }
 
 .left-navigation li a:hover{
@@ -207,4 +245,9 @@ html{
 
 .navigation-sub-nav li a{
 	color: rgb(40,40,40);
+}
+
+/*table header*/
+.display-field{
+	display: none;
 }

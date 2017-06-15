@@ -135,7 +135,7 @@ class Form extends MY_Controller {
 
 	public function get_item_details(){
 
-		$this->item_details=$this->item->get_item_details($this->input->get('id',true));
+		$this->item_details=$this->item->get_item_details($this->input->get('item_id',true));
 		
 	}
 
@@ -225,10 +225,11 @@ class Form extends MY_Controller {
 		if ($this->form_validation->run() == FALSE)
         {		
         		//update
-        		if($this->input->get('id')){
-        			$this->load->view('forms/item.php',array('data'=>$this->session_sub_categories,'param'=>$this->input->get(),'items'=>$this->item_details));
+        		if($this->input->get('item_id')){
+        			#$this->load->view('forms/item.php',array('data'=>$this->session_sub_categories,'param'=>$this->input->get(),'items'=>$this->item_details));
+        			$this->load->view('forms/item.php',array('param'=>$this->input->get(),'items'=>$this->item_details));
         		}else{
-        		//add new
+        			//add new
         			$this->load->view('forms/item.php');
         		}
                 
@@ -250,11 +251,18 @@ class Form extends MY_Controller {
             		
             	}
             	
-			
+            
+				
             	setcookie("dms-upload-id",$this->last_insert_result['data'],1,'/');
             	setcookie("dms-upload-cat",$this->input->post('series'),1,'/');
 
-            	setcookie("dms-upload-id",$this->last_insert_result['data'],time()+3600,'/');
+
+            	if(is_null($this->input->post('id'))||empty($this->input->post('id'))){
+            		setcookie("dms-upload-id",$this->last_insert_result['data'],time()+3600,'/');
+            	}else{
+            		setcookie("dms-upload-id",$this->input->post('id'),time()+3600,'/');
+            	}
+
             	setcookie("dms-upload-cat",$this->input->post('series'),time()+3600,'/');
 
             	sleep(1);

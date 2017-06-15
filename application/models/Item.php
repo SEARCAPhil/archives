@@ -113,11 +113,12 @@ class Item extends CI_Model {
 		$this->keywords=isset($item['keywords'])?htmlentities(htmlspecialchars($item['keywords'])):'';
 		$this->provenance=isset($item['provenance'])?htmlentities(htmlspecialchars($item['provenance'])):'';
 		$this->remarks=isset($item['remarks'])?htmlentities(htmlspecialchars($item['remarks'])):'';
+		$this->cat_id=isset($item['series'])?htmlentities(htmlspecialchars($item['series'])):'';
 		$this->date_of_input=date('Y/m/d');
 
 
-		$query="UPDATE item set date_range=?,language=?,location=?,shelf_cabinet_number=?,tier_number=?,box_number=?,folder_number=?,record_number=?,material=?,access_condition=?,physical_condition=?,quantity=?,record_group=?,document_title=?,creator=?,place=?,publisher=?,source_title=?,collation=?,content_description=?,notes=?,keywords=?,provenance=?,remarks=?,date_of_input=? where id=?";
-		$stmt=$this->db->query($query,array($this->date_range,$this->language,$this->location,$this->shelf_cabinet_number,$this->tier_number,$this->box_number,$this->folder_number,$this->record_number,$this->material,$this->access_condition,$this->physical_condition,$this->quantity,$this->record_group,$this->document_title,$this->creator,$this->place,$this->publisher,$this->source_title,$this->collation,$this->content_description,$this->notes,$this->keywords,$this->provenance,$this->remarks,$this->date_of_input,$this->id));
+		$query="UPDATE item set date_range=?,language=?,location=?,shelf_cabinet_number=?,tier_number=?,box_number=?,folder_number=?,record_number=?,material=?,access_condition=?,physical_condition=?,quantity=?,record_group=?,document_title=?,creator=?,place=?,publisher=?,source_title=?,collation=?,content_description=?,notes=?,keywords=?,provenance=?,remarks=?,date_of_input=? ,cat_id=? where id=?";
+		$stmt=$this->db->query($query,array($this->date_range,$this->language,$this->location,$this->shelf_cabinet_number,$this->tier_number,$this->box_number,$this->folder_number,$this->record_number,$this->material,$this->access_condition,$this->physical_condition,$this->quantity,$this->record_group,$this->document_title,$this->creator,$this->place,$this->publisher,$this->source_title,$this->collation,$this->content_description,$this->notes,$this->keywords,$this->provenance,$this->remarks,$this->date_of_input,$this->cat_id,$this->id));
 		
 		return $this->db->affected_rows();
 	}
