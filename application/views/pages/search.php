@@ -1,18 +1,24 @@
 <?php 	
 	$page=$this->input->get('page',true)!=null?$this->input->get('page',true):1; 
 	$id=($this->input->get('id',true)); 
+
+	$search_param=strip_tags(htmlentities(htmlspecialchars(utf8_encode($param['search']))));
+
 ?>
 
+<div class="col col-lg-10 col-sm-9 col-md-9 col-xs-12 pull-right document-header">
+	<div class="text-muted  text-center	 col col-lg-3 col-md-6 col-sm-6 col-xs-6" style="border-right: 1px solid rgb(240,240,240);">
+		<h3><b><u><?php echo isset($items['total'])?$items['total']:0; ?></u> <i class="material-icons md-24">insert_drive_files</i></b></h3>
+		<p><small><span class="glyphicon glyphicon-search"></span> Total search results found</small></p>
 
-	<div class=" table-responsive col col-md-8 col-md-offset-1 ">
-		<br/>
-		<div class="row  text-center">
-			<h1>&nbsp;Search results</h1>
-			<h1><span class="glyphicon glyphicon-search"></span></h1>
-			<h4><small><b><?php echo isset($items['total'])?$items['total']:0; ?></b> result(s) found</small></h4>
-		</div>
 	</div>
-	<br/><br/><br/>
+
+	<div class="text-muted  col-lg-3 col-md-6 col-sm-6 col-xs-6 text-center" onclick="window.open('report/search/?search=<?php echo $search_param; ?>&page=<?php echo $page; ?>');">
+		<h3><b> <i class="material-icons md-36">print</i></b></h3>
+		<p>PRINT</p>
+
+	</div>
+</div>
 
 
 

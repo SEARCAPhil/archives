@@ -109,6 +109,15 @@
 				</ul>
 
 
+				<div class="row">
+					<span class="left-navigation-header"   data-toggle="collapse" data-target=".report-section"><i class="material-icons">picture_as_pdf</i> Report <i class="material-icons pull-right" onclick="$(this).html()=='keyboard_arrow_right'?$(this).html('keyboard_arrow_down'):$(this).html('keyboard_arrow_right')">keyboard_arrow_right</i></span>
+				</div>
+
+				<ul class="list-unstyled collapse report-section" style="height: 100%;">
+					<li>#</li>	
+				</ul>
+
+
 			</div>
 		</div>
 <script type="text/javascript" src="<?php echo base_url();?>assets/javascripts/panel.js"></script>

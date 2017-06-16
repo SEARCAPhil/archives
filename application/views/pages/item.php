@@ -1,6 +1,6 @@
 <?php include_once('panel_subcategory.php'); ?>
 
-<div class="col col-md-6 col-sm-9 col-lg-8" style="/*background: rgba(41, 128, 185,1.0);color:rgb(250,250,250);*/background:rgba(250,250,250,0.9);padding: 20px;margin-bottom: 30px;border-bottom: 1px solid #ccc;">
+<div class="col col-md-6 col-sm-9 col-lg-8">
 		<div class="col col-md-12">
 			<h3> &nbsp;<?php echo ucfirst($items[0]->document_title); ?></h3>
 			<p class="text-muted"><?php echo ucfirst(utf8_encode($items[0]->content_description)); ?></p>
@@ -27,10 +27,31 @@
 
 		</div>
 </div>
+
+<div class="col col-lg-8 col-sm-9 col-md-6 col-xs-12 pull-right document-header">
+	<div class="text-center	 col col-lg-3 col-md-4 col-sm-4 col-xs-4" style="border-right: 1px solid rgb(240,240,240);padding-top: 20px;">
+		<p><b><?php echo ($items[0]->record_number); ?></b></p>
+		<p><small>Record Number</small></p>
+
+	</div>
+
+	<div class="col-lg-3 col-md-4 col-sm-4 col-xs-4 text-center" onclick="window.open('report/item/?item_id=<?php echo @$items[0]->id; ?>');"  style="border-right: 1px solid rgb(240,240,240);">
+		<h3><b> <i class="material-icons md-36">print</i></b> </h3>
+
+	</div>
+
+
+	<div class="col-lg-3 col-md-4 col-sm-4 col-xs-4 text-center custom-print">
+		<h3><b> <i class="material-icons md-36">print</i>  <i class="material-icons md-36">description</i></b> </h3>
+
+	</div>
+
+	
+</div>
 <div  class="col col-md-6 col-sm-9 col-lg-8">
 
 <?php if(isset($items[0])){ ?>
-	<div class=" table-responsive col col-md-12 col-sm-12 col-lg-12 ">
+	<div class="col col-md-12 col-sm-12 col-lg-12 ">
 		
 		<p>
 			<li class="dropdown list-unstyled pull-right"><a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="material-icons pull-right">keyboard_arrow_down</i></a>
@@ -90,146 +111,447 @@
 				<?php if(!is_empty($items[0]->category)){ ?> <li><b>Source Title :</b> <?php echo $items[0]->source_title; ?></li><?php } ?>
 				-->		
 
-				<?php if(!is_empty($items[0]->document_title)){ ?> <li><span class="col col-md-12 col-lg-3 col-sm-4 col-xs-12"><b>Document Title :</b></span> <span class="col col-md-9 col-sm-8 col-xs-12"><?php echo nl2br($items[0]->document_title); ?></span></li><?php } ?>
-				<?php if(!is_empty($items[0]->category)){ ?> <li><span class="col col-md-12 col-lg-3 col-sm-4 col-xs-12"><b>Category :</b></span> <span class=" col-md-9 col-sm-8 col-xs-12"><?php echo nl2br($items[0]->category); ?></span></li><?php } ?>
-				<?php if(!is_empty($items[0]->source_title)){ ?> <li><span class="col col-md-12 col-lg-3 col-sm-4 col-xs-12"><b>Source Title :</b></span> <span class=" col-md-9 col-sm-8 col-xs-12"><?php echo nl2br($items[0]->source_title); ?></span></li><?php } ?>
-				<?php if(!is_empty($items[0]->creator)){ ?> <li><span class="col col-md-12 col-lg-3 col-sm-4 col-xs-12"><b>Creator :</b></span> <span class=" col-md-9 col-sm-8 col-xs-12"><?php echo nl2br($items[0]->creator); ?></span></li><?php } ?>
-				<?php if(!is_empty($items[0]->publisher)){ ?> <li><span class="col col-md-12 col-lg-3 col-sm-4 col-xs-12"><b>Publisher :</b></span> <span class=" col-md-9 col-sm-8 col-xs-12"><?php echo nl2br($items[0]->publisher); ?></span></li><?php } ?>
-				<?php if(!is_empty($items[0]->content_description)){ ?> <li>
-					<span class="col col-md-12 col-lg-3 col-sm-4 col-xs-12"><b>Content Description :</b></span>
-				 	<span class="col-md-9 col-sm-8 col-xs-12"><?php echo nl2br($items[0]->content_description); ?></span></li>
-				<?php } ?>	
-				<?php if(!is_empty($items[0]->place)){ ?> <li><span class="col col-md-3 col-sm-4 col-xs-12"><b>Place :</b></span> <span class="col-md-9 col-sm-8 col-xs-12"><?php echo $items[0]->place; ?></span></li><?php } ?>
-
-
-				<?php if(!is_empty($items[0]->date_of_input)){ ?> 
-					<li><span class="col col-md-12 col-lg-3 col-sm-4 col-xs-12"><b>Date :</b></span> 
-					<span class="col-md-9 col-sm-8 col-xs-12"><?php echo $items[0]->date_of_input; ?></span>
-				</li><?php } ?>
-
-
-				<?php if(!is_empty($items[0]->collation)){ ?> 
-					<li><span class="col col-md-12 col-lg-3 col-sm-4 col-xs-12"><b>Collation :</b></span> 
-					<span class="col-md-9 col-sm-8 col-xs-12"><?php echo $items[0]->collation; ?></span>
-				</li><?php } ?>
-
-
-				<?php if(!is_empty($items[0]->language)){ ?> 
-					<li><span class="col col-md-12 col-lg-3 col-sm-4 col-xs-12"><b>Language :</b></span> 
-					<span class="col-md-9 col-sm-8 col-xs-12"><?php echo $items[0]->language; ?></span>
+				<?php if(!is_empty($items[0]->document_title)){ ?> 
+					<li class="row">
+						<span class="col col-md-12 col-lg-3 col-sm-4 col-xs-12">
+							<span  class="custom-print-checkbox">&emsp;&nbsp;&nbsp;</span>
+							<b>Document Title :</b>
+						</span> 
+						<span class="col col-md-9 col-sm-8 col-xs-12"><?php echo nl2br($items[0]->document_title); ?></span>
 					</li>
 				<?php } ?>
 
+
+
+				<?php if(!is_empty($items[0]->category)){ ?> 
+					<li class="row">
+						<span class="col col-md-12 col-lg-3 col-sm-4 col-xs-12">
+							<span  class="custom-print-checkbox">
+								 <span>
+						            <input type="checkbox" id="filesCheckBoxc" name="files" class="checkbox-group"> 
+
+						            <label for="filesCheckBoxc"><span></span></label>
+						          </span> 
+							</span>
+							<b>Category :</b></span> 
+						<span class=" col-md-9 col-sm-8 col-xs-12"><?php echo nl2br($items[0]->category); ?></span>
+				</li><?php } ?>
+
+
+				<?php if(!is_empty($items[0]->source_title)){ ?> 
+					<li class="row">
+						<span class="col col-md-12 col-lg-3 col-sm-4 col-xs-12">
+						<span  class="custom-print-checkbox">
+								 <span>
+						            <input type="checkbox" id="filesCheckBoxc" name="files" class="checkbox-group"> 
+
+						            <label for="filesCheckBoxc"><span></span></label>
+						          </span> 
+							</span>
+							<b>Source Title :</b></span> 
+						<span class=" col-md-9 col-sm-8 col-xs-12"><?php echo nl2br($items[0]->source_title); ?></span>
+					</li>
+				<?php } ?>
+
+
+				<?php if(!is_empty($items[0]->creator)){ ?> 
+					<li class="row">
+						<span class="col col-md-12 col-lg-3 col-sm-4 col-xs-12">
+							<span  class="custom-print-checkbox">
+								 <span>
+						            <input type="checkbox" id="filesCheckBoxc" name="files" class="checkbox-group"> 
+
+						            <label for="filesCheckBoxc"><span></span></label>
+						          </span> 
+							</span>
+							<b>Creator :</b>
+						</span> 
+						<span class=" col-md-9 col-sm-8 col-xs-12"><?php echo nl2br($items[0]->creator); ?></span>
+					</li>
+				<?php } ?>
+
+
+				<?php if(!is_empty($items[0]->publisher)){ ?> 
+					<li class="row">
+						<span class="col col-md-12 col-lg-3 col-sm-4 col-xs-12">
+							<span  class="custom-print-checkbox">
+								 <span>
+						            <input type="checkbox" id="filesCheckBoxc" name="files" class="checkbox-group"> 
+
+						            <label for="filesCheckBoxc"><span></span></label>
+						          </span> 
+							</span>
+							<b>Publisher :</b>
+						</span> 
+						<span class=" col-md-9 col-sm-8 col-xs-12"><?php echo nl2br($items[0]->publisher); ?></span>
+					</li>
+				<?php } ?>
+
+
+				<?php if(!is_empty($items[0]->content_description)){ ?> 
+					<li class="row">
+						<span class="col col-md-12 col-lg-3 col-sm-4 col-xs-12">
+							<span  class="custom-print-checkbox">
+								 <span>
+						            <input type="checkbox" id="filesCheckBoxc" name="files" class="checkbox-group"> 
+
+						            <label for="filesCheckBoxc"><span></span></label>
+						          </span> 
+							</span>
+							<b>Content Description :</b>
+						</span>
+				 		<span class="col-md-9 col-sm-8 col-xs-12"><?php echo nl2br($items[0]->content_description); ?></span>
+				 	</li>
+				<?php } ?>	
+
+
+				<?php if(!is_empty($items[0]->place)){ ?> 
+						<li class="row">
+							<span class="col col-md-3 col-sm-4 col-xs-12">
+								<span  class="custom-print-checkbox">
+									 <span>
+							            <input type="checkbox" id="filesCheckBoxc" name="files" class="checkbox-group"> 
+
+							            <label for="filesCheckBoxc"><span></span></label>
+							          </span> 
+								</span>
+								<b>Place :</b>
+							</span> 
+							<span class="col-md-9 col-sm-8 col-xs-12"><?php echo $items[0]->place; ?></span>
+						</li>
+					<?php } ?>
+
+
+				<?php if(!is_empty($items[0]->date_of_input)){ ?> 
+					<li class="row">
+						<span class="col col-md-12 col-lg-3 col-sm-4 col-xs-12">
+							<span  class="custom-print-checkbox">
+								 <span>
+						            <input type="checkbox" id="filesCheckBoxc" name="files" class="checkbox-group"> 
+
+						            <label for="filesCheckBoxc"><span></span></label>
+						          </span> 
+							</span>
+							<b>Date :</b>
+						</span> 
+						<span class="col-md-9 col-sm-8 col-xs-12"><?php echo $items[0]->date_of_input; ?></span>
+					</li>
+				<?php } ?>
+
+
+				<?php if(!is_empty($items[0]->collation)){ ?> 
+						<li class="row">
+							<span class="col col-md-12 col-lg-3 col-sm-4 col-xs-12">
+								<span  class="custom-print-checkbox">
+									 <span>
+							            <input type="checkbox" id="filesCheckBoxc" name="files" class="checkbox-group"> 
+
+							            <label for="filesCheckBoxc"><span></span></label>
+							          </span> 
+								</span>
+								<b>Collation :</b>
+							</span> 
+							<span class="col-md-9 col-sm-8 col-xs-12"><?php echo $items[0]->collation; ?></span>
+						</li>
+				<?php } ?>
+
+
+				<?php if(!is_empty($items[0]->language)){ ?> 
+					<li class="row">
+						<span class="col col-md-12 col-lg-3 col-sm-4 col-xs-12">
+							<span  class="custom-print-checkbox">
+								 <span>
+						            <input type="checkbox" id="filesCheckBoxc" name="files" class="checkbox-group"> 
+
+						            <label for="filesCheckBoxc"><span></span></label>
+						          </span> 
+							</span>
+							<b>Language :</b>
+						</span> 
+						<span class="col-md-9 col-sm-8 col-xs-12"><?php echo $items[0]->language; ?></span>
+					</li>
+				<?php } ?>
+
+
+
 				<?php if(!is_empty($items[0]->access_condition)){ ?> 
-					<li><span class="col col-md-12 col-lg-3 col-sm-4 col-xs-12"><b>Access Condition :</b></span> 
+					<li>
+						<span class="col col-md-12 col-lg-3 col-sm-4 col-xs-12"><b>Access Condition :</b></span> 
 						<span class="col-md-9 col-sm-8 col-xs-12"><?php echo $items[0]->access_condition; ?></span>
 					</li>
 				<?php } ?>
 
 
 				<?php if(!is_empty($items[0]->physical_condition)){ ?> 
-					<li>
-						<span class="col col-md-12 col-lg-3 col-sm-4 col-xs-12"><b>Physical Condition :</b></span> 
+					<li class="row">
+						<span class="col col-md-12 col-lg-3 col-sm-4 col-xs-12">
+							<span  class="custom-print-checkbox">
+								 <span>
+						            <input type="checkbox" id="filesCheckBoxc" name="files" class="checkbox-group"> 
+
+						            <label for="filesCheckBoxc"><span></span></label>
+						          </span> 
+							</span>
+							<b>Physical Condition :</b>
+						</span> 
 						<span class="col-md-9 col-sm-8 col-xs-12"><?php echo $items[0]->physical_condition; ?></span>
 					</li>
 				<?php } ?>
 
 
 				<?php if(!is_empty($items[0]->record_number)){ ?>
-					 <li>
-					 	<span class="col col-md-12 col-lg-3 col-sm-4 col-xs-12"><b>Record Group :</b></span> 
+					 <li class="row">
+					 	<span class="col col-md-12 col-lg-3 col-sm-4 col-xs-12">
+					 		<span  class="custom-print-checkbox">
+								 <span>
+						            <input type="checkbox" id="filesCheckBoxc" name="files" class="checkbox-group"> 
+
+						            <label for="filesCheckBoxc"><span></span></label>
+						          </span> 
+							</span>
+					 		<b>Record Group :</b>
+					 	</span> 
 					 	<span class="col-md-9 col-sm-8 col-xs-12"><?php echo $items[0]->record_number; ?></span>
 					 </li>
 				 <?php } ?>
 
 				<?php if(!is_empty($items[0]->material)){ ?> 
-					<li>
-						<span class="col col-md-12 col-lg-3 col-sm-4 col-xs-12"><b>Material :</b></span> 
+					<li class="row">
+						<span class="col col-md-12 col-lg-3 col-sm-4 col-xs-12">
+							<span  class="custom-print-checkbox">
+								 <span>
+						            <input type="checkbox" id="filesCheckBoxc" name="files" class="checkbox-group"> 
+
+						            <label for="filesCheckBoxc"><span></span></label>
+						          </span> 
+							</span>
+							<b>Material :</b>
+						</span> 
 						<span class="col-md-9 col-sm-8 col-xs-12"><?php echo $items[0]->material; ?></span>
 					</li>
 				<?php } ?>
 
 
 				<?php if(!is_empty($items[0]->notes)){ ?>
-				 	<li><span class="col col-md-12 col-lg-3 col-sm-4 col-xs-12"><b>Notes :</b></span> 
+				 	<li class="row">
+				 		<span class="col col-md-12 col-lg-3 col-sm-4 col-xs-12">
+				 			<span  class="custom-print-checkbox">
+								 <span>
+						            <input type="checkbox" id="filesCheckBoxc" name="files" class="checkbox-group"> 
+
+						            <label for="filesCheckBoxc"><span></span></label>
+						          </span> 
+							</span>
+				 			<b>Notes :</b></span> 
 				 		<span class="col-md-9 col-sm-8 col-xs-12"><?php echo nl2br($items[0]->notes); ?></span>
 				 	</li>
 				 <?php } ?>
 
 
 				<?php if(!is_empty($items[0]->keywords)){ ?> 
-					<li><span class="col col-md-12 col-lg-3 col-sm-4 col-xs-12"><b>Keywords :</b></span> 
+					<li class="row">
+						<span class="col col-md-12 col-lg-3 col-sm-4 col-xs-12">
+							<span  class="custom-print-checkbox">
+								 <span>
+						            <input type="checkbox" id="filesCheckBoxc" name="files" class="checkbox-group"> 
+
+						            <label for="filesCheckBoxc"><span></span></label>
+						          </span> 
+							</span>
+							<b>Keywords :</b>
+						</span> 
 						<span class="col-md-9 col-sm-8 col-xs-12"><?php echo $items[0]->keywords; ?></span>
 					</li>
 				<?php } ?>
 
 				<?php if(!is_empty($items[0]->provenance)){ ?> 
-					<li><span class="col col-md-12 col-lg-3 col-sm-4 col-xs-12"><b>Provenance :</b></span> 
-					<span class="col-md-9 col-sm-8 col-xs-12"><?php echo $items[0]->provenance; ?></span>
+					<li class="row">
+						<span class="col col-md-12 col-lg-3 col-sm-4 col-xs-12">
+							<span  class="custom-print-checkbox">
+								 <span>
+						            <input type="checkbox" id="filesCheckBoxc" name="files" class="checkbox-group"> 
+
+						            <label for="filesCheckBoxc"><span></span></label>
+						          </span> 
+							</span>
+							<b>Provenance :</b>
+						</span> 
+						<span class="col-md-9 col-sm-8 col-xs-12"><?php echo $items[0]->provenance; ?></span>
 					</li>
 				<?php } ?>
 
 				<?php if(!is_empty($items[0]->remarks)){ ?> 
-					<li><span class="col col-md-12 col-lg-3 col-sm-4 col-xs-12"><b>Remarks :</b></span> 
-					<span class="col-md-9 col-sm-8 col-xs-12"><?php echo $items[0]->remarks; ?></span>
+					<li class="row">
+						<span class="col col-md-12 col-lg-3 col-sm-4 col-xs-12">
+								<span  class="custom-print-checkbox">
+								 <span>
+						            <input type="checkbox" id="filesCheckBoxc" name="files" class="checkbox-group"> 
+
+						            <label for="filesCheckBoxc"><span></span></label>
+						          </span> 
+							</span>
+							<b>Remarks :</b>
+						</span> 
+						<span class="col-md-9 col-sm-8 col-xs-12"><?php echo $items[0]->remarks; ?></span>
 					</li>
 				<?php } ?>
 
 				<?php if(!is_empty($items[0]->location)){ ?> 
-					<li><span class="col col-md-12 col-lg-3 col-sm-4 col-xs-12"><b>Location :</b></span> 
+					<li class="row">
+						<span class="col col-md-12 col-lg-3 col-sm-4 col-xs-12">
+							<span  class="custom-print-checkbox">
+								 <span>
+						            <input type="checkbox" id="filesCheckBoxc" name="files" class="checkbox-group"> 
+
+						            <label for="filesCheckBoxc"><span></span></label>
+						          </span> 
+							</span>
+							<b>Location :</b>
+						</span> 
 						<span class="col-md-9 col-sm-8 col-xs-12"><?php echo $items[0]->location; ?></span>
 					</li>
 				<?php } ?>
 
 				<?php if(!is_empty($items[0]->shelf_cabinet_number)){ ?> 
-					<li><span class="col col-md-12 col-lg-3 col-sm-4 col-xs-12"><b>Shelf Cabinet Number :</b> </span>
+					<li class="row">
+						<span class="col col-md-12 col-lg-3 col-sm-4 col-xs-12">
+							<span  class="custom-print-checkbox">
+								 <span>
+						            <input type="checkbox" id="filesCheckBoxc" name="files" class="checkbox-group"> 
+
+						            <label for="filesCheckBoxc"><span></span></label>
+						          </span> 
+							</span>
+								<b>Shelf Cabinet Number :</b>
+						</span>
 						<span class="col-md-9 col-sm-8 col-xs-12"><?php echo $items[0]->shelf_cabinet_number; ?></span>
 					</li>
 				<?php } ?>
 
 				<?php if(!is_empty($items[0]->tier_number)){ ?> 
-					<li><span class="col col-md-12 col-lg-3 col-sm-4 col-xs-12"><b>Tier Number :</b></span> 
-					<span class="col-md-9 col-sm-8 col-xs-12"><?php echo $items[0]->tier_number; ?></span>
+					<li class="row">
+						<span class="col col-md-12 col-lg-3 col-sm-4 col-xs-12">
+
+							<span  class="custom-print-checkbox">
+								 <span>
+						            <input type="checkbox" id="filesCheckBoxc" name="files" class="checkbox-group"> 
+
+						            <label for="filesCheckBoxc"><span></span></label>
+						          </span> 
+							</span>
+							<b>Tier Number :</b>
+
+						</span> 
+						<span class="col-md-9 col-sm-8 col-xs-12"><?php echo $items[0]->tier_number; ?></span>
 					</li>
 				<?php } ?>
 
 				<?php if(!is_empty($items[0]->box_number)){ ?> 
-					<li><span class="col col-md-12 col-lg-3 col-sm-4 col-xs-12"><b>Box Number :</b></span> 
+					<li class="row">
+						<span class="col col-md-12 col-lg-3 col-sm-4 col-xs-12">
+							<span  class="custom-print-checkbox">
+								 <span>
+						            <input type="checkbox" id="filesCheckBoxc" name="files" class="checkbox-group"> 
+
+						            <label for="filesCheckBoxc"><span></span></label>
+						          </span> 
+							</span>
+							<b>Box Number :</b>
+						</span> 
 					<span class="col-md-9 col-sm-8 col-xs-12"><?php echo $items[0]->box_number; ?></span>
 					</li>
 				<?php } ?>
 
 				<?php if(!is_empty($items[0]->folder_number)){ ?> 
-					<li><span class="col col-md-12 col-lg-3 col-sm-4 col-xs-12"><b>Folder Number :</b></span> 
+					<li class="row">
+						<span class="col col-md-12 col-lg-3 col-sm-4 col-xs-12">
+							<span  class="custom-print-checkbox">
+								 <span>
+						            <input type="checkbox" id="filesCheckBoxc" name="files" class="checkbox-group"> 
+
+						            <label for="filesCheckBoxc"><span></span></label>
+						          </span> 
+							</span>
+							<b>Folder Number :</b>
+						</span> 
 					<span class="col-md-9 col-sm-8 col-xs-12"><?php echo $items[0]->folder_number; ?></span>
 					</li>
 				<?php } ?>
 
 				<?php if(!is_empty($items[0]->id)){ ?> 
-					<li><span class="col col-md-12 col-lg-3 col-sm-4 col-xs-12"><b>Record/Code Number :</b></span> 
+					<li class="row">
+						<span class="col col-md-12 col-lg-3 col-sm-4 col-xs-12">
+							<span  class="custom-print-checkbox">
+								 <span>
+						            <input type="checkbox" id="filesCheckBoxc" name="files" class="checkbox-group"> 
+
+						            <label for="filesCheckBoxc"><span></span></label>
+						          </span> 
+							</span>
+							<b>Record/Code Number :</b>
+						</span> 
 					<span class="col-md-9 col-sm-8 col-xs-12"><?php echo $items[0]->id; ?></span>
 					</li>
 				<?php } ?>
 
 				<?php if(!is_empty($items[0]->date_range)){ ?> 
-					<li><span class="col col-md-12 col-lg-3 col-sm-4 col-xs-12"><b>Date Range :</b></span> 
+					<li class="row">
+						<span class="col col-md-12 col-lg-3 col-sm-4 col-xs-12">
+							<span  class="custom-print-checkbox">
+								 <span>
+						            <input type="checkbox" id="filesCheckBoxc" name="files" class="checkbox-group"> 
+
+						            <label for="filesCheckBoxc"><span></span></label>
+						          </span> 
+							</span>
+							<b>Date Range :</b>
+						</span> 
 					<span class="col-md-9 col-sm-8 col-xs-12"><?php echo $items[0]->date_range; ?></span>
 					</li>
 				<?php } ?>
 
 				<?php if(!is_empty($items[0]->quantity)){ ?> 
-					<li><span class="col col-md-12 col-lg-3 col-sm-4 col-xs-12"><b>Quantity :</b></span> 
-					<span class="col-md-9 col-sm-8 col-xs-12"><?php echo $items[0]->quantity; ?></span>
+					<li class="row">
+						<span class="col col-md-12 col-lg-3 col-sm-4 col-xs-12">
+							<span  class="custom-print-checkbox">
+								 <span>
+						            <input type="checkbox" id="filesCheckBoxc" name="files" class="checkbox-group"> 
+
+						            <label for="filesCheckBoxc"><span></span></label>
+						          </span> 
+							</span>
+							<b>Quantity :</b>
+						</span> 
+						<span class="col-md-9 col-sm-8 col-xs-12"><?php echo $items[0]->quantity; ?></span>
 					</li>
 				<?php } ?>	
 
 				<?php if(!is_empty($items[0]->profile_name)&&!is_null($items[0]->profile_name)){ ?> 
-					<li><span class="col col-md-12 col-lg-3 col-sm-4 col-xs-12"><b>Encoded By :</b></span> 
+					<li class="row">
+						<span  class="custom-print-checkbox">
+								 <span>
+						            <input type="checkbox" id="filesCheckBoxc" name="files" class="checkbox-group"> 
+
+						            <label for="filesCheckBoxc"><span></span></label>
+						          </span> 
+							</span>
+						<span class="col col-md-12 col-lg-3 col-sm-4 col-xs-12"><b>Encoded By :</b>
+					</span> 
 					<span class="col-md-9 col-sm-8 col-xs-12"><?php echo $items[0]->profile_name; ?></span>
 					</li>
 				<?php }else{?>
 					<?php if(!empty($items[0]->encoded_by))	{ ?>
-						<li><span class="col col-md-12 col-lg-3 col-sm-4 col-xs-12"><b>Encoded By :</b></span> 
+						<li class="row">
+							<span class="col col-md-12 col-lg-3 col-sm-4 col-xs-12">
+								<span  class="custom-print-checkbox">
+									 <span>
+							            <input type="checkbox" id="filesCheckBoxc" name="files" class="checkbox-group"> 
+
+							            <label for="filesCheckBoxc"><span></span></label>
+							          </span> 
+								</span>
+								<b>Encoded By :</b>
+							</span> 
 							<span class="col-md-9 col-sm-8 col-xs-12"><?php echo $items[0]->encoded_by; ?></span>
 						</li>
 					<?php } ?>

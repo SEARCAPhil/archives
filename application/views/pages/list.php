@@ -7,10 +7,16 @@
 
 
 <?php if(@$items['total']>0): ?>
-<div class="col col-lg-8 col-sm-9 col-md-6 " style="background: rgba(250,250,250,0.5);border:1px solid rgba(230,230,230,0.9);" >
-	<div class="text-muted  text-right">
+<div class="col col-lg-8 col-sm-9 col-md-6 col-xs-12 pull-right document-header">
+	<div class="text-muted  text-center	 col col-lg-3 col-md-6 col-sm-6 col-xs-6" style="border-right: 1px solid rgb(240,240,240);">
 		<h3><b><?php echo @($items['total']); ?> Files <i class="material-icons md-24">insert_drive_files</i></b></h3>
 		<p><small>Available under this category</small></p>
+
+	</div>
+
+	<div class="text-muted  col-lg-3 col-md-6 col-sm-6 col-xs-6 text-center" onclick="window.open('report/lists/?id=<?php echo @$items['data'][0]->cat_id; ?>&page=<?php echo @$items['current_page']<=0?1:$items['current_page']; ?>');">
+		<h3><b> <i class="material-icons md-36">print</i></b></h3>
+		<p>PRINT</p>
 
 	</div>
 </div>

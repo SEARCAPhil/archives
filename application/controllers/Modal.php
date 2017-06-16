@@ -49,6 +49,12 @@ class Modal extends MY_Controller {
 		
 	}
 
+		public function custom_print()
+	{
+		$this->load->view('modal/custom_print');
+		
+	}
+
 
 	
 }

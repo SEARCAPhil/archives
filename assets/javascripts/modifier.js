@@ -33,5 +33,25 @@ $(document).ready(function(){
 		})*/
 		window.open(base_url+'rest/file_download/?id='+id);
 	})
+
+
+	//custom printing
+
+	$('.custom-print').on('click',function(e){
+		
+		if(!$(this).hasClass('active')){
+			$(this).addClass('active');
+			$('.custom-print-checkbox').show();
+			$(this).css({background:'rebeccapurple',color:'rgb(255,255,255)'})
+		}else{
+			$(this).removeClass('active');
+			$(this).css({background:'none',color:'rgb(60,60,60)'})
+			$('.custom-print-checkbox').hide();
+		}
+
+		
+
+		
+	})
 })
 

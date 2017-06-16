@@ -64,6 +64,11 @@ html{
 	border: none;
 }
 
+.btn-danger{
+	background-image: rgb(255,100,99) !important;
+	background: rgb(255,100,99) !important;
+}
+
 
 input[type="checkbox"] {
     display:none;
@@ -150,6 +155,10 @@ input[type="checkbox"].small + label span{
 	
 	padding: 5px 5px;
 	border-bottom: 1px solid #ccc;
+}
+
+.well-custom:first-child{
+	margin-top: 50px;
 }
 
 .folder-list li{
@@ -249,5 +258,17 @@ input[type="checkbox"].small + label span{
 
 /*table header*/
 .display-field{
+	display: none;
+}
+
+
+/*header for list and search*/
+.document-header{
+	background: rgba(250,250,250,0.5);
+	border:1px solid rgba(230,230,230,0.9);
+}
+
+/*custom print */
+.custom-print-checkbox{
 	display: none;
 }
