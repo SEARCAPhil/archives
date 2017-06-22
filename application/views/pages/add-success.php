@@ -1,5 +1,5 @@
-<div class="container">
-	<div class=" table-responsive col col-md-9 col-md-offset-1 ">
+<div class="col col-md-7 col-sm-9 col-md-offset-1 text-center">
+	<div class="col col-xs-12">
 			<br/><br/><br/>
 			<h3 class="page-header">Success!</h3>
 			<p class="text-muted">Item successfully added!.To add new material, click the add new button on the sub-navigation tool bar above then follow the instructions.</p>

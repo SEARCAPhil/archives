@@ -74,12 +74,12 @@ class Item extends CI_Model {
 		$this->keywords=isset($item['keywords'])?htmlentities(htmlspecialchars($item['keywords'])):'';
 		$this->provenance=isset($item['provenance'])?htmlentities(htmlspecialchars($item['provenance'])):'';
 		$this->remarks=isset($item['remarks'])?htmlentities(htmlspecialchars($item['remarks'])):'';
-		$this->date_of_input=date('Y/m/d');
+		$this->date_modified=date('Y/m/d');
 		$this->encoded_by_id=isset($encoded_by_id)?htmlentities(htmlspecialchars($encoded_by_id)):'';
 
 
-		$query="INSERT INTO item(cat_id,date_range,language,location,shelf_cabinet_number,tier_number,box_number,folder_number,record_number,material,access_condition,physical_condition,quantity,record_group,document_title,creator,place,publisher,source_title,collation,content_description,notes,keywords,provenance,remarks,date_of_input,encoded_by_id) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
-		$stmt=$this->db->query($query,array($this->cat_id,$this->date_range,$this->language,$this->location,$this->shelf_cabinet_number,$this->tier_number,$this->box_number,$this->folder_number,$this->record_number,$this->material,$this->access_condition,$this->physical_condition,$this->quantity,$this->record_group,$this->document_title,$this->creator,$this->place,$this->publisher,$this->source_title,$this->collation,$this->content_description,$this->notes,$this->keywords,$this->provenance,$this->remarks,$this->date_of_input,$this->encoded_by_id));
+		$query="INSERT INTO item(cat_id,date_range,language,location,shelf_cabinet_number,tier_number,box_number,folder_number,record_number,material,access_condition,physical_condition,quantity,record_group,document_title,creator,place,publisher,source_title,collation,content_description,notes,keywords,provenance,remarks,encoded_by_id) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+		$stmt=$this->db->query($query,array($this->cat_id,$this->date_range,$this->language,$this->location,$this->shelf_cabinet_number,$this->tier_number,$this->box_number,$this->folder_number,$this->record_number,$this->material,$this->access_condition,$this->physical_condition,$this->quantity,$this->record_group,$this->document_title,$this->creator,$this->place,$this->publisher,$this->source_title,$this->collation,$this->content_description,$this->notes,$this->keywords,$this->provenance,$this->remarks,$this->encoded_by_id));
 		
 		return $this->db->insert_id();
 	}
@@ -173,6 +173,140 @@ class Item extends CI_Model {
 		if($current_page<1) $current_page=1;
 
 		return array('total'=>$count,'pages'=>$no_pages,'current_page'=>$current_page,'data'=>$stmt->result());
+	
+	}
+
+
+
+
+	public function search_advance($role_id,$param,$page=1){
+		$this->page=(int) $page;
+		$limit=$this->page<2?0:( integer)($this->page-1)*20;
+
+		$sql_fileds='';
+		$sql_param=array();
+		$sql_logic='or';
+		$sql_operator='LIKE';
+
+		array_push($sql_param, $role_id);
+
+
+		//count number of params in foreach
+		$param_counter=0;
+
+		foreach ($param as $key => $value) {
+
+			if(strlen(trim(htmlentities(htmlspecialchars($value))))<1) unset($param[$key]);
+		}
+
+		//remove page
+		
+		if(isset($param['page'])) unset($param['page']);
+
+		//assign and unset logic
+
+		if(@$param['logic']=='and'||@$param['logic']=='or'||@$param['logic']=='not'){
+			$sql_logic=strip_tags(htmlentities(htmlspecialchars(utf8_encode(@$param['logic']))));
+		}
+
+		if(isset($param['logic'])) unset($param['logic']);
+
+
+
+		foreach ($param as $key => $value) {
+
+			$param_counter++;
+
+
+
+			${$key}=trim(strip_tags(htmlentities(htmlspecialchars($value))));
+
+
+			$__{$key}=explode('|',trim($value));
+
+			//filter empty
+			$__{$key}=array_filter($__{$key});
+
+
+			if($sql_logic=='not'){
+				$sql_logic='and';
+				$sql_operator='NOT LIKE';
+			}
+
+
+			if(count($__{$key})>0){
+				$sql_fileds.='(';
+					for($x=0; $x<count($__{$key});$x++){
+						
+
+						$sql_fileds.=' item.'.$key.' '.$sql_operator.' ?';
+
+						#equivalent bind param
+						array_push($sql_param,trim($__{$key}[$x]).'%');
+
+						if(count($__{$key})-1>$x){
+							 $sql_fileds.=' or';
+						}
+					}
+				$sql_fileds.=')';
+			}
+
+
+			//add OR for multiple params
+			if($param_counter<count($param)) $sql_fileds.=' '.$sql_logic.' ';
+
+			
+
+		}
+
+
+		//with limit param
+		$sql_param_with_limit=$sql_param;
+		array_push($sql_param_with_limit,$limit);
+
+		if(!empty($sql_fileds)){
+			$query = "SELECT item.*,role_category_inclusion.read_privilege FROM role_category_inclusion LEFT JOIN item on role_category_inclusion.category_id=item.cat_id where role_category_inclusion.role_id=? and role_category_inclusion.read_privilege=1 and (".$sql_fileds.") LIMIT ?,20";
+			
+			$stmt=$this->db->query($query,$sql_param_with_limit);
+
+
+			$query2 = "SELECT count(*) as total,role_category_inclusion.read_privilege FROM role_category_inclusion LEFT JOIN item on role_category_inclusion.category_id=item.cat_id where role_category_inclusion.role_id=? and role_category_inclusion.read_privilege=1 and (".$sql_fileds.")";
+			
+			$stmt2=$this->db->query($query2,$sql_param);
+		}
+
+
+
+		if(isset($stmt2)) {
+			$count=isset($stmt2->result()[0]->total)?$stmt2->result()[0]->total:0;
+		}else{
+			$count=0;
+		}
+		
+		
+		$no_pages=1;
+		if($count>=20){
+				$pages=ceil($count/20);
+				$no_pages=$pages;
+				
+		}else{
+				$no_pages=1;
+
+		}
+
+		#check for 0 value
+		if($no_pages<1) $no_pages=1;
+
+		#check if page request is < the actual page
+		$current_page=$this->page<=$no_pages||$this->page>0?$this->page:$no_pages;
+
+		#check for 0 value
+		if($current_page<1) $current_page=1;
+
+		$res=array();
+		if(isset($stmt)) $res=$stmt->result();
+
+		return array('total'=>$count,'pages'=>$no_pages,'current_page'=>$current_page,'data'=>@$res);
 	
 	}
 

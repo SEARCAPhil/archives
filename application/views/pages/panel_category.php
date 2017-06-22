@@ -87,7 +87,7 @@
 				</div>
 
 
-				<ul class="list-unstyled collapse category-section in" style="height: 100%;">
+				<ul class="list-unstyled collapse category-section in">
 				
 						
 							<?php for($x=0;$x<count($data);$x++){ ?>
@@ -108,14 +108,6 @@
 					<li><a href="<?php echo base_url(); ?>advance/search/"><i class="material-icons">find_in_page</i> Advance Search</a></li>	
 				</ul>
 
-
-				<div class="row">
-					<span class="left-navigation-header"   data-toggle="collapse" data-target=".report-section"><i class="material-icons">picture_as_pdf</i> Report <i class="material-icons pull-right" onclick="$(this).html()=='keyboard_arrow_right'?$(this).html('keyboard_arrow_down'):$(this).html('keyboard_arrow_right')">keyboard_arrow_right</i></span>
-				</div>
-
-				<ul class="list-unstyled collapse report-section" style="height: 100%;">
-					<li>#</li>	
-				</ul>
 
 
 			</div>

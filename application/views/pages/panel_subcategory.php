@@ -8,7 +8,7 @@
 		<ul class="list-unstyled navigation-sub-nav">
 			<?php for($x=0;$x<count($sub);$x++){ ?>
 				<li class="<?php echo set_active($sub[$x]->id); ?>" >
-					<i class="material-icons">folder</i>
+					<i class="material-icons">folder_open</i>
 					<a href="<?php echo base_url(); ?>?id=<?php echo $sub[$x]->id; ?>"><?php echo $sub[$x]->category; ?> 
 						<small class="text-muted">(<?php echo $sub[$x]->code; ?>)</small>
 					</a>

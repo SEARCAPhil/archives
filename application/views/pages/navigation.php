@@ -73,7 +73,14 @@ function set_active($sid){
 							</ul>
 						</li>
 						<li class="hidden-xs"><a href="#"><span class="glyphicon glyphicon-search"></span></a></li>
-						<li><div class="col col-md-12"><form style="margin-top: 7px;margin-bottom: 0px;"><input type="text" class="form-control search-box search-box-top" placeholder="Search" name="search" value="<?php echo utf8_encode($this->input->get('search')); ?>"/></form></div></li>
+						<li><div class="col col-md-12">
+
+						<form style="margin-top: 7px;margin-bottom: 0px;" action="<?php echo base_url(); ?>">
+
+							<input type="text" class="form-control search-box search-box-top" placeholder="Search" name="search" value="<?php echo utf8_encode($this->input->get('search')); ?>"/>
+						</form>
+
+						</div></li>
 												<li class="view hidden-sm" id="table"><a href="#"><span class="glyphicon glyphicon-th"></span> Table view</a></li>		
 						<li class="view hidden-sm"><a href="#"><span class="glyphicon glyphicon-list"></span> List view</a></li>
 					</ul>
@@ -107,8 +114,11 @@ $(document).ready(function(){
 			document.cookie="dms-view=list;path=/";
 		}
 
-		var currentLocation = window.location;
-		window.location=document.location.toString().toLowerCase()
+		//var currentLocation = window.location;
+		//window.location.replace(window.top.location.href.toString().toLowerCase());
+
+		location.reload(true);
+		return false;
 	})
 })
 </script>

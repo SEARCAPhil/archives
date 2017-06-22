@@ -103,6 +103,29 @@ $pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_TOP+20, PDF_MARGIN_RIGHT);
 
 $pdf->Sety(50);
 
+  #filter custom attributes
+  if(isset($_GET['custom'])){
+
+    $custom=strip_tags(htmlentities(htmlspecialchars($_GET['custom'])));
+    $custom_array=explode(',', $custom);
+
+    $filtered_array=array();
+
+    $filtered_array[0]=new stdClass;
+
+    for($x=0; $x<count($custom_array); $x++){
+      if(!empty($custom_array[$x])){
+        $filtered_array[0]->{$custom_array[$x]}=$items[0]->{$custom_array[$x]};
+      }
+    }
+
+
+    $items=$filtered_array;
+
+
+  }
+
+
   $sign = '<style>.table-bordered tr td,.table-bordered th{ border:1px solid #000;} </style>
           <div>';
 
@@ -168,14 +191,14 @@ $pdf->Sety(50);
 
 
           if(isset($items[0]->record_number)&&!empty($items[0]->record_number)){
-                $sign.='<p><b>Record Number :</b> '.utf8_encode($items[0]->record_number).'</p>';
+                $sign.='<p><b>Record Group :</b> '.utf8_encode($items[0]->record_number).'</p>';
           }
 
           if(isset($items[0]->material)&&!empty($items[0]->material)){
                 $sign.='<p><b>Material :</b> '.utf8_encode($items[0]->material).'</p>';
           }
 
-          if(isset($items[0]->notes)&&!empty($items[0]->notes)){
+          if(isset($items[0]->notes)&&!empty(trim(utf8_encode($items[0]->notes)))){
                 $sign.='<p><b>Notes :</b> '.utf8_encode($items[0]->notes).'</p>';
           }
 
@@ -188,7 +211,7 @@ $pdf->Sety(50);
           }
 
 
-          if(isset($items[0]->remarks)&&!empty($items[0]->remarks)){
+          if(isset($items[0]->remarks)&&!empty(trim(utf8_encode($items[0]->remarks)))){
                 $sign.='<p><b>Remarks :</b> '.utf8_encode($items[0]->remarks).'</p>';
           }
 
@@ -216,8 +239,8 @@ $pdf->Sety(50);
                 $sign.='<p><b>Folder Number :</b> '.utf8_encode($items[0]->folder_number).'</p>';
           }
 
-          if(isset($items[0]->record_number)&&!empty($items[0]->record_number)){
-                $sign.='<p><b>Record/Code Number :</b> '.utf8_encode($items[0]->record_number).'</p>';
+          if(isset($items[0]->id)&&!empty($items[0]->id)){
+                $sign.='<p><b>Record/Code Number :</b> '.utf8_encode($items[0]->id).'</p>';
           }
 
 

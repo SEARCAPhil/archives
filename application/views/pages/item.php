@@ -2,8 +2,8 @@
 
 <div class="col col-md-6 col-sm-9 col-lg-8">
 		<div class="col col-md-12">
-			<h3> &nbsp;<?php echo ucfirst($items[0]->document_title); ?></h3>
-			<p class="text-muted"><?php echo ucfirst(utf8_encode($items[0]->content_description)); ?></p>
+			<h3><?php echo ucfirst($items[0]->document_title); ?></h3>
+			<p class="text-muted"><?php echo strlen($items[0]->content_description)<=500?ucfirst(utf8_encode($items[0]->content_description)):substr(ucfirst(utf8_encode($items[0]->content_description)), 0,500).'. . .<small>(excerpt)</small>'; ?></p>
 
 
 			<!--download button-->
@@ -35,7 +35,7 @@
 
 	</div>
 
-	<div class="col-lg-3 col-md-4 col-sm-4 col-xs-4 text-center" onclick="window.open('report/item/?item_id=<?php echo @$items[0]->id; ?>');"  style="border-right: 1px solid rgb(240,240,240);">
+	<div class="col-lg-3 col-md-4 col-sm-4 col-xs-4 text-center" onclick="window.open('report/item/?item_id=<?php echo @$items[0]->id; ?>'+($(this).attr('data-custom').length>0?'&custom='+$(this).attr('data-custom'):''));" data-custom='' id="print_button"  style="border-right: 1px solid rgb(240,240,240);">
 		<h3><b> <i class="material-icons md-36">print</i></b> </h3>
 
 	</div>
@@ -58,7 +58,7 @@
 			<ul class="dropdown dropdown-menu">
 				
 					<li class="" >
-						<a href="<?php echo base_url(); ?>form/?item_id=<?php echo $items[0]->id; ?>&id=<?php echo strip_tags(htmlentities($_GET['id'])); ?>" class="modifier" data-menu="update" data-cat="<?php echo $items[0]->id; ?>">Update</a>
+						<a href="<?php echo base_url(); ?>form/?item_id=<?php echo $items[0]->id; ?>&id=<?php echo strip_tags(htmlentities($_GET['id'])); ?>&redirect_url=<?php echo str_replace('&','||',$_SERVER['REQUEST_URI']); ?>" class="modifier" data-menu="update" data-cat="<?php echo $items[0]->id; ?>">Update</a>
 					</li>
 					<li class="" data-toggle="modal" data-target="#myModal">
 						<a href="#" class="modifier" id="file" data-menu="update" data-cat="<?php echo $items[0]->id; ?>" data-parent="<?php echo @$items[0]->cat_id; ?>">Attach File</a>
@@ -83,7 +83,7 @@
 
 
 		<br/>
-		<div>
+		<div class="row col col-xs-12">
 			<ul class="list-unstyled list-details">
 				<?php function is_empty($text){
 
@@ -114,7 +114,13 @@
 				<?php if(!is_empty($items[0]->document_title)){ ?> 
 					<li class="row">
 						<span class="col col-md-12 col-lg-3 col-sm-4 col-xs-12">
-							<span  class="custom-print-checkbox">&emsp;&nbsp;&nbsp;</span>
+							<span  class="custom-print-checkbox">
+								 <span>
+						            <input type="checkbox" id="documentTitleCheckBox" name="document_title" class="checkbox-group"> 
+
+						            <label for="documentTitleCheckBox"><span></span></label>
+						          </span> 
+							</span>
 							<b>Document Title :</b>
 						</span> 
 						<span class="col col-md-9 col-sm-8 col-xs-12"><?php echo nl2br($items[0]->document_title); ?></span>
@@ -128,9 +134,9 @@
 						<span class="col col-md-12 col-lg-3 col-sm-4 col-xs-12">
 							<span  class="custom-print-checkbox">
 								 <span>
-						            <input type="checkbox" id="filesCheckBoxc" name="files" class="checkbox-group"> 
+						            <input type="checkbox" id="categoryCheckBox" name="category" class="checkbox-group"> 
 
-						            <label for="filesCheckBoxc"><span></span></label>
+						            <label for="categoryCheckBox"><span></span></label>
 						          </span> 
 							</span>
 							<b>Category :</b></span> 
@@ -143,9 +149,9 @@
 						<span class="col col-md-12 col-lg-3 col-sm-4 col-xs-12">
 						<span  class="custom-print-checkbox">
 								 <span>
-						            <input type="checkbox" id="filesCheckBoxc" name="files" class="checkbox-group"> 
+						            <input type="checkbox" id="sourceTitleCheckBox" name="source_title" class="checkbox-group"> 
 
-						            <label for="filesCheckBoxc"><span></span></label>
+						            <label for="sourceTitleCheckBox"><span></span></label>
 						          </span> 
 							</span>
 							<b>Source Title :</b></span> 
@@ -159,9 +165,9 @@
 						<span class="col col-md-12 col-lg-3 col-sm-4 col-xs-12">
 							<span  class="custom-print-checkbox">
 								 <span>
-						            <input type="checkbox" id="filesCheckBoxc" name="files" class="checkbox-group"> 
+						            <input type="checkbox" id="creatorCheckBox" name="creator" class="checkbox-group"> 
 
-						            <label for="filesCheckBoxc"><span></span></label>
+						            <label for="creatorCheckBox"><span></span></label>
 						          </span> 
 							</span>
 							<b>Creator :</b>
@@ -176,9 +182,9 @@
 						<span class="col col-md-12 col-lg-3 col-sm-4 col-xs-12">
 							<span  class="custom-print-checkbox">
 								 <span>
-						            <input type="checkbox" id="filesCheckBoxc" name="files" class="checkbox-group"> 
+						            <input type="checkbox" id="publisherCheckBox" name="publisher" class="checkbox-group"> 
 
-						            <label for="filesCheckBoxc"><span></span></label>
+						            <label for="publisherCheckBox"><span></span></label>
 						          </span> 
 							</span>
 							<b>Publisher :</b>
@@ -193,9 +199,9 @@
 						<span class="col col-md-12 col-lg-3 col-sm-4 col-xs-12">
 							<span  class="custom-print-checkbox">
 								 <span>
-						            <input type="checkbox" id="filesCheckBoxc" name="files" class="checkbox-group"> 
+						            <input type="checkbox" id="contentDescriptionCheckBox" name="content_description" class="checkbox-group"> 
 
-						            <label for="filesCheckBoxc"><span></span></label>
+						            <label for="contentDescriptionCheckBox"><span></span></label>
 						          </span> 
 							</span>
 							<b>Content Description :</b>
@@ -210,9 +216,9 @@
 							<span class="col col-md-3 col-sm-4 col-xs-12">
 								<span  class="custom-print-checkbox">
 									 <span>
-							            <input type="checkbox" id="filesCheckBoxc" name="files" class="checkbox-group"> 
+							            <input type="checkbox" id="placeCheckBox" name="place" class="checkbox-group"> 
 
-							            <label for="filesCheckBoxc"><span></span></label>
+							            <label for="placeCheckBox"><span></span></label>
 							          </span> 
 								</span>
 								<b>Place :</b>
@@ -227,9 +233,9 @@
 						<span class="col col-md-12 col-lg-3 col-sm-4 col-xs-12">
 							<span  class="custom-print-checkbox">
 								 <span>
-						            <input type="checkbox" id="filesCheckBoxc" name="files" class="checkbox-group"> 
+						            <input type="checkbox" id="dateOfInputCheckBox" name="date_of_input" class="checkbox-group"> 
 
-						            <label for="filesCheckBoxc"><span></span></label>
+						            <label for="dateOfInputCheckBox"><span></span></label>
 						          </span> 
 							</span>
 							<b>Date :</b>
@@ -244,9 +250,9 @@
 							<span class="col col-md-12 col-lg-3 col-sm-4 col-xs-12">
 								<span  class="custom-print-checkbox">
 									 <span>
-							            <input type="checkbox" id="filesCheckBoxc" name="files" class="checkbox-group"> 
+							            <input type="checkbox" id="collationCheckBox" name="collation" class="checkbox-group"> 
 
-							            <label for="filesCheckBoxc"><span></span></label>
+							            <label for="collationCheckBox"><span></span></label>
 							          </span> 
 								</span>
 								<b>Collation :</b>
@@ -261,9 +267,9 @@
 						<span class="col col-md-12 col-lg-3 col-sm-4 col-xs-12">
 							<span  class="custom-print-checkbox">
 								 <span>
-						            <input type="checkbox" id="filesCheckBoxc" name="files" class="checkbox-group"> 
+						            <input type="checkbox" id="languageCheckBox" name="language" class="checkbox-group"> 
 
-						            <label for="filesCheckBoxc"><span></span></label>
+						            <label for="languageCheckBox"><span></span></label>
 						          </span> 
 							</span>
 							<b>Language :</b>
@@ -276,7 +282,16 @@
 
 				<?php if(!is_empty($items[0]->access_condition)){ ?> 
 					<li>
-						<span class="col col-md-12 col-lg-3 col-sm-4 col-xs-12"><b>Access Condition :</b></span> 
+						<span class="col col-md-12 col-lg-3 col-sm-4 col-xs-12">
+							<span  class="custom-print-checkbox">
+								 <span>
+						            <input type="checkbox" id="accessConditionCheckBox" name="access_condition" class="checkbox-group"> 
+
+						            <label for="accessConditionCheckBox"><span></span></label>
+						          </span> 
+							</span>
+							<b>Access Condition :</b>
+						</span> 
 						<span class="col-md-9 col-sm-8 col-xs-12"><?php echo $items[0]->access_condition; ?></span>
 					</li>
 				<?php } ?>
@@ -287,9 +302,9 @@
 						<span class="col col-md-12 col-lg-3 col-sm-4 col-xs-12">
 							<span  class="custom-print-checkbox">
 								 <span>
-						            <input type="checkbox" id="filesCheckBoxc" name="files" class="checkbox-group"> 
+						            <input type="checkbox" id="physicalConditionCheckBox" name="physical_condition" class="checkbox-group"> 
 
-						            <label for="filesCheckBoxc"><span></span></label>
+						            <label for="physicalConditionCheckBox"><span></span></label>
 						          </span> 
 							</span>
 							<b>Physical Condition :</b>
@@ -304,14 +319,14 @@
 					 	<span class="col col-md-12 col-lg-3 col-sm-4 col-xs-12">
 					 		<span  class="custom-print-checkbox">
 								 <span>
-						            <input type="checkbox" id="filesCheckBoxc" name="files" class="checkbox-group"> 
+						            <input type="checkbox" id="recordNumberXXCheckBox" name="record_number" class="checkbox-group"> 
 
-						            <label for="filesCheckBoxc"><span></span></label>
+						            <label for="recordNumberXXCheckBox"><span></span></label>
 						          </span> 
 							</span>
 					 		<b>Record Group :</b>
 					 	</span> 
-					 	<span class="col-md-9 col-sm-8 col-xs-12"><?php echo $items[0]->record_number; ?></span>
+					 	<span class="col-md-9 col-sm-8 col-xs-12"><?php echo $items[0]->record_group; ?></span>
 					 </li>
 				 <?php } ?>
 
@@ -320,9 +335,9 @@
 						<span class="col col-md-12 col-lg-3 col-sm-4 col-xs-12">
 							<span  class="custom-print-checkbox">
 								 <span>
-						            <input type="checkbox" id="filesCheckBoxc" name="files" class="checkbox-group"> 
+						            <input type="checkbox" id="materialCheckBox" name="material" class="checkbox-group"> 
 
-						            <label for="filesCheckBoxc"><span></span></label>
+						            <label for="materialCheckBox"><span></span></label>
 						          </span> 
 							</span>
 							<b>Material :</b>
@@ -337,9 +352,9 @@
 				 		<span class="col col-md-12 col-lg-3 col-sm-4 col-xs-12">
 				 			<span  class="custom-print-checkbox">
 								 <span>
-						            <input type="checkbox" id="filesCheckBoxc" name="files" class="checkbox-group"> 
+						            <input type="checkbox" id="notesCheckBox" name="notes" class="checkbox-group"> 
 
-						            <label for="filesCheckBoxc"><span></span></label>
+						            <label for="notesCheckBox"><span></span></label>
 						          </span> 
 							</span>
 				 			<b>Notes :</b></span> 
@@ -347,20 +362,19 @@
 				 	</li>
 				 <?php } ?>
 
-
 				<?php if(!is_empty($items[0]->keywords)){ ?> 
 					<li class="row">
 						<span class="col col-md-12 col-lg-3 col-sm-4 col-xs-12">
 							<span  class="custom-print-checkbox">
 								 <span>
-						            <input type="checkbox" id="filesCheckBoxc" name="files" class="checkbox-group"> 
+						            <input type="checkbox" id="keywordsXXCheckBox" name="keywords" class="checkbox-group"> 
 
-						            <label for="filesCheckBoxc"><span></span></label>
+						            <label for="keywordsXXCheckBox"><span></span></label>
 						          </span> 
 							</span>
 							<b>Keywords :</b>
 						</span> 
-						<span class="col-md-9 col-sm-8 col-xs-12"><?php echo $items[0]->keywords; ?></span>
+						<span class="col-md-9 col-sm-8 col-xs-12"><?php echo nl2br($items[0]->keywords); ?></span>
 					</li>
 				<?php } ?>
 
@@ -369,9 +383,9 @@
 						<span class="col col-md-12 col-lg-3 col-sm-4 col-xs-12">
 							<span  class="custom-print-checkbox">
 								 <span>
-						            <input type="checkbox" id="filesCheckBoxc" name="files" class="checkbox-group"> 
+						            <input type="checkbox" id="provenanceCheckBox" name="provenance" class="checkbox-group"> 
 
-						            <label for="filesCheckBoxc"><span></span></label>
+						            <label for="provenanceCheckBox"><span></span></label>
 						          </span> 
 							</span>
 							<b>Provenance :</b>
@@ -385,9 +399,9 @@
 						<span class="col col-md-12 col-lg-3 col-sm-4 col-xs-12">
 								<span  class="custom-print-checkbox">
 								 <span>
-						            <input type="checkbox" id="filesCheckBoxc" name="files" class="checkbox-group"> 
+						            <input type="checkbox" id="remarksCheckBox" name="remarks" class="checkbox-group"> 
 
-						            <label for="filesCheckBoxc"><span></span></label>
+						            <label for="remarksCheckBox"><span></span></label>
 						          </span> 
 							</span>
 							<b>Remarks :</b>
@@ -401,9 +415,9 @@
 						<span class="col col-md-12 col-lg-3 col-sm-4 col-xs-12">
 							<span  class="custom-print-checkbox">
 								 <span>
-						            <input type="checkbox" id="filesCheckBoxc" name="files" class="checkbox-group"> 
+						            <input type="checkbox" id="locationCheckBox" name="location" class="checkbox-group"> 
 
-						            <label for="filesCheckBoxc"><span></span></label>
+						            <label for="locationCheckBox"><span></span></label>
 						          </span> 
 							</span>
 							<b>Location :</b>
@@ -417,9 +431,9 @@
 						<span class="col col-md-12 col-lg-3 col-sm-4 col-xs-12">
 							<span  class="custom-print-checkbox">
 								 <span>
-						            <input type="checkbox" id="filesCheckBoxc" name="files" class="checkbox-group"> 
+						            <input type="checkbox" id="shelfCabinetNumberCheckBox" name="shelf_cabinet_number" class="checkbox-group"> 
 
-						            <label for="filesCheckBoxc"><span></span></label>
+						            <label for="shelfCabinetNumberCheckBox"><span></span></label>
 						          </span> 
 							</span>
 								<b>Shelf Cabinet Number :</b>
@@ -434,9 +448,9 @@
 
 							<span  class="custom-print-checkbox">
 								 <span>
-						            <input type="checkbox" id="filesCheckBoxc" name="files" class="checkbox-group"> 
+						            <input type="checkbox" id="tierNumberCheckBox" name="tier_number" class="checkbox-group"> 
 
-						            <label for="filesCheckBoxc"><span></span></label>
+						            <label for="tierNumberCheckBox"><span></span></label>
 						          </span> 
 							</span>
 							<b>Tier Number :</b>
@@ -451,9 +465,9 @@
 						<span class="col col-md-12 col-lg-3 col-sm-4 col-xs-12">
 							<span  class="custom-print-checkbox">
 								 <span>
-						            <input type="checkbox" id="filesCheckBoxc" name="files" class="checkbox-group"> 
+						            <input type="checkbox" id="boxNumberCheckBox" name="box_number" class="checkbox-group"> 
 
-						            <label for="filesCheckBoxc"><span></span></label>
+						            <label for="boxNumberCheckBox"><span></span></label>
 						          </span> 
 							</span>
 							<b>Box Number :</b>
@@ -467,9 +481,9 @@
 						<span class="col col-md-12 col-lg-3 col-sm-4 col-xs-12">
 							<span  class="custom-print-checkbox">
 								 <span>
-						            <input type="checkbox" id="filesCheckBoxc" name="files" class="checkbox-group"> 
+						            <input type="checkbox" id="folderNumberCheckBox" name="folder_number" class="checkbox-group"> 
 
-						            <label for="filesCheckBoxc"><span></span></label>
+						            <label for="folderNumberCheckBox"><span></span></label>
 						          </span> 
 							</span>
 							<b>Folder Number :</b>
@@ -483,14 +497,14 @@
 						<span class="col col-md-12 col-lg-3 col-sm-4 col-xs-12">
 							<span  class="custom-print-checkbox">
 								 <span>
-						            <input type="checkbox" id="filesCheckBoxc" name="files" class="checkbox-group"> 
+						            <input type="checkbox" id="idXXCheckBox" name="id" class="checkbox-group"> 
 
-						            <label for="filesCheckBoxc"><span></span></label>
+						            <label for="idXXCheckBox"><span></span></label>
 						          </span> 
 							</span>
 							<b>Record/Code Number :</b>
 						</span> 
-					<span class="col-md-9 col-sm-8 col-xs-12"><?php echo $items[0]->id; ?></span>
+					<span class="col-md-9 col-sm-8 col-xs-12"><?php echo $items[0]->record_number; ?></span>
 					</li>
 				<?php } ?>
 
@@ -499,9 +513,9 @@
 						<span class="col col-md-12 col-lg-3 col-sm-4 col-xs-12">
 							<span  class="custom-print-checkbox">
 								 <span>
-						            <input type="checkbox" id="filesCheckBoxc" name="files" class="checkbox-group"> 
+						            <input type="checkbox" id="dateRangeCheckBox" name="date_range" class="checkbox-group"> 
 
-						            <label for="filesCheckBoxc"><span></span></label>
+						            <label for="dateRangeCheckBox"><span></span></label>
 						          </span> 
 							</span>
 							<b>Date Range :</b>
@@ -515,9 +529,9 @@
 						<span class="col col-md-12 col-lg-3 col-sm-4 col-xs-12">
 							<span  class="custom-print-checkbox">
 								 <span>
-						            <input type="checkbox" id="filesCheckBoxc" name="files" class="checkbox-group"> 
+						            <input type="checkbox" id="quantityCheckBox" name="quantity" class="checkbox-group"> 
 
-						            <label for="filesCheckBoxc"><span></span></label>
+						            <label for="quantityCheckBox"><span></span></label>
 						          </span> 
 							</span>
 							<b>Quantity :</b>
@@ -530,9 +544,9 @@
 					<li class="row">
 						<span  class="custom-print-checkbox">
 								 <span>
-						            <input type="checkbox" id="filesCheckBoxc" name="files" class="checkbox-group"> 
+						            <input type="checkbox" id="encodedByCheckBox" name="encoded_by" class="checkbox-group"> 
 
-						            <label for="filesCheckBoxc"><span></span></label>
+						            <label for="encodedByCheckBox"><span></span></label>
 						          </span> 
 							</span>
 						<span class="col col-md-12 col-lg-3 col-sm-4 col-xs-12"><b>Encoded By :</b>
@@ -545,9 +559,9 @@
 							<span class="col col-md-12 col-lg-3 col-sm-4 col-xs-12">
 								<span  class="custom-print-checkbox">
 									 <span>
-							            <input type="checkbox" id="filesCheckBoxc" name="files" class="checkbox-group"> 
+							            <input type="checkbox" id="encodedByCheckBox" name="encoded_by" class="checkbox-group"> 
 
-							            <label for="filesCheckBoxc"><span></span></label>
+							            <label for="encodedByCheckBox"><span></span></label>
 							          </span> 
 								</span>
 								<b>Encoded By :</b>

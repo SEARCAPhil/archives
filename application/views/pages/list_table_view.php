@@ -43,6 +43,8 @@
 					<?php if(!empty($items['data'][$x]->original_file_name)){ ?>
 					<p><a href="#"  class="download" data-cat="<?php echo $items['data'][$x]->id; ?>"><span class="glyphicon glyphicon-download"></span></a></p>
 					<?php } ?>
+
+					<span class="text-muted" title="open in new tab" style="cursor:pointer;" onclick='window.open("<?php echo base_url(); ?>?item_id=<?php echo $items['data'][$x]->id; ?>&id=<?php echo $details[0]->id; ?>&category=<?php echo $details[0]->category; ?>&title=<?php echo urlencode(utf8_encode($items['data'][$x]->document_title)); ?>");'><i class="material-icons md-18">open_in_new</i></span>
 				</td>
 				
 			</tr>

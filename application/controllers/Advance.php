@@ -163,6 +163,19 @@ class Advance extends MY_Controller {
 	}
 
 
+		/**
+	 * ADVANCE Search Items
+	 * 
+	 * Searach items based on given inputs
+	 * @return array()
+	 */
+	public function __advance_search(){
+
+		$this->search_result=$this->item->search_advance(@$this->session_privileges[0]->role_id,$this->input->get(),$this->input->get('page',true));
+		return $this->data=array('items'=>$this->search_result,'param'=>$this->input->get());
+	}
+
+
 	/**
 	 * Index
 	 * 
@@ -220,9 +233,20 @@ class Advance extends MY_Controller {
 
 		self::__header();
 
-		$this->load->view('pages/search_advance.php');
+		if(!is_null($this->session->id)){
+		
+			$this->load->view('pages/search_advance.php');
+		}
 
 		self::__footer();
+	}
+
+
+	public function result(){
+		self::__header();
+
+		$this->load->view('pages/search_advance_results.php',self::__advance_search());
+		self::__footer();	
 	}
 	
 	

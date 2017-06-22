@@ -1,3 +1,21 @@
+/*GET COOKIE*/
+function getCookie(cname) {
+    var name = cname + "=";
+    var ca = document.cookie.split(';');
+    for(var i = 0; i <ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0)==' ') {
+            c = c.substring(1);
+        }
+        if (c.indexOf(name) == 0) {
+            return c.substring(name.length,c.length);
+        }
+    }
+    return "";
+}
+
+
+
 $(document).ready(function(){
 
 	/**
@@ -7,6 +25,10 @@ $(document).ready(function(){
 	*/
 
 	var site_url='/document_management_system/';
+
+	var redirect_url=getCookie('dms-upload-redirect-to')!=undefined?getCookie('dms-upload-redirect-to'):site_url+'form/success';
+
+	$('#skip').attr('onclick','window.location="'+decodeURIComponent(redirect_url)+'"');
 
 
 	$('.progress-div').hide();
@@ -77,7 +99,17 @@ $(document).ready(function(){
 					try{
 						var result= JSON.parse(e.target.responseText);
 						if(result.data!= undefined){
-							window.location=site_url+'form/success'
+							//redirect to original page or to success page
+							try{
+								if(getCookie('dms-upload-redirect-to')!=undefined){
+									window.location=decodeURIComponent(getCookie('dms-upload-redirect-to'));
+								}
+								
+							}catch(e){
+								//fallback
+								window.location=site_url+'form/success'
+							}
+
 						}else{
 							if(result.error!= undefined){
 

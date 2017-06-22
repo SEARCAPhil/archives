@@ -13,21 +13,35 @@
 
 	</div>
 
-	<div class="text-muted  col-lg-3 col-md-6 col-sm-6 col-xs-6 text-center" onclick="window.open('report/search/?search=<?php echo $search_param; ?>&page=<?php echo $page; ?>');">
+	<div class="text-muted  col-lg-3 col-md-6 col-sm-6 col-xs-6 text-center" onclick="window.open('<?php echo base_url(); ?>report/advance_search/?<?php echo ($_SERVER['QUERY_STRING']); ?>');">
 		<h3><b> <i class="material-icons md-36">print</i></b></h3>
 		<p>PRINT</p>
 
 	</div>
+
+
+	<div class="text-muted  col-lg-3 col-md-6 col-sm-6 col-xs-6 text-center">
+		<h3><b> <i class="material-icons md-36">find_in_page</i></b></h3>
+		<p><a href="<?php echo base_url();?>advance/search/?<?php echo ($_SERVER['QUERY_STRING']); ?>">REFINE SEARCH</a></p>
+
+	</div>
+
+		
 </div>
 
 
 
 <?php 
 	#if no result
-	if(count($items)<=0){ 
+	if(count($items['data'])<=0){ 
 ?>
 
-			<center class="text-muted"><h1>Content Unavailable</h1></center>
+			<center class="text-muted">
+				
+				<img src="<?php echo base_url(); ?>assets/images/share2.png"  width="25%" />
+				<h3 style="color: rgb(150,150,150);"><i class="material-icons md-36">search</i> NO AVAILABLE DATA</h3>
+				<p>Words that you are searching does not exist on the database.Please refine your search filter.</p>
+			</center>
 		<?php  } ?>
 
 
@@ -68,10 +82,10 @@
 						<td class="display-menu  display-field">
 							<?php if(!empty($items['data'][$x]->original_file_name)){ ?>
 							<!--<p><a href="#"><span class="glyphicon glyphicon-print"></span></a></p>-->
-								<p title="download"><a href="#"  class="download" data-cat="<?php echo $items['data'][$x]->id; ?>"><span class="glyphicon glyphicon-download"></span></a></p>
+								<p><a href="#"  class="download" data-cat="<?php echo $items['data'][$x]->id; ?>"><span class="glyphicon glyphicon-download"></span></a></p>
 							<?php } ?>
 
-							<span class="text-muted" title="open in new tab" style="cursor:pointer;" onclick='window.open("?item_id=<?php echo $items['data'][$x]->id; ?>&title=<?php echo $items['data'][$x]->document_title; ?>&id=<?php echo @$items['data'][$x]->cat_id; ?>");'><i class="material-icons md-18">open_in_new</i></span>
+							<span class="text-muted" title="open in new tab" style="cursor:pointer;" onclick='window.open("<?php echo base_url(); ?>?item_id=<?php echo $items['data'][$x]->id; ?>&title=<?php echo $items['data'][$x]->document_title; ?>&id=<?php echo @$items['data'][$x]->cat_id; ?>");'><i class="material-icons md-18">open_in_new</i></span>
 
 						</td>
 						
@@ -106,19 +120,19 @@
 
 
 				<h4>
-					<a href="?item_id=<?php echo $items['data'][$x]->id; ?>&title=<?php echo $items['data'][$x]->document_title; ?>&id=<?php echo @$items['data'][$x]->cat_id; ?>">
+					<a href="<?php echo base_url(); ?>?item_id=<?php echo $items['data'][$x]->id; ?>&title=<?php echo $items['data'][$x]->document_title; ?>&id=<?php echo @$items['data'][$x]->cat_id; ?>">
 						
-						<?php echo ucwords($items['data'][$x]->document_title); ?>
+						<?php echo ucwords($items['data'][$x]->document_title); ?> 
 					</a>
 
-					<span class="text-muted" title="open in new tab" style="cursor:pointer;" onclick='window.open("?item_id=<?php echo $items['data'][$x]->id; ?>&title=<?php echo $items['data'][$x]->document_title; ?>&id=<?php echo @$items['data'][$x]->cat_id; ?>");'><i class="material-icons md-18">open_in_new</i></span>
+					<span class="text-muted" title="open in new tab" style="cursor:pointer;" onclick='window.open("<?php echo base_url(); ?>?item_id=<?php echo $items['data'][$x]->id; ?>&title=<?php echo $items['data'][$x]->document_title; ?>&id=<?php echo @$items['data'][$x]->cat_id; ?>");'><i class="material-icons md-18">open_in_new</i></span>
 
 				</h4>
 
 				<p class="display-description  display-field"><?php echo nl2br($items['data'][$x]->content_description); ?></p>
 
 				<?php if(!empty($items['data'][$x]->original_file_name)){ ?>
-				<p class="display-files  display-field"><small> <button class="btn btn-xs btn-success download" data-cat="<?php echo $items['data'][$x]->id; ?>"><i class="material-icons">cloud_download</i> <?php echo $items['data'][$x]->original_file_name; ?></button></small></p>
+				<p class="display-files  display-field"><small><?php echo $items['data'][$x]->original_file_name; ?> <button class="btn btn-xs btn-success download" data-cat="<?php echo $items['data'][$x]->id; ?>"><i class="material-icons">cloud_download</i></button></small></p>
 				<?php } ?>
 
 				<br/><br/>
@@ -133,10 +147,12 @@
 
 <?php 
 	#if no result
-	if(count($items)>0){ 
+	if(count($items['data'])>0){ 
+
 ?>
 
-		<div class="col-md-12 text-center">
+
+	<div class="col-md-12 text-center">
 			<nav class="pages">
 					<ul class="pagination">
 						<li>
@@ -145,16 +161,16 @@
 			 				</a>
 						</li>
 							
-					
+						
 							 <?php  $original_page=$items['pages']; if($page-10>0){  $page_nav=$page-10;  }else{$page_nav=$items['pages']-5;} $tracker=0; $data_pages=$items['pages']; while($data_pages>0){ --$data_pages; $page_nav++; $tracker++;  ?>
 		    			
 		    				<?php if($tracker<20 && $page_nav<=$original_page&&$page>10){ ?>
-		    					<li class="page-navigation <?php page_indicator($page_nav,$page); ?>"><a href="?page=<?php echo $page_nav; ?>&search=<?php echo @$param['search']; ?>"><?php echo $page_nav;  ?></a></li>
+		    					<li class="page-navigation <?php page_indicator($page_nav,$page); ?>"><a href="?<?php echo @$_SERVER['QUERY_STRING']; ?>&page=<?php echo $page_nav; ?>"><?php echo $page_nav;  ?></a></li>
 		    			
 		    				<?php } ?>
 
 		    				<?php  if($page<=10&&$tracker<=10){ ?>
-		    					<li class="page-navigation <?php page_indicator($tracker,$page); ?>"><a href="?id=<?php echo $page; ?>&page=<?php echo $tracker;  ?>&search=<?php echo @$param['search']; ?>"><?php echo $tracker;  ?></a></li>
+		    					<li class="page-navigation <?php page_indicator($tracker,$page); ?>"><a href="?<?php echo @$_SERVER['QUERY_STRING']; ?>&page=<?php echo $tracker;  ?>"><?php echo $tracker;  ?></a></li>
 		    					
 		    				<?php } ?>
 
@@ -163,8 +179,8 @@
 		    			<?php if($page_nav>20&&$page+10<$original_page-2){ ?>
 		    			<?php $page_nav=$original_page>0?$original_page:1; ?>
 		    					<li class="page-navigation disabled"><a href="#">. . .</a></li>
-		    					<li class="page-navigation <?php page_indicator($original_page-1,$page); ?>" ><a href="?id=<?php echo $id; ?>&page=<?php echo $original_page-1;  ?>&search=<?php echo @$param['search']; ?>"><?php echo $original_page-1;  ?></a></li>
-		    					<li class="page-navigation <?php page_indicator($original_page,$page); ?>"><a href="?id=<?php echo $page; ?>&page=<?php echo $original_page;  ?>&search=<?php echo @$param['search']; ?>"><?php echo $original_page;  ?></a></li>
+		    					<li class="page-navigation <?php page_indicator($original_page-1,$page); ?>" ><a href="?<?php echo @$_SERVER['QUERY_STRING']; ?>&page=<?php echo $original_page-1;  ?>"><?php echo $original_page-1;  ?></a></li>
+		    					<li class="page-navigation <?php page_indicator($original_page,$page); ?>"><a href="?<?php echo @$_SERVER['QUERY_STRING']; ?>&page=<?php echo $original_page;  ?>"><?php echo $original_page;  ?></a></li>
 		    			<?php } ?>
 						
 								
@@ -172,7 +188,7 @@
 						 <li>
 
 
-		  				<a href="?id=<?php echo $id; ?>&page=<?php echo $original_page;  ?>&search=<?php echo @$param['search']; ?>" aria-label="Next">
+		  				<a href="?<?php echo @$_SERVER['QUERY_STRING']; ?>&page=<?php echo $original_page;  ?>" aria-label="Next">
 		   					<span aria-hidden="true">»</span>
 		 				 </a>
 					</li>

@@ -224,14 +224,25 @@ class Form extends MY_Controller {
 
 		if ($this->form_validation->run() == FALSE)
         {		
+        		//clear cookies
+        		setcookie("dms-upload-redirect-to",str_replace('||','&',$this->input->get('redirect_url')),1,'/');
+
         		//update
         		if($this->input->get('item_id')){
+        			//set redirect URL
+        			setcookie("dms-upload-redirect-to",str_replace('||','&',$this->input->get('redirect_url')),time()+3600,'/');
         			#$this->load->view('forms/item.php',array('data'=>$this->session_sub_categories,'param'=>$this->input->get(),'items'=>$this->item_details));
         			$this->load->view('forms/item.php',array('param'=>$this->input->get(),'items'=>$this->item_details));
         		}else{
         			//add new
         			$this->load->view('forms/item.php');
         		}
+
+
+        		
+        		
+
+
                 
         			
         }
@@ -252,11 +263,12 @@ class Form extends MY_Controller {
             	}
             	
             
-				
+				#clear OLD cookies
             	setcookie("dms-upload-id",$this->last_insert_result['data'],1,'/');
             	setcookie("dms-upload-cat",$this->input->post('series'),1,'/');
+            	
 
-
+            	#set NEW cookies
             	if(is_null($this->input->post('id'))||empty($this->input->post('id'))){
             		setcookie("dms-upload-id",$this->last_insert_result['data'],time()+3600,'/');
             	}else{
@@ -264,6 +276,8 @@ class Form extends MY_Controller {
             	}
 
             	setcookie("dms-upload-cat",$this->input->post('series'),time()+3600,'/');
+
+            	
 
             	sleep(1);
             	header('location:'.site_url().'form/upload');

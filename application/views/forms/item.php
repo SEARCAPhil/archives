@@ -4,22 +4,20 @@
 	<div class=" table-responsive col col-xs-12">
 		<br/><br/><br/>
 		<h3><span class="glyphicon glyphicon-pencil"></span> Step 1/2  <span class="text-muted">(Details)</span> <span class="pull-right"><button class="btn btn-primary" onclick="document.getElementById('next').click()">Next &raquo;</button></span></h3>
-		<p class="text-muted">Two-way process of reaching mutual understanding, in which participants not only exchange (encode-decode) information, news, ideas and feelings but also create and share meaning. In general, communication is a means of connecting people or places. In business, it is a key function of management--an organization cannot operate without communication between levels, departments and employees. See also communications.
-
-Read more: http://www.businessdictionary.com/definition/communication.html</p>
+		
 		<br/>
 		
 		
 		<?php echo form_open('form','class="form-horizontal",action='.$_SERVER['PHP_SELF']);  ?>
 		<div class=" well container-fluid">
 			<h3><span class="glyphicon glyphicon-file"></span> Material Form</h3>
-			<p class="text-muted">Instruction: Please fill out all necessary fields to add <em><b>new item</b></em> on this category. </p>
+			<p class="text-muted">Instruction: All fields with (<span class="text-danger">*</span>) are required.</p>
 			<hr style="border:1px solid rgb(150,150,150);" />
 			<!--first-->
 			<article class="col col-md-6">
 				<h5 class="page-header text-muted"><b><span class="badge badge-success"><span class="glyphicon glyphicon-pushpin"></span></span> Basic Information</b></h5><br/>
 						<div class="form-group has-feedback" id="form-title">
-							<label for="inputTitle" class="control-label col-xs-3 ">Document Tile</label>
+							<label for="inputTitle" class="control-label col-xs-3 ">Document Tile <span class="text-danger">*</span></label>
 							<div class="col-xs-9">
 								<input type="text" class="form-control" id="inputTitle" placeholder="Title" name="title" value="<?php echo strlen(set_value('title'))>0?set_value('title'):@$items[0]->document_title; ?>">
 								<!--<span class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"></span>-->
@@ -76,7 +74,7 @@ Read more: http://www.businessdictionary.com/definition/communication.html</p>
 
 
 						<div class="form-group has-feedback" id="form-title">
-							<label for="inputTitle" class="control-label col-xs-3 ">Content Description</label>
+							<label for="inputTitle" class="control-label col-xs-3 ">Content Description <span class="text-danger">*</span></label>
 							<div class="col-xs-9">
 								<textarea class="form-control" placeholder="Content Description" name="content_description" rows="10">
 									<?php echo strlen(set_value('content_description'))>0?set_value('content_description'):@$items[0]->content_description; ?>
@@ -248,7 +246,7 @@ Read more: http://www.businessdictionary.com/definition/communication.html</p>
 
 						<?php if(!isset($_GET['item_id'])): ?>
 						<div class="form-group has-feedback" id="form-title">
-							<label for="inputTitle" class="control-label col-xs-3 ">Series</label>
+							<label for="inputTitle" class="control-label col-xs-3 ">Series <span class="text-danger">*</span></label>
 							<div class="col-xs-9"> 
 								<select name="series" class="form-control series main-series" id="series">
 										<option value="0">Select category</option>

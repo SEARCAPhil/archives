@@ -2,7 +2,10 @@
 <?php for($x=0; $x<count($items['data']); $x++): ?>
 <div class="well-custom" id="item<?php echo $items['data'][$x]->id; ?>">
 	
-	<h3><a href="<?php echo base_url(); ?>?item_id=<?php echo $items['data'][$x]->id; ?>&id=<?php echo $details[0]->id; ?>&category=<?php echo $details[0]->category; ?>&title=<?php echo urlencode(utf8_encode($items['data'][$x]->document_title)); ?>"><?php echo $items['data'][$x]->document_title; ?></a></h3>
+	<h3><a href="<?php echo base_url(); ?>?item_id=<?php echo $items['data'][$x]->id; ?>&id=<?php echo $details[0]->id; ?>&category=<?php echo $details[0]->category; ?>&title=<?php echo urlencode(utf8_encode($items['data'][$x]->document_title)); ?>"><?php echo $items['data'][$x]->document_title; ?></a>
+	
+		<span class="text-muted" title="open in new tab" style="cursor:pointer;" onclick='window.open("<?php echo base_url(); ?>?item_id=<?php echo $items['data'][$x]->id; ?>&id=<?php echo $details[0]->id; ?>&category=<?php echo $details[0]->category; ?>&title=<?php echo urlencode(utf8_encode($items['data'][$x]->document_title)); ?>");'><i class="material-icons md-18">open_in_new</i></span>
+	</h3>
 	
 	
 	<p class="display-description  display-field"><?php echo nl2br($items['data'][$x]->content_description); ?></p>

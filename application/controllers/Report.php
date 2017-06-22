@@ -172,6 +172,20 @@ class Report extends MY_Controller {
 	}
 
 
+	/**
+	 * ADVANCE Search Items
+	 * 
+	 * Searach items based on given inputs
+	 * @return array()
+	 */
+	public function __advance_search(){
+
+		$this->search_result=$this->item->search_advance(@$this->session_privileges[0]->role_id,$this->input->get(),$this->input->get('page',true));
+		return $this->data=array('items'=>$this->search_result,'param'=>$this->input->get());
+	}
+
+
+
 
 
 
@@ -187,6 +201,13 @@ class Report extends MY_Controller {
 		}else{
 			$this->load->view('errors/html/error_404',array('heading'=>'Not Found','message'=>'File does\'nt exist,please check back later.'));	
 		}
+	}
+
+
+	public function advance_search(){
+		
+		$this->load->view('report/search_report.php',self::__advance_search());
+		
 	}
 
 
