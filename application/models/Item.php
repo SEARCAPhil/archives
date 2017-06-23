@@ -242,10 +242,10 @@ class Item extends CI_Model {
 						$sql_fileds.=' item.'.$key.' '.$sql_operator.' ?';
 
 						#equivalent bind param
-						array_push($sql_param,trim($__{$key}[$x]).'%');
+						array_push($sql_param,'%'.trim($__{$key}[$x]).'%');
 
 						if(count($__{$key})-1>$x){
-							 $sql_fileds.=' or';
+							 $sql_fileds.=' '.$sql_logic;
 						}
 					}
 				$sql_fileds.=')';

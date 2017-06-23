@@ -13,7 +13,7 @@
 				<article class="col col-md-12 col-lg-6">
 					<div class="col col-lg-12"  style="background: #fff;border-radius: 10px;box-shadow: 0px 0px 3px rgba(200,200,200,0.7);padding: 20px 20px;margin-top: 50px;">
 
-						<h3 class="text-muted"><i class="material-icons md-36">find_in_page</i> Advance Search</h3>	
+						<h3 class="text-muted"><i class="material-icons md-36">find_in_page</i> Advanced Search</h3>	
 						<p>Advanced search is a full search of the entire dictionary text. It finds your term wherever it occurs in the dictionary. This could be in the form of an entry name, part of another word's definition, in a quotation, etc. An Advanced search also allows you to search for words that occur near one another, such as bread before butter.</p>
 					</div>
 				</article>

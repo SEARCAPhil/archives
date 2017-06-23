@@ -15,6 +15,18 @@
 				</ul>
 
 
+				
+				<div class="row">
+					<span class="left-navigation-header"   data-toggle="collapse" data-target=".advance-settings-section"><i class="material-icons">settings</i> Advanced Settings <i class="material-icons pull-right" onclick="$(this).html()=='keyboard_arrow_right'?$(this).html('keyboard_arrow_down'):$(this).html('keyboard_arrow_right')">keyboard_arrow_right</i></span>
+				</div>
+
+
+				<ul class="list-unstyled collapse advance-settings-section" style="height: 100%;">
+					<li><a href="<?php echo base_url(); ?>advance/search/"><i class="material-icons">find_in_page</i> Advanced Search</a></li>	
+				</ul>
+
+
+
 
 				<div class="row">
 					<span class="left-navigation-header"   data-toggle="collapse" data-target=".display-section"><i class="material-icons">desktop_windows</i> Display <i class="material-icons pull-right" onclick="$(this).html()=='keyboard_arrow_right'?$(this).html('keyboard_arrow_down'):$(this).html('keyboard_arrow_right')">keyboard_arrow_right</i></span>
@@ -97,17 +109,6 @@
 						
 					
 				</ul>
-
-
-				<div class="row">
-					<span class="left-navigation-header"   data-toggle="collapse" data-target=".advance-settings-section"><i class="material-icons">settings</i> Advance Settings <i class="material-icons pull-right" onclick="$(this).html()=='keyboard_arrow_right'?$(this).html('keyboard_arrow_down'):$(this).html('keyboard_arrow_right')">keyboard_arrow_right</i></span>
-				</div>
-
-
-				<ul class="list-unstyled collapse advance-settings-section" style="height: 100%;">
-					<li><a href="<?php echo base_url(); ?>advance/search/"><i class="material-icons">find_in_page</i> Advance Search</a></li>	
-				</ul>
-
 
 
 			</div>
