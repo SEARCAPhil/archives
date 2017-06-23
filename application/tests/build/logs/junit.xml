@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <testsuites>
-  <testsuite name="CodeIgniter Application Test Suite" tests="3" assertions="3" errors="0" failures="0" skipped="0" time="3.175008">
-    <testsuite name="Privilege_test" file="C:\xampp\htdocs\document_management_system\application\tests\models\Privilege_test.php" tests="3" assertions="3" errors="0" failures="0" skipped="0" time="3.175008">
-      <testcase name="test_get_roles" class="Privilege_test" classname="Privilege_test" file="C:\xampp\htdocs\document_management_system\application\tests\models\Privilege_test.php" line="12" assertions="1" time="1.063872">
+  <testsuite name="CodeIgniter Application Test Suite" tests="3" assertions="3" errors="0" failures="0" skipped="0" time="3.146792">
+    <testsuite name="Privilege_test" file="C:\xampp\htdocs\document_management_system\application\tests\models\Privilege_test.php" tests="3" assertions="3" errors="0" failures="0" skipped="0" time="3.146792">
+      <testcase name="test_get_roles" class="Privilege_test" classname="Privilege_test" file="C:\xampp\htdocs\document_management_system\application\tests\models\Privilege_test.php" line="12" assertions="1" time="1.057743">
         <system-out>
 A PHP Error was encountered
 
@@ -79,7 +79,7 @@ Backtrace:
 
 </system-out>
       </testcase>
-      <testcase name="test_get_privilege_of_general_role" class="Privilege_test" classname="Privilege_test" file="C:\xampp\htdocs\document_management_system\application\tests\models\Privilege_test.php" line="17" assertions="1" time="1.055273">
+      <testcase name="test_get_privilege_of_general_role" class="Privilege_test" classname="Privilege_test" file="C:\xampp\htdocs\document_management_system\application\tests\models\Privilege_test.php" line="17" assertions="1" time="1.043039">
         <system-out>
 A PHP Error was encountered
 
@@ -156,7 +156,7 @@ Backtrace:
 
 </system-out>
       </testcase>
-      <testcase name="test_get_privilege_details" class="Privilege_test" classname="Privilege_test" file="C:\xampp\htdocs\document_management_system\application\tests\models\Privilege_test.php" line="21" assertions="1" time="1.055863">
+      <testcase name="test_get_privilege_details" class="Privilege_test" classname="Privilege_test" file="C:\xampp\htdocs\document_management_system\application\tests\models\Privilege_test.php" line="21" assertions="1" time="1.046010">
         <system-out>
 A PHP Error was encountered
 

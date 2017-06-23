@@ -25,5 +25,6 @@ class Privilege_test extends TestCase
 
 	 	$this->assertEquals('general',$this->obj->_get_privilege_details($general_role_id)[0]->role);
 	}
+	
 }
 ?>
