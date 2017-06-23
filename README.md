@@ -3,8 +3,11 @@
 ![SEARCA 50th Logo](https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcRSdlTRWPD3W_5oirA-oPojE14dOnzEQ1tvD-MsMMrWhxfccDTO6Q)
 
 
-###SEARCA DMS (Document Management System)
+### SEARCA DMS (Document Management System)
 ************
+
+[![Build Status](https://travis-ci.org/SEARCAPhil/document_management_system.svg?branch=master)](https://travis-ci.org/SEARCAPhil/document_management_system)
+
 
 A document management system (DMS) is a system (based on computer programs in the case of the management of digital documents) used to track, manage and store documents and reduce paper. Most are capable of keeping a record of the various versions created and modified by different users (history tracking).
 
@@ -12,7 +15,7 @@ Document management, often referred to as Document Management Systems (DMS), is 
 
 
 *******************
-#####Server Requirements#####
+##### Server Requirements #####
 *******************
 
 PHP version 5.6 or newer is recommended.
@@ -22,31 +25,24 @@ such old versions of PHP, because of potential security and performance
 issues, as well as missing features.
 
 ************
-#####PHP Configuration#####
+##### PHP Configuration #####
 ************
 
 After you download or clone it to your machine, look for the **base_url**
-configuration in **application/config/config.php**
+configuration in **application/config/config.php** and set it to
 
-Comment this line
-
-```php
-#$config['base_url'] = 'http://'. $_SERVER['HTTP_HOST'].'/document_management_system/';
-```
-
-and paste
 
 ```php
 $config['base_url'] = 'http://'. $_SERVER['HTTP_HOST'].'/document_management_system/';
 ````
 
 
-#####NOTE: Do not forget to change the ***/document_management_system/*** with the name of your folder#####
+##### NOTE: Do not forget to change the ***/document_management_system/*** with the name of your folder #####
 
 
 
 ************
-#####JS Configuration#####
+##### JS Configuration #####
 ************
 
 In your **assets/javascripts/modifier.js** change the **base_url** to your folder name
@@ -57,7 +53,7 @@ var base_url='/document_management_system/';
 
 
 ************
-#####Database Configuration#####
+##### Database Configuration #####
 ************
 
 Upload the **.sql** files inside the database_file folder to your MySQL/MariaDB server then configure 
