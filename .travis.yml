@@ -12,10 +12,10 @@ before_script:
    - composer install
    - mysql -u root -e "CREATE DATABASE dms;"
    - mysql -u root -e "use dms;"
-   - mysql -u root -e "CREATE table role(id INT NOT NULL AUTO_INCREMENT,role VARCHAR(255),description TEXT,PRIMARY KEY(id));"
-   - mysql -u root -e "INSERT INTO role(role,description) VALUES('general','non admin user');"
-   - mysql -u root -e "CREATE table role_privilege(id INT NOT NULL AUTO_INCREMENT,role_id INT NOT NULL,read_public_category_privilege INT,read_private_category_privilege INT,read_included_category_only_privilege INT,write_materials_privilege INT, grant_role_privilege INT, date_created DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,PRIMARY KEY(id));"
-   - mysql -u root -e "INSERT INTO role_privilege(role_id,read_public_category_privilege,read_private_category_privilege,read_included_category_only_privilege,write_materials_privilege, grant_role_privilege) VALUES(3,1,0,0,0,0);"
+   - mysql -u root -e "use dms;CREATE table role(id INT NOT NULL AUTO_INCREMENT,role VARCHAR(255),description TEXT,PRIMARY KEY(id));"
+   - mysql -u root -e "use dms;INSERT INTO role(role,description) VALUES('general','non admin user');"
+   - mysql -u root -e "use dms;CREATE table role_privilege(id INT NOT NULL AUTO_INCREMENT,role_id INT NOT NULL,read_public_category_privilege INT,read_private_category_privilege INT,read_included_category_only_privilege INT,write_materials_privilege INT, grant_role_privilege INT, date_created DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,PRIMARY KEY(id));"
+   - mysql -u root -e "use dms;INSERT INTO role_privilege(role_id,read_public_category_privilege,read_private_category_privilege,read_included_category_only_privilege,write_materials_privilege, grant_role_privilege) VALUES(3,1,0,0,0,0);"
 script:
    - cd application/tests
    - phpunit
