@@ -108,14 +108,14 @@
 				<h4>
 					<a href="?item_id=<?php echo $items['data'][$x]->id; ?>&title=<?php echo $items['data'][$x]->document_title; ?>&id=<?php echo @$items['data'][$x]->cat_id; ?>">
 						
-						<?php echo ucwords($items['data'][$x]->document_title); ?>
+						<?php echo ucwords(str_ireplace(trim($search_param),'<mark>'.ucwords($search_param).'</mark>',$items['data'][$x]->document_title)); ?>
 					</a>
 
 					<span class="text-muted" title="open in new tab" style="cursor:pointer;" onclick='window.open("?item_id=<?php echo $items['data'][$x]->id; ?>&title=<?php echo $items['data'][$x]->document_title; ?>&id=<?php echo @$items['data'][$x]->cat_id; ?>");'><i class="material-icons md-18">open_in_new</i></span>
 
 				</h4>
 
-				<p class="display-description  display-field"><?php echo nl2br($items['data'][$x]->content_description); ?></p>
+				<p class="display-description  display-field"><?php echo ucwords(str_ireplace(trim($search_param),'<mark>'.ucwords($search_param).'</mark>',$items['data'][$x]->content_description)); ?></p>
 
 				<?php if(!empty($items['data'][$x]->original_file_name)){ ?>
 				<p class="display-files  display-field"><small> <button class="btn btn-xs btn-success download" data-cat="<?php echo $items['data'][$x]->id; ?>"><i class="material-icons">cloud_download</i> <?php echo $items['data'][$x]->original_file_name; ?></button></small></p>

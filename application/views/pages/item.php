@@ -3,9 +3,6 @@
 <div class="col col-md-6 col-sm-9 col-lg-8">
 		<div class="col col-md-12">
 			<h3><?php echo ucfirst($items[0]->document_title); ?></h3>
-			<p class="text-muted"><?php echo strlen($items[0]->content_description)<=500?ucfirst(utf8_encode($items[0]->content_description)):substr(ucfirst(utf8_encode($items[0]->content_description)), 0,500).'. . .<small>(excerpt)</small>'; ?></p>
-
-
 			<!--download button-->
 			<?php if(!empty(@$items[0]->original_file_name)){ ?>
 			<p>
@@ -211,6 +208,23 @@
 				<?php } ?>	
 
 
+				<?php if(!is_empty($items[0]->keywords)){ ?> 
+					<li class="row">
+						<span class="col col-md-12 col-lg-3 col-sm-4 col-xs-12">
+							<span  class="custom-print-checkbox">
+								 <span>
+						            <input type="checkbox" id="keywordsXXCheckBox" name="keywords" class="checkbox-group"> 
+
+						            <label for="keywordsXXCheckBox"><span></span></label>
+						          </span> 
+							</span>
+							<b>Keywords :</b>
+						</span> 
+						<span class="col-md-9 col-sm-8 col-xs-12"><?php echo nl2br($items[0]->keywords); ?></span>
+					</li>
+				<?php } ?>
+
+
 				<?php if(!is_empty($items[0]->place)){ ?> 
 						<li class="row">
 							<span class="col col-md-3 col-sm-4 col-xs-12">
@@ -362,21 +376,6 @@
 				 	</li>
 				 <?php } ?>
 
-				<?php if(!is_empty($items[0]->keywords)){ ?> 
-					<li class="row">
-						<span class="col col-md-12 col-lg-3 col-sm-4 col-xs-12">
-							<span  class="custom-print-checkbox">
-								 <span>
-						            <input type="checkbox" id="keywordsXXCheckBox" name="keywords" class="checkbox-group"> 
-
-						            <label for="keywordsXXCheckBox"><span></span></label>
-						          </span> 
-							</span>
-							<b>Keywords :</b>
-						</span> 
-						<span class="col-md-9 col-sm-8 col-xs-12"><?php echo nl2br($items[0]->keywords); ?></span>
-					</li>
-				<?php } ?>
 
 				<?php if(!is_empty($items[0]->provenance)){ ?> 
 					<li class="row">

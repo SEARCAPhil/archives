@@ -61,7 +61,7 @@
 						<div class="form-group has-feedback" id="form-title">
 							<label for="inputTitle" class="control-label col-xs-3 ">Creator</label>
 							<div class="col-xs-9">
-								<input type="text" class="form-control" id="inputTitle" placeholder="creator" name="creator" value="<?php echo $this->input->get('creator'); ?>">
+								<input type="text" class="form-control" id="inputTitle" placeholder="Creator" name="creator" value="<?php echo $this->input->get('creator'); ?>">
 
 							</div>
 						</div>
@@ -91,7 +91,7 @@
 						<div class="form-group has-feedback" id="form-title">
 							<label for="inputTitle" class="control-label col-xs-3 ">Place</label>
 							<div class="col-xs-9">
-								<input type="text" class="form-control" id="inputTitle" placeholder="place" name="place" value="<?php echo $this->input->get('place'); ?>">
+								<input type="text" class="form-control" id="inputTitle" placeholder="Place" name="place" value="<?php echo $this->input->get('place'); ?>">
 							</div>
 						</div>
 
@@ -236,7 +236,7 @@
 						<div class="form-group has-feedback" id="form-title">
 							<label for="inputTitle" class="control-label col-xs-3 ">Physical Condition</label>
 							<div class="col-xs-9">
-								<input type="text" class="form-control" id="inputTitle" placeholder="Physical Condition" name="physical_condition" value="<?php echo $this->input->get('physical_condition'); ?>"
+								<input type="text" class="form-control" id="inputTitle" placeholder="Physical Condition" name="physical_condition" value="<?php echo $this->input->get('physical_condition'); ?>">
 
 							</div>
 						</div>
@@ -246,7 +246,7 @@
 						<div class="form-group has-feedback" id="form-title">
 							<label for="inputTitle" class="control-label col-xs-3 ">Record Group</label>
 							<div class="col-xs-9">
-								<input type="text" class="form-control" id="inputTitle" placeholder="record group" name="record_group" value="<?php echo $this->input->get('record_group'); ?>">
+								<input type="text" class="form-control" id="inputTitle" placeholder="Record group" name="record_group" value="<?php echo $this->input->get('record_group'); ?>">
 								
 
 							</div>
@@ -255,7 +255,7 @@
 						<div class="form-group has-feedback" id="form-title">
 							<label for="inputTitle" class="control-label col-xs-3 ">Material</label>
 							<div class="col-xs-9">
-								<input type="text" class="form-control" id="inputTitle" placeholder="material" name="material" value="<?php echo $this->input->get('material'); ?>" >
+								<input type="text" class="form-control" id="inputTitle" placeholder="Material" name="material" value="<?php echo $this->input->get('material'); ?>" >
 								
 
 							</div>
@@ -325,7 +325,7 @@
 
 						
 						<div class="col col-md-12">
-							<p><input type="radio" name="logic" value="and" <?php echo $this->input->get('logic')=='and'?'checked="checked"':''; ?> /> AND </p>
+							<p><input type="radio" name="logic" value="and" <?php echo $this->input->get('logic')=='and'?'checked="checked"':''; ?> /> AND <span class="text-muted">(DEFAULT)</span></p>
 							<p><input type="radio" name="logic" value="or" <?php echo $this->input->get('logic')=='or'?'checked="checked"':''; ?>/> OR </p>
 							<p><input type="radio" name="logic" value="not" <?php echo $this->input->get('logic')=='not'?'checked="checked"':''; ?>/> NOT </p>
 						</div>
