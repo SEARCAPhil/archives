@@ -1,6 +1,7 @@
 <?php include_once('panel_subcategory.php'); ?>
+<div class="col col-md-6 col-sm-9 col-lg-8 item-status"></div>
 
-<div class="col col-md-6 col-sm-9 col-lg-8">
+<div class="col col-md-6 col-sm-9 col-lg-8 item<?php echo @($items[0]->id) ?>">
 		<div class="col col-md-12">
 			<h3><?php echo ucfirst($items[0]->document_title); ?></h3>
 			<!--download button-->
@@ -25,7 +26,7 @@
 		</div>
 </div>
 
-<div class="col col-lg-8 col-sm-9 col-md-6 col-xs-12 pull-right document-header">
+<div class="col col-lg-8 col-sm-9 col-md-6 col-xs-12 pull-right document-header item<?php echo @($items[0]->id) ?>">
 	<div class="text-center	 col col-lg-3 col-md-4 col-sm-4 col-xs-4" style="border-right: 1px solid rgb(240,240,240);padding-top: 20px;">
 		<p class="text-danger"><b><?php echo ($items[0]->record_number); ?></b></p>
 		<p><small>Record Number</small></p>
@@ -45,7 +46,7 @@
 
 	
 </div>
-<div  class="col col-md-6 col-sm-9 col-lg-8">
+<div  class="col col-md-6 col-sm-9 col-lg-8 item<?php echo @($items[0]->id) ?>">
 
 <?php if(isset($items[0])){ ?>
 	<div class="col col-md-12 col-sm-12 col-lg-12 ">

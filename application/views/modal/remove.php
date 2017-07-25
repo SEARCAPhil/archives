@@ -28,7 +28,11 @@ $(document).ready(function(){
 
         $('#modal-dismiss-button').click();
         
-        setTimeout(function(){ $('#item'+id).fadeOut(); },1000);
+        
+        $('.item-status').html( `<center class="text-danger"><h2>Deleted</h2><p>All files associated with this item were deleted.</p></center>`) 
+        $('.item'+id).html('')
+
+     
       }else{
         alert('oops!something went wrong.Please try again later.')
       }
