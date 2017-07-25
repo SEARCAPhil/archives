@@ -253,6 +253,11 @@ class Form extends MY_Controller {
         			//create new
             		$this->last_insert_result=self::set_item();
 
+            		$redirect_url=site_url().'?item_id='.$this->last_insert_result['data'].'&id='.$this->input->post('series').'&category=true&title=true';
+
+            		//set redirect URL
+        			setcookie("dms-upload-redirect-to",str_replace('||','&',$redirect_url),time()+3600,'/');
+
             	}else{
 
 					//update

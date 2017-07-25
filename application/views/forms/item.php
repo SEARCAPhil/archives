@@ -48,7 +48,7 @@
 						<div class="form-group has-feedback" id="form-title">
 							<label for="inputTitle" class="control-label col-xs-3 ">Creator</label>
 							<div class="col-xs-9">
-								<input type="text" class="form-control" id="inputTitle" placeholder="creator" name="creator" value="<?php echo strlen(set_value('creator'))>0?set_value('creator'):@$items[0]->creator; ?>">
+								<input type="text" class="form-control" id="inputTitle" placeholder="Creator" name="creator" value="<?php echo strlen(set_value('creator'))>0?set_value('creator'):@$items[0]->creator; ?>">
 								<!--<span class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"></span>-->
 								<span id="titleAlert" class="text-danger alert-data">
 									<?php echo form_error('creator'); ?>
@@ -76,7 +76,7 @@
 						<div class="form-group has-feedback" id="form-title">
 							<label for="inputTitle" class="control-label col-xs-3 ">Content Description </label>
 							<div class="col-xs-9">
-								<textarea class="form-control" placeholder="Content Description" name="content_description" rows="10">
+								<textarea class="form-control" placeholder="Content Description" name="content_description" rows="20">
 									<?php echo strlen(set_value('content_description'))>0?set_value('content_description'):@$items[0]->content_description; ?>
 								</textarea> 
 								<!--<span class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"></span>-->
@@ -91,7 +91,7 @@
 						<div class="form-group has-feedback" id="form-title">
 							<label for="inputTitle" class="control-label col-xs-3 ">Place</label>
 							<div class="col-xs-9">
-								<input type="text" class="form-control" id="inputTitle" placeholder="place" name="place" value="<?php echo strlen(set_value('place'))>0?set_value('place'):@$items[0]->place; ?>">
+								<input type="text" class="form-control" id="inputTitle" placeholder="Place" name="place" value="<?php echo strlen(set_value('place'))>0?set_value('place'):@$items[0]->place; ?>">
 								<!--<span class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"></span>-->
 								<span id="titleAlert" class="text-danger alert-data"></span>
 								
@@ -334,7 +334,7 @@
 						<div class="form-group has-feedback" id="form-title">
 							<label for="inputTitle" class="control-label col-xs-3 ">Record Group</label>
 							<div class="col-xs-9">
-								<input type="text" class="form-control" id="inputTitle" placeholder="record group" name="record_group" value="<?php echo strlen(set_value('record_group'))>0?set_value('record_group'):@$items[0]->record_group; ?>">
+								<input type="text" class="form-control" id="inputTitle" placeholder="Record group" name="record_group" value="<?php echo strlen(set_value('record_group'))>0?set_value('record_group'):@$items[0]->record_group; ?>">
 								<!--<span class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"></span>-->
 								<span id="titleAlert" class="text-danger alert-data"></span>
 								
@@ -345,7 +345,7 @@
 						<div class="form-group has-feedback" id="form-title">
 							<label for="inputTitle" class="control-label col-xs-3 ">Material</label>
 							<div class="col-xs-9">
-								<input type="text" class="form-control" id="inputTitle" placeholder="material" name="printable" value="<?php echo strlen(set_value('material'))>0?set_value('material'):@$items[0]->material; ?>">
+								<input type="text" class="form-control" id="inputTitle" placeholder="Material" name="printable" value="<?php echo strlen(set_value('material'))>0?set_value('material'):@$items[0]->material; ?>">
 								<!--<span class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"></span>-->
 								<span id="printableAlert" class="text-danger alert-data"></span>
 								
@@ -363,7 +363,7 @@
 						<div class="form-group has-feedback" id="form-title">
 							<label for="inputTitle" class="control-label col-xs-3 ">Notes</label>
 							<div class="col-xs-9">
-								<textarea class="form-control" placeholder="Notes" name="notes" rows="10">
+								<textarea class="form-control" placeholder="Notes" name="notes" rows="20">
 									<?php echo strlen(set_value('notes'))>0?set_value('notes'):@$items[0]->notes; ?>
 								</textarea> 
 								<!--<span class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"></span>-->
@@ -377,7 +377,7 @@
 						<div class="form-group has-feedback" id="form-title">
 							<label for="inputTitle" class="control-label col-xs-3 ">Keywords</label>
 							<div class="col-xs-9">
-								<textarea class="form-control" placeholder="keywords" name="keywords">
+								<textarea class="form-control" placeholder="keywords" name="keywords" rows="5">
 									<?php echo strlen(set_value('keywords'))>0?set_value('keywords'):@$items[0]->keywords; ?>
 								</textarea> 
 								<!--<span class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"></span>-->
@@ -405,7 +405,7 @@
 						<div class="form-group has-feedback" id="form-title">
 							<label for="inputTitle" class="control-label col-xs-3 ">Remarks</label>
 							<div class="col-xs-9">
-								<textarea class="form-control" placeholder="remarks" name="remarks">
+								<textarea class="form-control" placeholder="remarks" name="remarks" rows="5">
 									<?php echo strlen(set_value('remarks'))>0?set_value('remarks'):@$items[0]->remarks; ?>
 								</textarea> 
 								<!--<span class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"></span>-->
