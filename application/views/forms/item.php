@@ -19,7 +19,7 @@
 						<div class="form-group has-feedback" id="form-title">
 							<label for="inputTitle" class="control-label col-xs-3 ">Document Tile <span class="text-danger">*</span></label>
 							<div class="col-xs-9">
-								<input type="text" class="form-control" id="inputTitle" placeholder="Title" name="title" value="<?php echo strlen(set_value('title'))>0?set_value('title'):@$items[0]->document_title; ?>">
+								<input type="text" class="form-control" id="inputTitle" placeholder="Title (required)" name="title" value="<?php echo strlen(set_value('title'))>0?set_value('title'):@$items[0]->document_title; ?>">
 								<!--<span class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"></span>-->
 								<span id="titleAlert" class="text-danger alert-data">
 									<?php echo form_error('title'); ?>
@@ -74,13 +74,13 @@
 
 
 						<div class="form-group has-feedback" id="form-title">
-							<label for="inputTitle" class="control-label col-xs-3 ">Content Description <span class="text-danger">*</span></label>
+							<label for="inputTitle" class="control-label col-xs-3 ">Content Description </label>
 							<div class="col-xs-9">
 								<textarea class="form-control" placeholder="Content Description" name="content_description" rows="10">
 									<?php echo strlen(set_value('content_description'))>0?set_value('content_description'):@$items[0]->content_description; ?>
 								</textarea> 
 								<!--<span class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"></span>-->
-								<span id="titleAlert" class="text-danger alert-data"><?php echo form_error('content_description'); ?></span>
+								
 								
 
 							</div>

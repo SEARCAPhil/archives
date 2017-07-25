@@ -27,7 +27,7 @@
 
 <div class="col col-lg-8 col-sm-9 col-md-6 col-xs-12 pull-right document-header">
 	<div class="text-center	 col col-lg-3 col-md-4 col-sm-4 col-xs-4" style="border-right: 1px solid rgb(240,240,240);padding-top: 20px;">
-		<p><b><?php echo ($items[0]->record_number); ?></b></p>
+		<p class="text-danger"><b><?php echo ($items[0]->record_number); ?></b></p>
 		<p><small>Record Number</small></p>
 
 	</div>

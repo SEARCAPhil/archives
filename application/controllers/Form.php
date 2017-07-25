@@ -173,7 +173,7 @@ class Form extends MY_Controller {
 
 		$this->form_validation->set_error_delimiters('<br/><pclass="text-danger">', '</p>');
 		$this->form_validation->set_rules('title', 'Title', 'required');
-		$this->form_validation->set_rules('content_description', 'Description', 'required');
+		//$this->form_validation->set_rules('content_description', 'Description', 'required');
 		$this->form_validation->set_rules('series', 'Series', 'callback_series_check');
 
 
