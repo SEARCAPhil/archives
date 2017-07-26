@@ -243,21 +243,23 @@
 					<?php } ?>
 
 
-				<?php if(!is_empty($items[0]->date_of_input)){ ?> 
+
+				<?php if(!is_empty($items[0]->date_range)){ ?> 
 					<li class="row">
 						<span class="col col-md-12 col-lg-3 col-sm-4 col-xs-12">
 							<span  class="custom-print-checkbox">
 								 <span>
-						            <input type="checkbox" id="dateOfInputCheckBox" name="date_of_input" class="checkbox-group"> 
+						            <input type="checkbox" id="dateRangeCheckBox" name="date_range" class="checkbox-group"> 
 
-						            <label for="dateOfInputCheckBox"><span></span></label>
+						            <label for="dateRangeCheckBox"><span></span></label>
 						          </span> 
 							</span>
-							<b>Date :</b>
+							<b>Date Range :</b>
 						</span> 
-						<span class="col-md-9 col-sm-8 col-xs-12"><?php echo $items[0]->date_of_input; ?></span>
+					<span class="col-md-9 col-sm-8 col-xs-12"><?php echo $items[0]->date_range; ?></span>
 					</li>
 				<?php } ?>
+
 
 
 				<?php if(!is_empty($items[0]->collation)){ ?> 
@@ -508,21 +510,27 @@
 					</li>
 				<?php } ?>
 
-				<?php if(!is_empty($items[0]->date_range)){ ?> 
+
+
+
+				<?php if(!is_empty($items[0]->date_of_input)){ ?> 
 					<li class="row">
 						<span class="col col-md-12 col-lg-3 col-sm-4 col-xs-12">
 							<span  class="custom-print-checkbox">
 								 <span>
-						            <input type="checkbox" id="dateRangeCheckBox" name="date_range" class="checkbox-group"> 
+						            <input type="checkbox" id="dateOfInputCheckBox" name="date_of_input" class="checkbox-group"> 
 
-						            <label for="dateRangeCheckBox"><span></span></label>
+						            <label for="dateOfInputCheckBox"><span></span></label>
 						          </span> 
 							</span>
-							<b>Date Range :</b>
+							<b>Date of Input :</b>
 						</span> 
-					<span class="col-md-9 col-sm-8 col-xs-12"><?php echo $items[0]->date_range; ?></span>
+						<span class="col-md-9 col-sm-8 col-xs-12"><?php echo $items[0]->date_of_input; ?></span>
 					</li>
 				<?php } ?>
+
+
+
 
 				<?php if(!is_empty($items[0]->quantity)){ ?> 
 					<li class="row">
