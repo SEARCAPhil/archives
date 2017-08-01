@@ -298,7 +298,7 @@
 
 
 				<?php if(!is_empty($items[0]->access_condition)){ ?> 
-					<li>
+					<li class="row">
 						<span class="col col-md-12 col-lg-3 col-sm-4 col-xs-12">
 							<span  class="custom-print-checkbox">
 								 <span>
