@@ -78,9 +78,7 @@
 						<div class="form-group has-feedback" id="form-title">
 							<label for="inputContent" class="control-label col-xs-3 ">Content Description</label>
 							<div class="col-xs-9">
-								<textarea class="form-control" placeholder="Content Description" name="content_description" rows="10">
-									<?php echo trim($this->input->get('content_description')); ?>
-								</textarea> 
+								<textarea class="form-control" placeholder="Content Description" name="content_description" rows="10"><?php echo trim($this->input->get('content_description')); ?></textarea> 
 								
 
 							</div>
@@ -271,9 +269,7 @@
 						<div class="form-group has-feedback" id="form-title">
 							<label for="inputTitle" class="control-label col-xs-3 ">Notes</label>
 							<div class="col-xs-9">
-								<textarea class="form-control" placeholder="Notes" name="notes" rows="10">
-									<?php echo $this->input->get('notes'); ?>
-								</textarea> 
+								<textarea class="form-control" placeholder="Notes" name="notes" rows="10"><?php echo $this->input->get('notes'); ?></textarea> 
 								<!--<span class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"></span>-->
 								<span id="titleAlert" class="text-danger alert-data"></span>
 								
@@ -285,9 +281,7 @@
 						<div class="form-group has-feedback" id="form-title">
 							<label for="inputTitle" class="control-label col-xs-3 ">Keywords</label>
 							<div class="col-xs-9">
-								<textarea class="form-control" placeholder="keywords" name="keywords">
-									<?php echo $this->input->get('keywords'); ?>
-								</textarea> 
+								<textarea class="form-control" placeholder="keywords" name="keywords"><?php echo $this->input->get('keywords'); ?></textarea> 
 								
 
 							</div>
@@ -309,9 +303,7 @@
 						<div class="form-group has-feedback" id="form-title">
 							<label for="inputTitle" class="control-label col-xs-3 ">Remarks</label>
 							<div class="col-xs-9">
-								<textarea class="form-control" placeholder="remarks" name="remarks">
-									<?php echo $this->input->get('remarks'); ?>
-								</textarea> 
+								<textarea class="form-control" placeholder="remarks" name="remarks"><?php echo $this->input->get('remarks'); ?></textarea> 
 								
 
 							</div>

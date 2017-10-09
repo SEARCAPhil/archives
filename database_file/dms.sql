@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 09, 2017 at 05:56 AM
+-- Generation Time: Oct 09, 2017 at 08:05 AM
 -- Server version: 5.6.21-log
 -- PHP Version: 7.1.2
 
@@ -86,7 +86,7 @@ DROP TABLE IF EXISTS `item`;
 CREATE TABLE IF NOT EXISTS `item` (
 `id` int(11) NOT NULL,
   `cat_id` int(11) DEFAULT NULL,
-  `document_title` varchar(255) DEFAULT NULL,
+  `document_title` text,
   `content_description` text,
   `publisher` varchar(255) DEFAULT NULL,
   `creator` varchar(255) DEFAULT NULL,
