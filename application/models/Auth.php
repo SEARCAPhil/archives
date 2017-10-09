@@ -23,13 +23,12 @@ class Auth extends CI_Model {
 	}
 
 
-	function profile_exists($user_id,$date_modified){
+	function profile_exists($user_id){
 	
 		$this->user_id=htmlentities(htmlspecialchars($user_id));
-		$this->date=htmlentities(htmlspecialchars($date_modified));
 
-		$sql="SELECT * FROM account_profile where uid=? and date_modified=? ORDER BY id DESC LIMIT 1";
-		$statement=$this->db->query($sql,array($this->user_id,$this->date));
+		$sql="SELECT * FROM account_profile where uid=? ORDER BY id DESC LIMIT 1";
+		$statement=$this->db->query($sql,array($this->user_id));
 		return $statement->result();		
 	}
 
