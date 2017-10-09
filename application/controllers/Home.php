@@ -225,13 +225,12 @@ class Home extends MY_Controller {
 				
 				#check if LOCAL account exist
 				$local_account=$this->auth->account_exists($auth[0]->username);
+				
 
 				if(isset($local_account[0]->uid)){
 
 					#check if LOCAL Profile already exists
-					#check for local profile with the same ID and timestamp
-					#Timestamp should be check if user profile is already expired
-					$local_profile=$this->auth->profile_exists($local_account[0]->id,$auth[0]->date_modified);
+					$local_profile=$this->auth->profile_exists($local_account[0]->id);
 
 					#set session cofiguration for local profile
 					if(isset($local_profile[0]->id)){
