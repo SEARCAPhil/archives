@@ -76,7 +76,7 @@
 						<td>
 							<a href="<?php echo base_url(); ?>?item_id=<?php echo @$items['data'][$x]->id; ?>&id=<?php echo $items['data'][$x]->cat_id; ?>&title=<?php echo urlencode(utf8_encode($items['data'][$x]->document_title)); ?>">
 
-							<?php echo ucwords(str_ireplace(trim(strip_tags(htmlentities(htmlspecialchars(@$_GET['document_title'])))),'<mark>'.ucwords(strip_tags(htmlentities(htmlspecialchars(@$_GET['document_title'])))).'</mark>',$items['data'][$x]->document_title)); ?></a>
+							<?php echo ucfirst(str_ireplace(trim(strip_tags(htmlentities(htmlspecialchars(@$_GET['document_title'])))),'<mark>'.ucfirst(strip_tags(htmlentities(htmlspecialchars(@$_GET['document_title'])))).'</mark>',$items['data'][$x]->document_title)); ?></a>
 						</td>
 						<td class="display-description  display-field"><?php echo nl2br(str_replace(trim(strip_tags(htmlentities(htmlspecialchars(@$_GET['content_description'])))),'<mark>'.strip_tags(htmlentities(htmlspecialchars(@$_GET['content_description']))).'</mark>',$items['data'][$x]->content_description)); ?></td>
 
@@ -128,7 +128,7 @@
 				<h4>
 					<a href="<?php echo base_url(); ?>?item_id=<?php echo $items['data'][$x]->id; ?>&title=<?php echo $items['data'][$x]->document_title; ?>&id=<?php echo @$items['data'][$x]->cat_id; ?>">
 						
-						<?php echo ucwords(str_ireplace(trim(strip_tags(htmlentities(htmlspecialchars(@$_GET['document_title'])))),'<mark>'.ucwords(strip_tags(htmlentities(htmlspecialchars(@$_GET['document_title'])))).'</mark>',$items['data'][$x]->document_title)); ?> 
+						<?php echo ucfirst(str_ireplace(trim(strip_tags(htmlentities(htmlspecialchars(@$_GET['document_title'])))),'<mark>'.ucfirst(strip_tags(htmlentities(htmlspecialchars(@$_GET['document_title'])))).'</mark>',$items['data'][$x]->document_title)); ?> 
 					</a>
 
 					<span class="text-muted" title="open in new tab" style="cursor:pointer;" onclick='window.open("<?php echo base_url(); ?>?item_id=<?php echo $items['data'][$x]->id; ?>&title=<?php echo $items['data'][$x]->document_title; ?>&id=<?php echo @$items['data'][$x]->cat_id; ?>");'><i class="material-icons md-18">open_in_new</i></span>
