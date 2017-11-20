@@ -63,13 +63,13 @@ class Item extends CI_Model {
 		$this->physical_condition=isset($item['physical'])?htmlentities(htmlspecialchars($item['physical'])):'';
 		$this->quantity=isset($item['quantity'])?htmlentities(htmlspecialchars($item['quantity'])):'';
 		$this->record_group=isset($item['record_group'])?htmlentities(htmlspecialchars($item['record_group'])):'';
-		$this->document_title=isset($item['title'])?htmlentities(htmlspecialchars($item['title'])):'';
+		$this->document_title=isset($item['title'])?trim($item['title']):'';
 		$this->creator=isset($item['creator'])?htmlentities(htmlspecialchars($item['creator'])):'';
 		$this->place=isset($item['place'])?htmlentities(htmlspecialchars($item['place'])):'';
 		$this->publisher=isset($item['publisher'])?htmlentities(htmlspecialchars($item['publisher'])):'';
 		$this->source_title=isset($item['source'])?htmlentities(htmlspecialchars($item['source'])):'';
 		$this->collation=isset($item['collation'])?htmlentities(htmlspecialchars($item['collation'])):'';
-		$this->content_description=isset($item['content_description'])?htmlentities(htmlspecialchars($item['content_description'])):'';
+		$this->content_description=isset($item['content_description'])?trim($item['content_description']):'';
 		$this->notes=isset($item['notes'])?htmlentities(htmlspecialchars($item['notes'])):'';
 		$this->keywords=isset($item['keywords'])?htmlentities(htmlspecialchars($item['keywords'])):'';
 		$this->provenance=isset($item['provenance'])?htmlentities(htmlspecialchars($item['provenance'])):'';

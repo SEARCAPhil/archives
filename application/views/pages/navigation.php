@@ -77,7 +77,7 @@ function set_active($sid){
 
 						<form style="margin-top: 7px;margin-bottom: 0px;" action="<?php echo base_url(); ?>">
 
-							<input type="text" class="form-control search-box search-box-top" placeholder="Search" name="search" value="<?php echo utf8_encode($this->input->get('search')); ?>"/>
+							<input type="text" class="form-control search-box search-box-top" placeholder="Search" name="search" value="<?php echo ($this->input->get('search')); ?>"/>
 						</form>
 
 						</div></li>
