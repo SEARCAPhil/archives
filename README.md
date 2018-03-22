@@ -22,7 +22,19 @@ PHP version 5.6 or newer is recommended.
 
 It should work on 5.3.7 as well, but we strongly advise you NOT to run
 such old versions of PHP, because of potential security and performance
-issues, as well as missing features.
+issues, as well as missing features.   
+
+
+************
+##### Dependency #####
+************   
+
+Save all the dependency using composer. For all commands available please visit their [website](https://getcomposer.org/)
+```php
+composer install
+```
+
+
 
 ************
 ##### PHP Configuration #####
@@ -56,7 +68,7 @@ var base_url='/document_management_system/';
 ##### Database Configuration #####
 ************
 
-Upload the **.sql** files inside the database_file folder to your MySQL/MariaDB server then configure 
+Upload the **.sql** files inside the `database_files` folder to your MySQL/MariaDB server then configure 
 the database connection in **application/config/database.php**.
 
 Look for the lines below and change it with your server's configuration
