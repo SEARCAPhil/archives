@@ -12,7 +12,8 @@
 	},
 	"require": {
 		"php": ">=5.2.4",
-		"tecnickcom/tcpdf": "6.2.12"
+		"tecnickcom/tcpdf": "6.2.12",
+		"twbs/bootstrap": "3.3.7"
 	},
 	"suggest": {
 		"paragonie/random_compat": "Provides better randomness in PHP 5.x"
