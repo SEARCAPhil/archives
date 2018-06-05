@@ -245,8 +245,9 @@ class Home extends MY_Controller {
 						$_SESSION['dept']=$local_profile[0]->department;
 						$_SESSION['priv']=$auth[0]->priv;
 						$_SESSION['position']=$local_profile[0]->position;
-						$_SESSION['name']=$local_profile[0]->profile_name;
-						$_SESSION['image']=$local_profile[0]->profile_image;
+						$_SESSION['name'] = $local_profile[0]->profile_name;
+						$_SESSION['image'] = $local_profile[0]->profile_image;
+						$_SESSION['name_alias'] = @substr($local_profile[0]->profile_name,0,2);
 
 
 						#redirect

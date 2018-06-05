@@ -6,7 +6,7 @@ $(document).ready(function(){
 
 		var that=this;
 		var index=0;
-		$.post('/document_management_system/rest/series',data).success(function(e){
+		$.post('/archives/rest/series',data).success(function(e){
 			index++;
 			var series=JSON.parse(e)
 

@@ -2,6 +2,24 @@ html{
 	font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif;
 }
 
+body {
+	overflow: hidden;
+}
+::-webkit-scrollbar {
+	width:5px;
+}
+::-webkit-scrollbar-track {
+	background: rgba(200,200,200,0.1);
+}
+::-webkit-scrollbar-thumb {
+	background:  rgba(200,200,200,0.5);
+	border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+	background:  rgba(200,200,200,0.8);
+}
+
 /*material icon font*/
 @font-face {
   font-family: 'Material Icons';
@@ -91,11 +109,15 @@ input[type="checkbox"].small + label span{
 	margin-bottom: -4px;
 }
 
+.badge-success {
+	background: #009688;
+}
+
 
 .navbar-top{
 	border-radius: 0;
 	border:none;
-	background: #222;
+	background: #3c3c3c!important;
 }
 
 .sub-nav{
@@ -153,7 +175,7 @@ input[type="checkbox"].small + label span{
 .well-custom{
 	
 	
-	padding: 5px 5px;
+	padding: 5px 20px;
 	border-bottom: 1px solid #ccc;
 }
 
@@ -180,13 +202,15 @@ input[type="checkbox"].small + label span{
 
 .left-navigation-section{
 	min-height: 100%;
-	height: auto;
+	height: 100vh;
 	border-right: 1px solid rgba(200,200,200,0.3);
-	background: rgb(60,60,60);
+	background: rgba(0,0,0,.8);
+	overflow-y: auto;
+	z-index: 3;
 
 }
 .left-navigation li{
-	padding: 10px;
+	padding: 6px;
 	color: rgb(200,200,200);
 	cursor: pointer;
 }
@@ -209,17 +233,15 @@ input[type="checkbox"].small + label span{
 
 .left-navigation li a:hover{
 	text-decoration: none;
-	color: rgb(200,200,200);
+	color: #ffb80c;
 	transition: color 0.3s ease-in-out;
 } 
 
 .left-navigation-header{
 	float: left;
 	width: 100%;
-	height: 50px;
 	border-bottom: 1px solid rgba(80,80,80,0.5);
-	background: rgb(80,80,80);
-	padding: 10px;
+	padding: 8px;
 	color: #ccc;
 	border-bottom: 1px solid rgb(90,90,90);
 	cursor: pointer;
@@ -228,8 +250,8 @@ input[type="checkbox"].small + label span{
 
 
 .left-navigation-header.active{
-	background: rgb(255,180,60);
-	color: rgb(255,255,255);
+	background:#ffb80c;
+	color: #000;
 }
 
 .category-section{

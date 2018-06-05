@@ -1,17 +1,29 @@
 
-<div class="col col-md-9 col-sm-9 col-lg-7 col-lg-offset-1">
+<div class="col col-md-9 col-sm-9 col-lg-9 col-lg-offset-1" style="height:100vh;overflow-y:auto;padding-bottom:150px;position:relative;">
 
-	<div class=" table-responsive col col-xs-12">
-		<br/><br/><br/>
-		<h3><span class="glyphicon glyphicon-pencil"></span> Step 1/2  <span class="text-muted">(Details)</span> <span class="pull-right"><button class="btn btn-primary" onclick="document.getElementById('next').click()">Next &raquo;</button></span></h3>
+	<div class="col col-xs-12 col-lg-9">
+		<br/>
+		<!--<h3><span class="glyphicon glyphicon-pencil"></span> Step 1/2  <span class="text-muted">(Details)</span> <span class="pull-right"><button class="btn btn-primary" onclick="document.getElementById('next').click()">Next &raquo;</button></span></h3>-->
 		
 		<br/>
 		
+		<div style="position:fixed;
+		float:left;
+			width:150px;
+			height:50px;
+			background:#fff;
+			right:40;
+			z-index:10;
+			color:#4CAF50;
+			cursor:pointer;
+			">
+			<h3 onclick="document.getElementById('next').click()">Next Step<span class="glyphicon glyphicon-triangle-right"></span><small class="text-muted">(Step 1/2)</small></h3>
+		</div>
 		
 		<?php echo form_open('form','class="form-horizontal",action='.$_SERVER['PHP_SELF']);  ?>
-		<div class=" well container-fluid">
-			<h3><span class="glyphicon glyphicon-file"></span> Material Form</h3>
-			<p class="text-muted">Instruction: All fields with (<span class="text-danger">*</span>) are required.</p>
+		<div class="container-fluid">
+			<h3><span class="glyphicon glyphicon-file"></span> Material Form </h3>
+			<p><b>Instruction:</b> All fields with (<span class="text-danger">*</span>) are required.</p>
 			<hr style="border:1px solid rgb(150,150,150);" />
 			<!--first-->
 			<article class="col col-md-6">

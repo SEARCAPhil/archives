@@ -11,12 +11,12 @@
 	}
 </style>
 	
-	<div class="col col-md-7 col-md-offset-1">
-			<div class="col col-md-12 " style="margin-top: 6vh;">
+	<div class="col col-md-8 col-md-offset-1">
+			<div class="col col-md-12 " style="margin-top: 10vh;">
 				<center>
-					<img src="<?php echo base_url(); ?>assets/images/share2.png"  width="50%" />
+					<img src="<?php echo base_url(); ?>assets/images/cloud.png"  width="35%" style="min-width:250px;" />
 
-					<h2 class="text-muted">Document Management System</h2>
+					<h2>Document Management System</h2>
 					<p  class="text-muted">Keep your files safe, organize, and accessible everywhere</p>
 
 

@@ -24,7 +24,7 @@ $(document).ready(function(){
 	*This must match against CodeIgniter's site URL
 	*/
 
-	var site_url='/document_management_system/';
+	var site_url='/archives/';
 
 	var redirect_url=getCookie('dms-upload-redirect-to')!=undefined?getCookie('dms-upload-redirect-to'):site_url+'form/success';
 

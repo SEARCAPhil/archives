@@ -2,7 +2,7 @@
   ob_start();
 
   // Include the main TCPDF library (search for installation path).
-  require_once(FCPATH.'/vendor/tcpdf/tcpdf.php');
+  require_once(FCPATH.'/vendor/tecnickcom/tcpdf/tcpdf.php');
 
   global $items_header;
   $items_header=$items;

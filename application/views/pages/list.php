@@ -37,9 +37,9 @@
 
 
 
-<div class="col col-lg-8 col-sm-9 col-md-6 col-xs-12">
+<div class="col col-lg-8 col-sm-9 col-md-6 col-xs-12" style="height:100vh;overflow-y:auto;">
 
-	<div class="row col col-md-12 col-xs-12">
+	<div class="row">
 		
 		<?php if(count($details)>0){ ?>
 
@@ -52,9 +52,9 @@
 				<?php if (@$x<1&&isset($items['total'])){?>	
 
 					<center>
-							<img src="<?php echo base_url(); ?>assets/images/share2.png"  width="50%" />
+							<img src="<?php echo base_url(); ?>assets/images/cloud.png"  width="35%" style="margin-top:10vh;" />
 
-							<h2 class="text-muted">Document Management System</h2>
+							<h2 class="text-danger">No content available</h2>
 							<p  class="text-muted">Keep your files safe, organize, and accessible everywhere</p>
 
 

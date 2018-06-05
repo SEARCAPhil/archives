@@ -46,10 +46,10 @@
 
 	
 </div>
-<div  class="col col-md-6 col-sm-9 col-lg-8 item<?php echo @($items[0]->id) ?>">
+<div  class="col col-md-6 col-sm-9 col-lg-8 item<?php echo @($items[0]->id) ?>" style="height:70vh;overflow-y:auto;padding-bottom:150px;">
 
 <?php if(isset($items[0])){ ?>
-	<div class="col col-md-12 col-sm-12 col-lg-12 ">
+	<div class="col col-md-12 col-sm-12 col-lg-12">
 		
 		<p>
 			<li class="dropdown list-unstyled pull-right"><a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="material-icons pull-right">keyboard_arrow_down</i></a>
