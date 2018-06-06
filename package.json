@@ -1,0 +1,12 @@
+{
+  "name": "archives",
+  "version": "1.2.0",
+  "description": "SEARCA's Documents Management System",
+  "main": "index.js",
+  "repository": "https://github.com/SEARCAPhil/archives.git",
+  "author": "kenneth <johnkennethgibasabella@gmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "msal": "^0.1.6"
+  }
+}

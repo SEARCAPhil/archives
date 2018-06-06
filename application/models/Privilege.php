@@ -12,8 +12,6 @@ class Privilege extends CI_Model {
 
 	public function _get_roles(){
 
-	
-
 		$sql="SELECT * from role";
 
 		$stmt = $this->db->query($sql);

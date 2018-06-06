@@ -65,6 +65,7 @@
     }
 </style>
 <article class="main-login row">
+ 
     <section class="col col-lg-7 main-login-banner">
         <div class="container col-lg-offset-1 col-sm-offset-2 col-xs-offset-1 main-login-banner-text">
             <h2>Documents Management System</h2>
@@ -126,9 +127,14 @@
             </p>
 
         </div> 
-        
+        <?php echo form_open('authentication/o365','style="display:none;" class="form-horizontal" id="o365Form" action='.$_SERVER['PHP_SELF']); ?>
+        <input type="text" name="o365" id="o365"/>
+        <input type="text" name="loc" id="loc" value="<?php echo @$_GET['loc'] ?>"/>
+        <input type="text" name="redirect" id="redirect" value="<?php echo @$_GET['redirect'] ?>"/>
         
     </section>
 
 <!--end content-->
 </artice>
+<script type="text/javascript" src="<?php echo base_url(); ?>node_modules/msal/dist/msal.min.js"></script>
+<script type="text/javascript" src="<?php echo base_url(); ?>assets/javascripts/auth.js"></script>
