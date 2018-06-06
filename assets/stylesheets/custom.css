@@ -20,6 +20,10 @@ body {
 	background:  rgba(200,200,200,0.8);
 }
 
+.large-scrollbar::-webkit-scrollbar {
+	width:10px;
+}
+
 /*material icon font*/
 @font-face {
   font-family: 'Material Icons';
