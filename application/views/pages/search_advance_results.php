@@ -48,7 +48,7 @@
 
 
 
-<div class=" table-responsive col col-md-8 col-md-offset-1 ">
+<div class="col col-md-10 row dark-scrollbar large-scrollbar"  style="height:80vh;overflow-y:auto;padding-bottom:150px;">
 
 
 <?php if(@$_COOKIE['dms-view']=='table'){ ?>

@@ -18,7 +18,7 @@
    	 
 
 
-      $header = '<img src="'.base_url().'assets/images/SEARCA.png" height="40">
+      $header = '<img src="'.base_url().'assets/images/searca-new.png" height="40">
 		 <div align="center"><b>Search Report</b>
 		 <br>
 		 <font size="7">Document Management System</font><br/>

@@ -18,7 +18,7 @@
    	 $document_title=@strlen($items_header[0]->document_title)>100?@substr($items_header[0]->document_title, 0,100).'...':@$items_header[0]->document_title;
 
 
-      $header = '<img src="'.base_url().'assets/images/SEARCA.png" height="40">
+      $header = '<img src="'.base_url().'assets/images/searca-new.png" height="40">
 		 <div align="center"><b>'.$document_title.'</b>
 		 <br>
 		 <font size="7">Document Management System</font>

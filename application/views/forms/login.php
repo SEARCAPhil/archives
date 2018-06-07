@@ -48,7 +48,7 @@
     .doodle-section {
         height:100%;
         width:100%;
-        background:url('assets/images/doodle.png') no-repeat;
+        background:url('<?php echo base_url(); ?>assets/images/doodle.png') no-repeat;
         overflow:hidden;
         position:absolute;
         z-index:0;
@@ -58,7 +58,7 @@
         position:absolute;
         height:100px;
         width:100%;
-        background:url('assets/images/sub-banner-deco.png') no-repeat;
+        background:url('<?php echo base_url(); ?>assets/images/sub-banner-deco.png') no-repeat;
         background-size:cover;
         overflow:hidden;
         bottom:0;

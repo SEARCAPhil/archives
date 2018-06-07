@@ -326,6 +326,10 @@ input[type="checkbox"].small + label span{
 .document-header{
 	background: rgba(250,250,250,0.5);
 	border:1px solid rgba(230,230,230,0.9);
+	color:rgb(60,60,60);
+}
+.document-header a {
+	color:rgb(60,60,60);
 }
 
 /*custom print */

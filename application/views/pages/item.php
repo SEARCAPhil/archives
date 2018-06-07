@@ -1,76 +1,94 @@
 <?php include_once('panel_subcategory.php'); ?>
 <div class="col col-md-6 col-sm-9 col-lg-8 item-status"></div>
+<div class="col col-lg-8 col-sm-9 col-md-6 col-xs-12 pull-right document-header item<?php echo @($items[0]->id) ?>">
+	<div class="text-center	 col col-lg-2 col-md-4 col-sm-4 col-xs-4" style="border-right: 1px solid rgb(240,240,240);padding-top: 5px;">
+		<p class="text-danger"><b><?php echo ($items[0]->record_number); ?></b></p>
+		<div><small>Record Number</small></div>
 
+	</div>
+
+	<div class="col-lg-1 col-md-4 col-sm-4 col-xs-4 text-center"   onclick="window.open('report/item/?item_id=<?php echo @$items[0]->id; ?>'+($(this).attr('data-custom').length>0?'&custom='+$(this).attr('data-custom'):''));" data-custom='' id="print_button"  style="border-right: 1px solid rgb(240,240,240);padding-top: 5px;">
+		<div><b> <i class="material-icons md-24">print</i></b><br/>Print </div>
+
+	</div>
+
+
+	<div class="col-lg-2 col-md-4 col-sm-4 col-xs-4 text-center custom-print"  style="padding-top: 5px;border-right: 1px solid rgb(240,240,240);">
+		<div><b> <i class="material-icons md-24">print</i>  <i class="material-icons md-24">description</i></b><br/> Custom Print </div>
+
+	</div>
+
+	<?php if(isset($items[0])){ ?>
+
+	<div class="col-lg-2 col-md-4 col-sm-4 col-xs-4 text-center"  style="padding-top: 5px;border-right: 1px solid rgb(240,240,240);">
+		<div data-toggle="modal" data-target="#myModal">
+			<a href="#" class="modifier" id="file" data-menu="update" data-cat="<?php echo $items[0]->id; ?>" data-parent="<?php echo @$items[0]->cat_id; ?>"><b> <i class="material-icons md-24">attach_file</i></b><br/> Attachment</a> 
+		</div>
+
+	</div>
+
+
+	<div class="col-lg-2 col-md-4 col-sm-4 col-xs-4 text-center"  style="padding-top: 5px;border-right: 1px solid rgb(240,240,240);">
+		<div><b><a href="<?php echo base_url(); ?>form/?item_id=<?php echo $items[0]->id; ?>&id=<?php echo strip_tags(htmlentities($_GET['id'])); ?>&redirect_url=<?php echo str_replace('&','||',$_SERVER['REQUEST_URI']); ?>" class="modifier" data-menu="update" data-cat="<?php echo $items[0]->id; ?>"> <i class="material-icons md-24">update</i></b><br/> Update</a></div>
+		
+	</div>
+
+	<div class="col-lg-2 col-md-4 col-sm-4 col-xs-4 text-center"  style="padding-top: 5px;border-right: 1px solid rgb(240,240,240);">
+		<div data-toggle="modal" data-target="#myModal">
+			<a href="#" class="modifier" data-menu="remove" data-toggle="modal" data-cat="<?php echo $items[0]->id; ?>"><b> <i class="material-icons md-24">remove_circle</i></b><br/> Remove </a>
+		</div>
+	</div>
+
+	<?php } ?>
+	
+</div>
 <div class="col col-md-6 col-sm-9 col-lg-8 item<?php echo @($items[0]->id) ?>">
-		<div class="col col-md-12">
-			<h3><?php echo ucfirst($items[0]->document_title); ?></h3>
+		<div class="col col-md-12"><br/>
+			<p><b><i class="material-icons md-12">attachment</i> Attachment(s)</b></p>
 			<!--download button-->
 			<?php if(!empty(@$items[0]->original_file_name)){ ?>
 			<p>
 				<small>
-						
-						<span class="btn btn-xs btn-success download" data-cat="<?php echo $items[0]->id; ?>">
-							<i class="material-icons pull-left">cloud_download</i> <span class="pull-left" style="padding: 5px 0 0 5px;">Download</span>
-						</span>
-						<span class="text-muted"><?php echo $items[0]->original_file_name; ?></span>
+					<span class="text-muted">&nbsp; <?php echo $items[0]->original_file_name; ?></span>&emsp;
+					<a href="<?php echo base_url(); ?>attachments/?id=<?php echo $items[0]->id; ?>" target="_blank" class="btn btn-xs" data-cat="<?php echo $items[0]->id; ?>" style="color:#fff;background:#444444;">
+						<i class="material-icons" style="font-size:16px;">computer</i> Preview
+					</a>
+					&emsp;<span class="btn btn-xs download" data-cat="<?php echo $items[0]->id; ?>" style="color:d06d0d;border:1px solid #d06d0d;">Download</span>
+
+
+					<button class="btn btn-xs" style="color:d06d0d;background:none;">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true"><i class="material-icons pull-right">more_vert</i></a>	
+						<ul class="dropdown dropdown-menu pull-right">
+							<li>
+									<div class="col col-lg-12">
+										<input type="text" class="form-control url-input-field" value="<?php echo base_url(); ?>attachments/?id=<?php echo $items[0]->id; ?>"/>
+									</div>
+
+									<div class="col col-lg-12">
+										<small><span class="url-input-field-status">click field to copy</span></small>
+									</div>
+							</li>
+						</ul>
+					</button>
+				
+
 				</small>
+
 			</p>
 
 			<?php } ?>
-
-			
-			<br/>
-		
-
+			<hr/>
 
 		</div>
 </div>
 
-<div class="col col-lg-8 col-sm-9 col-md-6 col-xs-12 pull-right document-header item<?php echo @($items[0]->id) ?>">
-	<div class="text-center	 col col-lg-3 col-md-4 col-sm-4 col-xs-4" style="border-right: 1px solid rgb(240,240,240);padding-top: 20px;">
-		<p class="text-danger"><b><?php echo ($items[0]->record_number); ?></b></p>
-		<p><small>Record Number</small></p>
 
-	</div>
-
-	<div class="col-lg-3 col-md-4 col-sm-4 col-xs-4 text-center" onclick="window.open('report/item/?item_id=<?php echo @$items[0]->id; ?>'+($(this).attr('data-custom').length>0?'&custom='+$(this).attr('data-custom'):''));" data-custom='' id="print_button"  style="border-right: 1px solid rgb(240,240,240);">
-		<h3><b> <i class="material-icons md-36">print</i></b> </h3>
-
-	</div>
-
-
-	<div class="col-lg-3 col-md-4 col-sm-4 col-xs-4 text-center custom-print">
-		<h3><b> <i class="material-icons md-36">print</i>  <i class="material-icons md-36">description</i></b> </h3>
-
-	</div>
-
-	
-</div>
-<div  class="col col-md-6 col-sm-9 col-lg-8 item<?php echo @($items[0]->id) ?>" style="height:70vh;overflow-y:auto;padding-bottom:150px;">
+<div  class="col col-md-6 col-sm-9 col-lg-8 item<?php echo @($items[0]->id) ?> dark-scrollbar" style="height:70vh;overflow-y:auto;padding-bottom:150px;">
 
 <?php if(isset($items[0])){ ?>
 	<div class="col col-md-12 col-sm-12 col-lg-12">
-		
-		<p>
-			<li class="dropdown list-unstyled pull-right"><a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="material-icons pull-right">keyboard_arrow_down</i></a>
-			<ul class="dropdown dropdown-menu">
-				
-					<li class="" >
-						<a href="<?php echo base_url(); ?>form/?item_id=<?php echo $items[0]->id; ?>&id=<?php echo strip_tags(htmlentities($_GET['id'])); ?>&redirect_url=<?php echo str_replace('&','||',$_SERVER['REQUEST_URI']); ?>" class="modifier" data-menu="update" data-cat="<?php echo $items[0]->id; ?>">Update</a>
-					</li>
-					<li class="" data-toggle="modal" data-target="#myModal">
-						<a href="#" class="modifier" id="file" data-menu="update" data-cat="<?php echo $items[0]->id; ?>" data-parent="<?php echo @$items[0]->cat_id; ?>">Attach File</a>
-					</li>
-					<li class="" data-toggle="modal" data-target="#myModal">
-						<a href="#" class="modifier" data-menu="remove" data-toggle="modal" data-cat="<?php echo $items[0]->id; ?>">Remove</a>
-					</li>
-					
-				
-			</ul>
-		</li>
-
-		</p>
-
+	
+		<h3><i class="material-icons md-12">device_hub</i> <?php echo ucfirst($items[0]->document_title); ?></h3>
 		<!--<h3><span class="glyphicon glyphicon-bookmark"></span> <?php echo $items[0]->document_title; ?></h3>
 		<p class="text-muted"><?php echo ucfirst(utf8_encode($items[0]->content_description)); ?></p>-->
 
@@ -204,7 +222,7 @@
 							</span>
 							<b>Content Description :</b>
 						</span>
-				 		<span class="col-md-9 col-sm-8 col-xs-12"><?php echo nl2br($items[0]->content_description); ?></span>
+				 		<span class="col-md-9 col-sm-8 col-xs-12"><?php echo nl2br(@html_entity_decode($items[0]->content_description)); ?></span>
 				 	</li>
 				<?php } ?>	
 
@@ -601,3 +619,19 @@
   </div>
 </div>
 <script type="text/javascript" src="<?php echo site_url().'assets/javascripts/modifier.js'; ?>"></script>
+<script>
+	// copy to clipboard function
+	document.querySelectorAll('.url-input-field').forEach((el, index) => {
+		el.addEventListener('click', (e) => {
+			e.target.select()
+			// reset clipboard copy status
+			const clipStat = document.querySelector('.url-input-field-status')
+			clipStat.innerHTML='click field to copy'
+			// copy to clipboard
+			if(document.execCommand('copy')) {
+				// change status
+				clipStat.innerHTML ='<span class="text-success">Copied!</span>'
+			}
+		})
+	})
+</script>

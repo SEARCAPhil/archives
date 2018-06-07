@@ -42,6 +42,9 @@ function set_active($sid){
 			<ul class="nav navbar-nav pull-right">
 
 			<!--permission-->
+				<li>
+					<a href="<?php echo base_url(); ?>apps/changelog/" style="color: #FFC107;">About <span class="badge badge-danger">new</span></a>
+				</li>
 				<?php if(@$menu['permission']){ ?>
 					<li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Permission<span class="caret"></span></a>
 						<ul class="dropdown dropdown-menu">

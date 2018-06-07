@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Rest extends MY_Controller {
+class Attachments extends MY_Controller {
 
 	/**
 	 * Index Page for this controller.
@@ -45,58 +45,50 @@ class Rest extends MY_Controller {
 			$loc = base_url(uri_string()).'?'.$_SERVER['QUERY_STRING'];
 			header('location:'.base_url().'?redirect=true&loc='.$loc);
 		}
-	}
+    }
+    
+    private function show_image ($mime_type, $file) {
+        header('Content-Type: '.$mime_type);
+        $image = file_get_contents($file);
+        echo $image;
+    }
+
+
+    private function show_pdf ($mime_type, $file, $filename) {
+        header('Content-Type: '.$mime_type);
+        header('Content-Disposition: inline; filename="' . $filename . '"');
+        header('Accept-Ranges: bytes');
+        $pdf = file_get_contents($file);
+        echo $pdf;
+    }
 
 	public function load_privileges(){
 		$this->session_privileges = ($this->privilege->get_privilege(@$_SESSION['priv']));
 	}
 
-	public function load_menu(){
-		
-		$this->menu=array(
-			'category'=>1,
-			'permission'=>$this->privilege->is_allowed_to_grant_role(),
-			'materials'=>$this->privilege->is_allowed_to_write_materials()
 
-		);
-
-
-	}
-
-
-	public function series(){
-		$data=json_decode($this->input->raw_input_stream);
-		echo json_encode($this->category->get_children_categories(@$this->session_privileges[0]->role_id,$data->id));
-	}
-
-	public function remove(){
-		$data= (json_decode($this->input->raw_input_stream));
-		echo $this->item->remove($data->id);
-	}
-
-	public function file_download(){
-
+	public function index(){
+        $details = $this->item->get_item_details($this->input->get('id',true));
+        $base = $this->category->get_category_details(@$this->session_privileges[0]->role_id,@$details[0]->cat_id); 
+        $dir = './uploads/';
+        $dir.= @$base[0]->id.'/'.$this->input->get('id',true).'/'.$details[0]->file_name;
+        # fileinfo
+        $finfo = finfo_open(FILEINFO_MIME_TYPE);
+        $mime_type = @(finfo_file($finfo, $dir));
+        # redirect if not logged-in
 		self::redirect_if_authenticated();
 
-		$details=$this->item->get_item_details($this->input->get('id',true));
-		$dir='./uploads/';
-		
-	
-		$base=$this->category->get_category_details(@$this->session_privileges[0]->role_id,@$details[0]->cat_id);
-		$dir.=@$base[0]->id.'/'.$this->input->get('id',true).'/'.$details[0]->file_name;
-
-		#must be able to have read privilege
+		#must have a read privilege
 		if(@$base[0]->read_privilege==1){
-			if(file_exists($dir)&&isset($details[0]->cat_id)&&is_file($dir)){
+			if(file_exists($dir)&&isset($details[0]->cat_id)&&is_file($dir)){      
+                # show images
+                if(strpos($mime_type, 'image') !== false) {
+                self::show_image ($mime_type, $dir); 
+                }
 
-			$returnFile=header("Content-Description: File Transfer"); 
-			$returnFile+=header("Content-Type: application/octet-stream"); 
-			$returnFile+=header("Content-Disposition: attachment; filename=".$details[0]->file_name);
-			$returnFile+=ob_clean();
-			$returnFile+=flush();
-			$returnFile+=readfile($dir);
-			
-			echo $returnFile;
+                if(strpos($mime_type, 'pdf') !== false) {
+                    self::show_pdf ($mime_type, $dir, $details[0]->file_name); 
+                } 
 
 			}else{
 				echo '<center><h1><br/><br/>Oops!! File not found!</h1><p>The file you are trying to access is currently unavailable. Please try again later.</p></center>';
