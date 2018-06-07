@@ -92,8 +92,8 @@
                 <img src="<?php echo base_url(); ?>assets/images/checked-green.png" width="50px">
                 </div>
                 <div class="media-body">
-                    <h4 class="media-heading">Well keep and organized</h4>
-                    <p><small>Excellent feature! I love it. One day I'm definitely going to put this Bootstrap component into use and I'll let you know once I do.</small></p>
+                    <h4 class="media-heading">Well structured and organized</h4>
+                    <p><small>Classified your records based on categories for easy retrieval of data</small></p>
                 </div>
                 <hr/>
             </div>
@@ -104,7 +104,7 @@
                 </div>
                 <div class="media-body">
                     <h4 class="media-heading">Safe and secured</h4>
-                    <p><small>Excellent feature! I love it. One day I'm definitely going to put this Bootstrap component into use and I'll let you know once I do.</small></p>
+                    <p><small>Stored your data in the cloud with security and privacy. By using your Office365 account, you gain 1 more extra security layer to protect your files against hackers and viruses  </small></p>
                 </div>
                 <hr/>
             </div>
@@ -115,7 +115,7 @@
                 </div>
                 <div class="media-body">
                     <h4 class="media-heading">Accessible everywhere</h4>
-                    <p><small>Excellent feature! I love it. One day I'm definitely going to put this Bootstrap component into use and I'll let you know once I do.</small></p>
+                    <p><small>Retrieve your files anytime and everytime in the world!</small></p>
                 </div>
                 <hr/>
             </div>
@@ -123,7 +123,7 @@
             <br/>
             <br/>
             <p>
-                <small>By signing in to DTS you agree to <span class="text-success">Users License agreement</span> and <span class="text-success">Data policy</span> settings of SEARCA</small>
+                <small>By signing in to DMS you agree to <span class="text-success">Users License agreement</span> and <span class="text-success">Data policy</span> settings of SEARCA</small>
             </p>
 
         </div> 

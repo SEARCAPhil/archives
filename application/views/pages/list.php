@@ -37,7 +37,7 @@
 
 
 
-<div class="col col-lg-8 col-sm-9 col-md-6 col-xs-12" style="height:100vh;overflow-y:auto;">
+<div class="col col-lg-8 col-sm-9 col-md-6 col-xs-12 large-scrollbar dark-scrollbar" style="height:80vh;overflow-y:auto;overflow-x:auto;">
 
 	<div class="row">
 		
@@ -51,13 +51,11 @@
 
 				<?php if (@$x<1&&isset($items['total'])){?>	
 
-					<center>
-							<img src="<?php echo base_url(); ?>assets/images/cloud.png"  width="35%" style="margin-top:10vh;" />
+					<center style="margin-top:10vh;">
+						<h1 class="text-muted">Error 404</h1>
 
-							<h2 class="text-danger">No content available</h2>
-							<p  class="text-muted">Keep your files safe, organize, and accessible everywhere</p>
-
-
+						<p class="text-danger">No content available</p>
+						<p  class="text-muted">Keep your files safe, organize, and accessible everywhere</p>
 						</center>
 				<?php } ?>
 

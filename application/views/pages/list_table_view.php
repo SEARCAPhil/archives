@@ -1,6 +1,6 @@
 
 <?php if(count($items['data'])>0){ ?>
-<table class="table table-bordered table-striped table-hovered  tablesorter table-responsive" id="listTable" style="font-size: 0.95em; border-radius: 5% !important;margin-bottom:150px;">
+<table class="table table-bordered table-striped table-hovered  tablesorter table-responsive" id="listTable" style="font-size: 0.95em; border-radius: 5% !important;margin-bottom:10px;">
 	<thead style="background: #757575; color: rgb(240,240,240);">
 		<th class="display-record_number  display-field">Record Number</th>
 		<th width="30%">Title</th>

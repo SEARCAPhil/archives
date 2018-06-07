@@ -43,9 +43,9 @@ $(document).ready(function(){
 		var filteredFileExtension=[];
 
 
-		//10Mb
-		if(size>10000000){
-			alert('File must not exceed 10MB');
+		//100Mb
+		if(size>1000000000){
+			alert('File must not exceed 100MB');
 			return 0;
 		}
 
@@ -68,19 +68,14 @@ $(document).ready(function(){
 				alert('Invalid File Format!');	
 				return;
 			}else{
-
 				//no error
-				var formdata=new FormData();
+				var formdata = new FormData();
 				formdata.append('file',that.files[0]);
-
-
 
 				$('.file-div').hide();
 				$('.progress-div').show();
 
-
 				//post file
-
 				var xhr=new XMLHttpRequest();
 				xhr.open('POST',site_url+'form/file');
 

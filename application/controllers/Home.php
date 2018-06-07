@@ -295,7 +295,7 @@ class Home extends MY_Controller {
 			}
 
 			//tracking with GA
-			$this->load->view('pages/track.php',array('USER_ID'=>$this->session->name));
+			$this->load->view('pages/track.php',array('USER_ID'=>@$this->session->name));
 
 		}
 		
