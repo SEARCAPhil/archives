@@ -33,7 +33,12 @@ class Authentication extends MY_Controller {
 
             if(!empty($new_local_account)){
                 # create local account profile
-                $local_profile = $this->auth->create($new_local_account,$data->displayName,$data->surname,$data->givenName,'',$data->department,@strtoupper(substr($data->department,0,4)),$data->jobTitle,$data->createdDateTime);
+                $dept_alias = explode(' ', $data->department);
+                $dept= '';
+                foreach($dept_alias as $key => $value) {
+                    $dept.= @strtoupper(substr($value,0,1));
+                }
+                $local_profile = $this->auth->create($new_local_account,$data->displayName,$data->surname,$data->givenName,'',$data->department,$dept,$data->jobTitle,$data->createdDateTime);
                 
                 # Session
                 $token = md5('--boundery--'.(integer)$local_profile);

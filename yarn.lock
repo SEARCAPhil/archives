@@ -2,12 +2,6 @@
 # yarn lockfile v1
 
 
-msal@^0.1.6:
-  version "0.1.6"
-  resolved "https://registry.yarnpkg.com/msal/-/msal-0.1.6.tgz#26d16b37fece5d7918c6178cacddbc344e6a1300"
-  dependencies:
-    tslib "^1.7.1"
-
-tslib@^1.7.1:
-  version "1.9.2"
-  resolved "https://registry.yarnpkg.com/tslib/-/tslib-1.9.2.tgz#8be0cc9a1f6dc7727c38deb16c2ebd1a2892988e"
+adal-angular@1.0.17, adal-angular@^1.0.17:
+  version "1.0.17"
+  resolved "https://registry.yarnpkg.com/adal-angular/-/adal-angular-1.0.17.tgz#6e936e0e41f91d3b2a88e7ffca9c2f6f6f562cc4"

@@ -67,7 +67,7 @@
 <article class="main-login row">
  
     <section class="col col-lg-7 main-login-banner">
-        <div class="container col-lg-offset-1 col-sm-offset-2 col-xs-offset-1 main-login-banner-text">
+        <div class="container col-lg-offset-1 col-sm-offset-2 col-xs-offset-1 main-login-banner-text"> 
             <h2>Documents Management System</h2>
             <p class="text-muted">Manage and <span class="green">access</span> your files <span class="green">everywhere</span></small></p>
 
@@ -136,5 +136,6 @@
 
 <!--end content-->
 </artice>
-<script type="text/javascript" src="<?php echo base_url(); ?>node_modules/msal/dist/msal.min.js"></script>
+
+<script type="text/javascript" src="<?php echo base_url(); ?>node_modules/adal-angular/dist/adal.min.js"></script>
 <script type="text/javascript" src="<?php echo base_url(); ?>assets/javascripts/auth.js"></script>

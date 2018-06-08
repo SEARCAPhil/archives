@@ -303,8 +303,4 @@ class Home extends MY_Controller {
 		$this->load->view('pages/footer.php');
 
 	}
-
-	
-
-
 }
