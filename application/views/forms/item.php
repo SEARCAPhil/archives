@@ -1,17 +1,29 @@
 
-<div class="col col-md-9 col-sm-9 col-lg-7 col-lg-offset-1">
+<div class="col col-md-9 col-sm-9 col-lg-9 col-lg-offset-1" style="height:100vh;overflow-y:auto;padding-bottom:150px;position:relative;">
 
-	<div class=" table-responsive col col-xs-12">
-		<br/><br/><br/>
-		<h3><span class="glyphicon glyphicon-pencil"></span> Step 1/2  <span class="text-muted">(Details)</span> <span class="pull-right"><button class="btn btn-primary" onclick="document.getElementById('next').click()">Next &raquo;</button></span></h3>
+	<div class="col col-xs-12 col-lg-9">
+		<br/>
+		<!--<h3><span class="glyphicon glyphicon-pencil"></span> Step 1/2  <span class="text-muted">(Details)</span> <span class="pull-right"><button class="btn btn-primary" onclick="document.getElementById('next').click()">Next &raquo;</button></span></h3>-->
 		
 		<br/>
 		
+		<div style="position:fixed;
+		float:left;
+			width:150px;
+			height:50px;
+			background:#fff;
+			right:40;
+			z-index:10;
+			color:#4CAF50;
+			cursor:pointer;
+			">
+			<h3 onclick="document.getElementById('next').click()">Next Step<span class="glyphicon glyphicon-triangle-right"></span><small class="text-muted">(Step 1/2)</small></h3>
+		</div>
 		
 		<?php echo form_open('form','class="form-horizontal",action='.$_SERVER['PHP_SELF']);  ?>
-		<div class=" well container-fluid">
-			<h3><span class="glyphicon glyphicon-file"></span> Material Form</h3>
-			<p class="text-muted">Instruction: All fields with (<span class="text-danger">*</span>) are required.</p>
+		<div class="container-fluid">
+			<h3><span class="glyphicon glyphicon-file"></span> Material Form </h3>
+			<p><b>Instruction:</b> All fields with (<span class="text-danger">*</span>) are required.</p>
 			<hr style="border:1px solid rgb(150,150,150);" />
 			<!--first-->
 			<article class="col col-md-6">
@@ -19,7 +31,7 @@
 						<div class="form-group has-feedback" id="form-title">
 							<label for="inputTitle" class="control-label col-xs-3 ">Document Title <span class="text-danger">*</span></label>
 							<div class="col-xs-9">
-								<textarea class="form-control" id="inputTitle" placeholder="Title (required)" name="title"><?php echo strlen(set_value('title'))>0?set_value('title'):@$items[0]->document_title; ?></textarea>
+								<textarea class="form-control" id="inputTitle" placeholder="Title (required)" name="title" autofocus><?php echo strlen(set_value('title'))>0?set_value('title'):@$items[0]->document_title; ?></textarea>
 								<span id="titleAlert" class="text-danger alert-data">
 									<?php echo form_error('title'); ?>
 								</span>
@@ -75,7 +87,7 @@
 						<div class="form-group has-feedback" id="form-title">
 							<label for="inputTitle" class="control-label col-xs-3 ">Content Description </label>
 							<div class="col-xs-9">
-								<textarea class="form-control" placeholder="Content Description" name="content_description" rows="20"><?php echo strlen(set_value('content_description'))>0?set_value('content_description'):@trim($items[0]->content_description); ?></textarea> 
+								<textarea class="form-control with-border" placeholder="Content Description" name="content_description" rows="20"><?php echo strlen(set_value('content_description'))>0?set_value('content_description'):@trim($items[0]->content_description); ?></textarea> 
 								<!--<span class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"></span>-->
 								
 								
@@ -360,7 +372,7 @@
 						<div class="form-group has-feedback" id="form-title">
 							<label for="inputTitle" class="control-label col-xs-3 ">Notes</label>
 							<div class="col-xs-9">
-								<textarea class="form-control" placeholder="Notes" name="notes" rows="20"><?php echo strlen(set_value('notes'))>0?set_value('notes'):@trim($items[0]->notes); ?></textarea> 
+								<textarea class="form-control with-border" placeholder="Notes" name="notes" rows="20"><?php echo strlen(set_value('notes'))>0?set_value('notes'):@trim($items[0]->notes); ?></textarea> 
 								<!--<span class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"></span>-->
 								<span id="titleAlert" class="text-danger alert-data"></span>
 								

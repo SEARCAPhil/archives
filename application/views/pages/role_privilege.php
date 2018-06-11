@@ -257,7 +257,7 @@
 </div><!-- /.modal -->
 
 
-<div class="container" name="role" data-content="<?php echo ucfirst($role[0]->id); ?>">
+<div class="col col-lg-10 large-scrollbar" name="role" data-content="<?php echo ucfirst($role[0]->id); ?>"  style="height:90vh;overflow-y:auto;padding-bottom:150px;">
 	<article class="col col-md-10 col-md-offset-1">
 
 		<div class="col col-md-12" style="margin-bottom: 50px;">

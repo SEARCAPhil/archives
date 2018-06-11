@@ -97,9 +97,8 @@ $db['default'] = array(
 
 
 $db['pdo'] = array(
-	'dsn'	=> 'mysql:host=192.168.15.54;dbname=dms; charset=utf8;',
-	//'hostname' => '192.168.15.54',
-	'username' => 'access_all',
+	'dsn'	=> 'mysql:host=localhost;dbname=dms; charset=utf8;',
+	'username' => 'root',
 	'password' => '',
 	'database' => '',
 	'dbdriver' => 'pdo',

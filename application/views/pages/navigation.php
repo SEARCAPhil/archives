@@ -17,17 +17,34 @@ function set_active($sid){
 	.search-box:focus{
 		box-shadow: none;
 	}
+	.hamburger .burger {
+		display: inherit;
+		width: 18px;
+		height: 2px;
+		background: #ffb80c!important;
+		margin: 2px 98% 1px 15px;
+	}
 </style>
+
 <nav class="navbar navbar-inverse navbar-top-fixed navbar-top" style="margin-bottom: 0;">
 	<div class="container-fluid">
 		<div class="navbar-header">
-			<span href="<?php echo base_url(); ?>" class="navbar-brand" data-toggle="collapse" data-target="#right-navbar" style="margin-left:0;color:rgb(255,169,18);"><span class="glyphicon glyphicon-th"></span></span>
-			<a href="<?php echo base_url(); ?>" class="navbar-brand"  style="margin-left:0;"><small> </small></a>
+			<span href="<?php echo base_url(); ?>" class="navbar-brand hamburger" data-toggle="collapse" data-target="#right-navbar" style="color:rgb(255,169,18);">
+				<span class="burger"></span> 
+				<span class="burger"></span> 
+				<span class="burger"></span> 
+			</span>
+			<span class="navbar-brand hamburger col-sm-hidden">
+				<a href="<?php echo base_url(); ?>" style="color:#d8d8d8;font-size:14px">Documents Management System</a>
+			</span>
 		</div>
 		<div class="collapse navbar-collapse" id="right-navbar">
 			<ul class="nav navbar-nav pull-right">
 
 			<!--permission-->
+				<li>
+					<a href="<?php echo base_url(); ?>apps/changelog/" style="color: #FFC107;">About <span class="badge badge-danger">new</span></a>
+				</li>
 				<?php if(@$menu['permission']){ ?>
 					<li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Permission<span class="caret"></span></a>
 						<ul class="dropdown dropdown-menu">
@@ -46,7 +63,19 @@ function set_active($sid){
 					</ul>
 				</li>
 				<li><a href="<?php echo base_url(); ?>?logout=true"> Logout</a></li>
-				<li><a href="#"> <img src="<?php echo base_url(); ?>assets/images/guest.png"  width="25px" /></a></li>
+				<li>
+				<div class="text-center" style="float:left;width:35px;height:35px;border-radius:50%;margin-right:10px;overflow:hidden;background:#ffb80c;color:#fff;padding-top:5px;margin-top:6px;" id="image-header-section">
+					<?php 
+						// Alias
+						if (isset($_SESSION['name_alias'])){
+							echo (!empty($_SESSION['name_alias'])) ? $_SESSION['name_alias'] : 'N/A';
+							
+						} else {
+							echo 'N/A';
+						}
+					?>
+				</div>
+				</li>
 			</ul>
 
 		</div>

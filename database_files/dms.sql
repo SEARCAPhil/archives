@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 22, 2018 at 09:27 AM
+-- Generation Time: Jun 11, 2018 at 03:59 AM
 -- Server version: 10.1.31-MariaDB
 -- PHP Version: 7.2.3
 
@@ -21,8 +21,6 @@ SET time_zone = "+00:00";
 --
 -- Database: `dms`
 --
-CREATE DATABASE IF NOT EXISTS `dms` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
-USE `dms`;
 
 -- --------------------------------------------------------
 
@@ -33,8 +31,20 @@ USE `dms`;
 CREATE TABLE `account` (
   `id` int(11) NOT NULL,
   `username` varchar(255) NOT NULL,
-  `uid` int(11) NOT NULL,
+  `uid` varchar(255) NOT NULL,
   `date_created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `account_privilege`
+--
+
+CREATE TABLE `account_privilege` (
+  `uid` int(11) NOT NULL,
+  `priv` enum('admin','user','super_user','human_resource','archives') NOT NULL,
+  `id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -169,6 +179,12 @@ ALTER TABLE `account`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `account_privilege`
+--
+ALTER TABLE `account_privilege`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `account_profile`
 --
 ALTER TABLE `account_profile`
@@ -214,13 +230,19 @@ ALTER TABLE `role_privilege`
 -- AUTO_INCREMENT for table `account`
 --
 ALTER TABLE `account`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+
+--
+-- AUTO_INCREMENT for table `account_privilege`
+--
+ALTER TABLE `account_privilege`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `account_profile`
 --
 ALTER TABLE `account_profile`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=108;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=131;
 
 --
 -- AUTO_INCREMENT for table `category`
@@ -232,7 +254,7 @@ ALTER TABLE `category`
 -- AUTO_INCREMENT for table `item`
 --
 ALTER TABLE `item`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13372;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13373;
 
 --
 -- AUTO_INCREMENT for table `role`
@@ -244,7 +266,7 @@ ALTER TABLE `role`
 -- AUTO_INCREMENT for table `role_category_inclusion`
 --
 ALTER TABLE `role_category_inclusion`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=539;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=549;
 
 --
 -- AUTO_INCREMENT for table `role_privilege`

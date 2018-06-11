@@ -1,6 +1,6 @@
 $(document).ready(function(){
 
-	var base_url='/document_management_system/';
+	var base_url='/archives/';
 
 	$('.modifier').click(function(e){
 		$('#modal-content').html(' . . .');
