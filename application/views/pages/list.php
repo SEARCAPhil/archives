@@ -23,16 +23,35 @@
 <?php endif; ?>
 
 <?php if(!isset($items['total'])){ ?>
-
+	<style>
+			.cloud-backdrop {
+				height: 100vh;
+				position:relative;
+			}
+			.cloud-backdrop:after {
+				position:absolute;
+				content: '';
+				width:100%;
+				height:100%;
+				top:0;
+				right:0;
+				bottom:0;
+				left:0;
+				background:url('<?php echo base_url(); ?>assets/images/block-chain.png') no-repeat;
+				z-index:-1;
+				background-size:cover;
+				opacity:0.03;
+			}
+		</style>
 	<center>
-		<i class="material-icons" style="font-size: 12em;margin-top: 5vh;">cloud_off</i>
-
-		<h2 class="text-muted">Empty section</h2>
+		<img src="<?php echo base_url(); ?>assets/images/empty-phone.png"  width="50px" style="margin-top:10vh;" />
+		<h2>Empty section</h2>
 		<p  class="text-muted">This page doesn't contain any document. Please check back soon!</p>
-
+		<section class="cloud-backdrop"></section>
 
 	</center>
-
+	
+	
 <?php } ?>
 
 

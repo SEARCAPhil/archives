@@ -317,10 +317,10 @@ class Form extends MY_Controller {
 			$inf=pathinfo($_FILES['file']['name']);
 			
 			#config
- 			$config['file_name']          = @$_COOKIE['dms-upload-cat'].'.'.@$inf['extension'];
+ 			$config['file_name']          = @$_COOKIE['dms-upload-id'].'.'.@$inf['extension'];
 			$config['upload_path']          = './uploads/'.@$_COOKIE['dms-upload-cat'].'/'.@$_COOKIE['dms-upload-id'];
             $config['allowed_types']        = 'gif|jpg|png|jpeg|pdf|bmp';
-            $config['max_size']             = 10000;
+            $config['max_size']             = 50000;
             $config['overwrite'] = TRUE;
 
 			$this->load->library('upload', $config);
