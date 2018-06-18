@@ -1,6 +1,7 @@
 <?php include_once('panel_subcategory.php'); ?>
 <div class="col col-md-6 col-sm-9 col-lg-8 item-status"></div>
-<div class="col col-lg-8 col-sm-9 col-md-6 col-xs-12 pull-right document-header item<?php echo @($items[0]->id) ?>">
+<section class="col col-md-6 col-sm-9 col-lg-8 dark-scrollbar" style="height:80vh;overflow-y:auto;padding-bottom:150px;">
+<div class="row  document-header item<?php echo @($items[0]->id) ?>">
 	<div class="text-center	 col col-lg-2 col-md-4 col-sm-4 col-xs-4" style="border-right: 1px solid rgb(240,240,240);padding-top: 5px;">
 		<p class="text-danger"><b><?php echo ($items[0]->record_number); ?></b></p>
 		<div><small>Record Number</small></div>
@@ -48,33 +49,77 @@
 			<!--download button-->
 			<?php if(!empty(@$items[0]->original_file_name)){ ?>
 			<p>
-				<small>
-					<span class="text-muted">&nbsp; <?php echo $items[0]->original_file_name; ?></span>&emsp;
-					<a href="<?php echo base_url(); ?>attachments/?id=<?php echo $items[0]->id; ?>" target="_blank" class="btn btn-xs" data-cat="<?php echo $items[0]->id; ?>" style="color:#fff;background:#444444;">
-						<i class="material-icons" style="font-size:16px;">computer</i> Preview
-					</a>
-					&emsp;<span class="btn btn-xs download" data-cat="<?php echo $items[0]->id; ?>" style="color:d06d0d;border:1px solid #d06d0d;">Download</span>
+				<section class="col col-lg-12" style="padding:10px;border-bottom:1px solid rgba(200,200,200,0.2);">
+					<small>
+						<div class="col col-lg-4">
+							<span class="text-muted">&nbsp; <?php echo $items[0]->original_file_name; ?></span>&emsp;
+							
+						</div>
+
+						<div class="col col-lg-8">
+							<a href="<?php echo base_url(); ?>attachments/?id=<?php echo $items[0]->id; ?>" target="_blank" class="btn btn-xs" data-cat="<?php echo $items[0]->id; ?>" style="color:#fff;background:#444444;">
+								<i class="material-icons" style="font-size:16px;">computer</i> Preview
+							</a>
+							&emsp;<span class="btn btn-xs download" data-cat="<?php echo $items[0]->id; ?>" style="color:d06d0d;border:1px solid #d06d0d;">Download</span>
 
 
-					<button class="btn btn-xs" style="color:d06d0d;background:none;">
-						<a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true"><i class="material-icons pull-right">more_vert</i></a>	
-						<ul class="dropdown dropdown-menu pull-right">
-							<li>
-									<div class="col col-lg-12">
-										<input type="text" class="form-control url-input-field" value="<?php echo base_url(); ?>attachments/?id=<?php echo $items[0]->id; ?>"/>
-									</div>
+							<button class="btn btn-xs" style="color:d06d0d;background:none;">
+								<a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true"><i class="material-icons pull-right">more_vert</i></a>	
+								<ul class="dropdown dropdown-menu pull-right">
+									<li>
+											<div class="col col-lg-12">
+												<input type="text" class="form-control url-input-field" value="<?php echo base_url(); ?>attachments/?id=<?php echo $items[0]->id; ?>"/>
+											</div>
 
-									<div class="col col-lg-12">
-										<small><span class="url-input-field-status">click field to copy</span></small>
-									</div>
-							</li>
-						</ul>
-					</button>
-				
+											<div class="col col-lg-12">
+												<small><span class="url-input-field-status">click field to copy</span></small>
+											</div>
+									</li>
+								</ul>
+							</button>
+						</div>
+					
 
-				</small>
+					</small>
+				</section>
 
+				<?php  foreach($items[0]->attachments['data'] as $key => $value) { ?>
+					<section class="col col-lg-12" style="padding:10px;border-bottom:1px solid rgba(200,200,200,0.2);">
+						<small>
+							<div class="col col-lg-4">
+								<span class="text-muted">&nbsp; <?php echo $value->original_filename; ?></span>&emsp;
+							</div>
+
+							<div class="col col-lg-8">
+								<a href="<?php echo base_url(); ?>attachments/?id=<?php echo $value->id; ?>&multiple=true" target="_blank" class="btn btn-xs" data-cat="<?php echo $value->id; ?>" style="color:#fff;background:#444444;">
+									<i class="material-icons" style="font-size:16px;">computer</i> Preview
+								</a>
+								&emsp;<span class="btn btn-xs download" data-cat="<?php echo $value->id; ?>" data-multiple="true" style="color:d06d0d;border:1px solid #d06d0d;">Download</span>
+
+
+								<button class="btn btn-xs" style="color:d06d0d;background:none;">
+									<a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true"><i class="material-icons pull-right">more_vert</i></a>	
+									<ul class="dropdown dropdown-menu pull-right">
+										<li>
+												<div class="col col-lg-12">
+													<input type="text" class="form-control url-input-field" value="<?php echo base_url(); ?>attachments/?id=<?php echo $value->id; ?>&multiple=true"/>
+												</div>
+
+												<div class="col col-lg-12">
+													<small><span class="url-input-field-status">click field to copy</span></small>
+												</div>
+										</li>
+									</ul>
+								</button>
+							</div>
+						
+
+						</small>
+					</section>
+				<?php	}	 ?>
 			</p>
+
+			
 
 			<?php } ?>
 			<hr/>
@@ -83,7 +128,7 @@
 </div>
 
 
-<div  class="col col-md-6 col-sm-9 col-lg-8 item<?php echo @($items[0]->id) ?> dark-scrollbar" style="height:70vh;overflow-y:auto;padding-bottom:150px;">
+<div  class="col col-md-6 col-sm-9 col-lg-8 item<?php echo @($items[0]->id) ?>">
 
 <?php if(isset($items[0])){ ?>
 	<div class="col col-md-12 col-sm-12 col-lg-12">
@@ -609,7 +654,7 @@
 		<center class="text-muted"><h1>Content Unavailable</h1></center>
 	<?php } ?>
 </div>
-
+</section>
 <!-- Modal -->
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog" role="document">

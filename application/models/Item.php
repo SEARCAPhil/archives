@@ -16,6 +16,7 @@ class Item extends CI_Model {
 		$stmt2=$this->db->query($count_sql,array($id));
 		
 		$count=$stmt2->result()[0]->total;
+
 		$no_pages=1;
 		if($count>=20){
 				$pages=ceil($count/20);
@@ -26,12 +27,19 @@ class Item extends CI_Model {
 
 		}
 
-	
+		# results
+		$res = $stmt->result();
+		$result = [];
+		foreach($res as $key => $val){
+			$attachments = self::get_attachments($val->id);
+			$val->attachments = $attachments;
+			$result[]=$val;
+		}
 
 		#check if page request is < the actual page
 		$current_page=$this->page<=$no_pages?$this->page:$no_pages;
 
-		return array('total'=>$count,'pages'=>$no_pages,'current_page'=>$current_page,'data'=>$stmt->result());
+		return array('total'=>$count,'pages'=>$no_pages,'current_page'=>$current_page,'data'=>$result);
 	}
 
 	public function get_item_category($id){
@@ -44,7 +52,14 @@ class Item extends CI_Model {
 	public function get_item_details($id){
 		$query = "SELECT item.*,category.category,category.is_private,account_profile.profile_name FROM item LEFT JOIN category on item.cat_id=category.id LEFT JOIN account_profile on account_profile.id=item.encoded_by_id where item.id=? LIMIT 0,20";
 		$stmt=$this->db->query($query,array($id));
-		return $stmt->result();
+		$res = $stmt->result();
+		$result = [];
+		foreach($res as $key => $val){
+			$attachments = self::get_attachments($val->id);
+			$val->attachments = $attachments;
+			$result[]=$val;
+		}
+		return $result;
 	}
 
 	public function set_item($item=array(),$encoded_by_id){
@@ -309,6 +324,15 @@ class Item extends CI_Model {
 		return array('total'=>$count,'pages'=>$no_pages,'current_page'=>$current_page,'data'=>@$res);
 	
 	}
+
+
+	public function get_attachments($id){
+		$query = "SELECT * FROM attachments where item_id=?";
+		$stmt = $this->db->query($query,array($id));
+
+		return array('data'=>$stmt->result());
+	}
+
 
 	
 }

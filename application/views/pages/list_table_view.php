@@ -39,6 +39,11 @@
 					<?php if(!empty($items['data'][$x]->original_file_name)){ ?>
 						<p><button class="btn btn-success btn-sm download" data-cat="<?php echo $items['data'][$x]->id; ?>"> <span class="glyphicon glyphicon-download"></span>Download</button></p>	
 					<?php } ?>
+
+					<?php  foreach($items['data'][$x]->attachments['data'] as $key => $value) { ?>
+						<p><?php echo $value->original_filename; ?></p>
+						<p><button class="btn btn-success btn-sm download" data-cat="<?php echo $value->id; ?>" data-multiple="true"> <span class="glyphicon glyphicon-download"></span>Download</button></p>	
+					<?php } ?>
 				</td>
 				<td class="display-menu  display-field">
 					<!--<div class="dropdown">

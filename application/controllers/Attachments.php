@@ -27,7 +27,7 @@ class Attachments extends MY_Controller {
 	public function __construct(){
 		parent::__construct();
 		$this->load->database();
-		$this->load->model(array('privilege','category','item'));
+		$this->load->model(array('privilege','category','item','file'));
 		$this->load->helper('url');
 		$this->load->library(array('form_validation','session'));
 
@@ -66,9 +66,8 @@ class Attachments extends MY_Controller {
 		$this->session_privileges = ($this->privilege->get_privilege(@$_SESSION['priv']));
 	}
 
-
-	public function index(){
-        $details = $this->item->get_item_details($this->input->get('id',true));
+	public function show_preview_main () {
+		$details = $this->item->get_item_details($this->input->get('id',true));
         $base = $this->category->get_category_details(@$this->session_privileges[0]->role_id,@$details[0]->cat_id); 
         $dir = './uploads/';
         $dir.= @$base[0]->id.'/'.$this->input->get('id',true).'/'.$details[0]->file_name;
@@ -97,6 +96,60 @@ class Attachments extends MY_Controller {
 		}else{
 			echo '<center><h1><br/><br/>Oops!! File not found!</h1><p>The file you are trying to access is currently unavailable. Please try again later.</p></center>';
 		}
+	}
+
+
+	public function show_preview () {
+		#file details
+		$details = $this->file->get_details($this->input->get('id',true));
+		if(@!isset($details[0]->item_id)) exit;
+		# item details
+		$item_details = $this->item->get_item_details($details[0]->item_id);
+		#upload path
+		$base = $this->category->get_category_details(@$this->session_privileges[0]->role_id,@$item_details[0]->cat_id); 
+        $dir = './uploads/';
+		$dir.= @$base[0]->id.'/'.$details[0]->item_id.'/'.$details[0]->filename;
+		
+		# fileinfo
+        $finfo = finfo_open(FILEINFO_MIME_TYPE);
+        $mime_type = @(finfo_file($finfo, $dir));
+        # redirect if not logged-in
+		self::redirect_if_authenticated();
+
+		#must have a read privilege
+		if(@$base[0]->read_privilege==1){
+			if(file_exists($dir)&&isset($item_details[0]->cat_id)&&is_file($dir)){      
+                # show images
+                if(strpos($mime_type, 'image') !== false) {
+                self::show_image ($mime_type, $dir); 
+                }
+
+                if(strpos($mime_type, 'pdf') !== false) {
+                    self::show_pdf ($mime_type, $dir, $details[0]->filename); 
+                } 
+
+			}else{
+				echo '<center><h1><br/><br/>Oops!! File not found!</h1><p>The file you are trying to access is currently unavailable. Please try again later.</p></center>';
+			}
+
+		}else{
+			echo '<center><h1><br/><br/>Oops!! File not found!</h1><p>The file you are trying to access is currently unavailable. Please try again later.</p></center>';
+		}
+	}
+
+	public function index(){
+       if ($this->input->get('id',true)) {
+
+			if($this->input->get('multiple',true)) {
+				return self::show_preview ();
+			} else {
+				# retrieve main file
+				return self::show_preview_main ();
+			}
+		   
+		 
+	   }
+	   
 
 	}
 
