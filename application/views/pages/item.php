@@ -36,14 +36,14 @@
 
 	<div class="col-lg-2 col-md-4 col-sm-4 col-xs-4 text-center"  style="padding-top: 5px;border-right: 1px solid rgb(240,240,240);">
 		<div data-toggle="modal" data-target="#myModal">
-			<a href="#" class="modifier" data-menu="remove" data-toggle="modal" data-cat="<?php echo $items[0]->id; ?>"><b> <i class="material-icons md-24">remove_circle</i></b><br/> Remove </a>
+			<a href="#" class="modifier" data-menu="remove-item"  data-toggle="modal" data-cat="<?php echo $items[0]->id; ?>"><b> <i class="material-icons md-24">remove_circle</i></b><br/> Remove </a>
 		</div>
 	</div>
 
 	<?php } ?>
 	
 </div>
-<div class="col col-md-6 col-sm-9 col-lg-8 item<?php echo @($items[0]->id) ?>">
+<div class="col col-md-12 col-sm-9 col-lg-8 item<?php echo @($items[0]->id) ?>">
 		<div class="col col-md-12"><br/>
 			<p><b><i class="material-icons md-12">attachment</i> Attachment(s)</b></p>
 			<!--download button-->
@@ -84,7 +84,7 @@
 				</section>
 
 				<?php  foreach($items[0]->attachments['data'] as $key => $value) { ?>
-					<section class="col col-lg-12" style="padding:10px;border-bottom:1px solid rgba(200,200,200,0.2);">
+					<section class="col col-lg-12 file<?php echo $value->id; ?>" style="padding:10px;border-bottom:1px solid rgba(200,200,200,0.2);">
 						<small>
 							<div class="col col-lg-4">
 								<span class="text-muted">&nbsp; <?php echo $value->original_filename; ?></span>&emsp;
@@ -109,6 +109,14 @@
 													<small><span class="url-input-field-status">click field to copy</span></small>
 												</div>
 										</li>
+
+										<li>
+											<hr/><br/>
+										</li>
+
+										<li>
+											<a href="#" style="color:red;" class="modifier" data-menu="remove-file" data-toggle="modal" data-target="#myModal" id="<?php echo $value->id; ?>"><i class="material-icons md-18">remove</i> Remove</a>
+										</li>
 									</ul>
 								</button>
 							</div>
@@ -128,7 +136,7 @@
 </div>
 
 
-<div  class="col col-md-6 col-sm-9 col-lg-8 item<?php echo @($items[0]->id) ?>">
+<div  class="col col-md-12 col-sm-9 col-lg-8 item<?php echo @($items[0]->id) ?>">
 
 <?php if(isset($items[0])){ ?>
 	<div class="col col-md-12 col-sm-12 col-lg-12">
@@ -670,7 +678,7 @@
 		el.addEventListener('click', (e) => {
 			e.target.select()
 			// reset clipboard copy status
-			const clipStat = document.querySelector('.url-input-field-status')
+			const clipStat = e.target.parentNode.parentNode.querySelector('.url-input-field-status')
 			clipStat.innerHTML='click field to copy'
 			// copy to clipboard
 			if(document.execCommand('copy')) {

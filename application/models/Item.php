@@ -327,7 +327,7 @@ class Item extends CI_Model {
 
 
 	public function get_attachments($id){
-		$query = "SELECT * FROM attachments where item_id=?";
+		$query = "SELECT * FROM attachments where item_id=? and status !=1";
 		$stmt = $this->db->query($query,array($id));
 
 		return array('data'=>$stmt->result());

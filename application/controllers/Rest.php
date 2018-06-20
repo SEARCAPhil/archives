@@ -74,6 +74,11 @@ class Rest extends MY_Controller {
 		echo $this->item->remove($data->id);
 	}
 
+	public function remove_attachment(){
+		$data= (json_decode($this->input->raw_input_stream));
+		echo $this->file->remove($data->id);
+	}
+
 	public function file_download_main(){
 		self::redirect_if_authenticated();
 		$details=$this->item->get_item_details($this->input->get('id',true));

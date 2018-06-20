@@ -1,7 +1,7 @@
 <div class="col col-md-10 large-scrollbar dark-scrollbar" style="height:95vh;overflow-y:auto;padding-bottom:150px;">
         <div class="col col-md-10 col-lg-offset-1 " style="margin-top: 8vh;">
            <h3>Whats new ?</h3>
-           <p style="color:#ff0662;">Released June 2018,  <span class="badge">v1.2.0 alpha</span></p><br/>
+           <p style="color:#ff0662;">Released June 2018,  <span class="badge">v1.2.0 beta</span></p><br/>
             <hr/>
            <p><b><i class="material-icons">chevron_right</i> Layout</b></p>
            <p>
@@ -34,6 +34,16 @@
                </ul>
 
                <img src="<?php echo base_url(); ?>assets/images/screenshots/copy-to-clipboard.png"/><br/><br/>
+            </p>
+
+
+            <p>
+               <ul>
+                    <li>Multiple attachments</li>
+                   
+               </ul>
+               <img src="<?php echo base_url(); ?>assets/images/screenshots/multiple-attachments.png" width="50%" style="min-width:400px;"/><br/><br/>
+               
             </p>
         </div>
 

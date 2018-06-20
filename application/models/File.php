@@ -27,6 +27,15 @@ class File extends CI_Model {
 
 	}
 
+
+	public function remove($id){
+
+		$this->id = htmlentities(htmlspecialchars($id));
+		$sql ='UPDATE attachments SET status = 1 where id = ?';
+		$stmt = $this->db->query($sql,array($this->id));
+		return $this->db->affected_rows();
+	}
+
 	public function download($id){
 		$this->id=(int) htmlentities(htmlspecialchars($id));	
 	}

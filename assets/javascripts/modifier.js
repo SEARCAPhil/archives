@@ -23,8 +23,14 @@ $(document).ready(function(){
 				// path
 				window.location=base_url+'form/upload_multiple'
 			}
-		}else{
+		}
+
+		if($(this).attr('data-menu')==='remove-item'){
 			$('#modal-content').load(base_url+'modal/remove/?id='+$(this).attr('data-cat'));
+		}
+
+		if($(this).attr('data-menu')==='remove-file'){
+			$('#modal-content').load(base_url+'modal/remove_file/?id='+$(this).attr('id'));
 		}
 
 	})

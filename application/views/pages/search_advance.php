@@ -3,7 +3,7 @@
 		background: rgba(250,250,250,0.8);
 	}
 </style>
-<div class="col col-md-9 col-sm-9 col-lg-10">
+<div class="col col-md-9 col-sm-9 col-lg-10 dark-scrollbar" style="height:85vh;overflow-y:auto;padding-bottom:150px;">
 
 	
 
