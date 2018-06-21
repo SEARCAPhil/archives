@@ -6,7 +6,7 @@ const site_host='http://localhost'
 window.config  = {
     instance: 'https://login.microsoftonline.com/', 
     tenant: 'common', //COMMON OR YOUR TENANT ID
-    clientId: '31bcd667-f738-4dc2-90a6-03e7e46xxxx', //This is your client ID
+    clientId: 'xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx', //This is your client ID
     redirectUri: `${site_host}${site_url}`, //This is your redirect URI
     cacheLocation: 'localStorage',
     callback: userSignedIn,

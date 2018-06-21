@@ -285,7 +285,7 @@ class Form extends MY_Controller {
             	
 
             	sleep(1);
-            	header('location:'.site_url().'form/upload');
+            	header('location:'.site_url().'form/upload_multiple');
             	
                 
         }

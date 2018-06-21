@@ -82,7 +82,8 @@
 
 					</small>
 				</section>
-
+				</p>
+			<?php } ?>
 				<?php  foreach($items[0]->attachments['data'] as $key => $value) { ?>
 					<section class="col col-lg-12 file<?php echo $value->id; ?>" style="padding:10px;border-bottom:1px solid rgba(200,200,200,0.2);">
 						<small>
@@ -125,11 +126,11 @@
 						</small>
 					</section>
 				<?php	}	 ?>
-			</p>
+			
 
 			
 
-			<?php } ?>
+			
 			<hr/>
 
 		</div>
