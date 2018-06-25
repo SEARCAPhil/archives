@@ -170,8 +170,23 @@ class Advance extends MY_Controller {
 	 * @return array()
 	 */
 	public function __advance_search(){
+		$__params = [];
+		# clean param
+		foreach($this->input->get() as $key => $val) {
+			$key = str_replace('__', '', $key);
+			# parse __0__ , __1__, etc...
+			
+			$__val = abs((int) @filter_var($key, FILTER_SANITIZE_NUMBER_INT));
+			$__name = $words = preg_replace('/[0-9]+/', '', $key);
+			$__params[$__val] = isset($__params[$__val]) ? $__params[$__val] : [];
+			$__params[$__val][$__name] = isset($__params[$__val][$__name]) ? $__params[$__val][$__name] : [];
+				
+			$__params[$__val][$__name] = $val;
+		}
 
-		$this->search_result=$this->item->search_advance(@$this->session_privileges[0]->role_id,$this->input->get(),$this->input->get('page',true));
+	
+	
+		$this->search_result=$this->item->search_advanced(@$this->session_privileges[0]->role_id,$__params,$this->input->get('page',true));
 		return $this->data=array('items'=>$this->search_result,'param'=>$this->input->get());
 	}
 
@@ -234,8 +249,8 @@ class Advance extends MY_Controller {
 		self::__header();
 
 		if(!is_null($this->session->id)){
-		
-			$this->load->view('pages/search_advance.php');
+			$fields = $this->item->__get_fields();
+			$this->load->view('pages/search_advance.php', array('data' => array('fields' => $fields)));
 		}
 
 		self::__footer();
