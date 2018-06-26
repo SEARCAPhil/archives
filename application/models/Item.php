@@ -197,6 +197,7 @@ class Item extends CI_Model {
 	public function search_advanced($role_id,$param,$page=1){
 		$this->page	=	(int) $page;
 		$this->fields = self:: __get_fields();
+		$this->common_fields = self::__get_common_fields();
 		$limit	=	$this->page<2?0:(integer)($this->page-1)*20;
 		$sql_param =	array();
 		$sql_query = '';
@@ -230,10 +231,10 @@ class Item extends CI_Model {
 				#all fields
 				if ($value['field'] == 'all') {
 					$sql.= '(';
-					$__field_count = (count($this->fields));
+					$__field_count = (count($this->common_fields));
 					
 					$sql .= 'MATCH (';
-					foreach($this->fields as $key2 => $value2) {				
+					foreach($this->common_fields as $key2 => $value2) {				
 						$sql.=	$value2['name'];
 						if ( $key2+1 < $__field_count) $sql.=', ';
 					}
@@ -334,6 +335,26 @@ class Item extends CI_Model {
 			array('name' => 'provenance','value' => 'provenance'),
 			array('name' => 'encoded_by','value' => 'encoded by'),
 			array('name' => 'remarks','value' => 'remarks'),
+		];
+	}
+
+	public function __get_common_fields() {
+		return [
+			array('name' => 'document_title',	'value' => 'document title'),
+			array('name' => 'content_description',	'value' => 'content description'),
+			array('name' => 'publisher',	'value' => 'publisher'),
+			array('name' => 'creator',	'value' => 'creator'),
+			array('name' => 'date_range',	'value' => 'date range'),
+			array('name' => 'shelf_cabinet_number',	'value' => 'shelf cabinet number'),
+			array('name' => 'tier_number',	'value' => 'tier number'),
+			array('name' => 'box_number',	'value' => 'box number'),
+			array('name' => 'folder_number',	'value' => 'folder number'),
+			array('name' => 'record_number',	'value' => 'record number'),
+			array('name' => 'record_number','value' => 'record number'),
+			array('name' => 'place','value' => 'place'),
+			array('name' => 'source_title','value' => 'source title'),
+			array('name' => 'notes','value' => 'notes'),
+			array('name' => 'keywords','value' => 'keywords'),
 		];
 	}
 
