@@ -82,7 +82,7 @@ class Rest extends MY_Controller {
 	public function file_download_main(){
 		self::redirect_if_authenticated();
 		$details=$this->item->get_item_details($this->input->get('id',true));
-		$dir='./uploads/';
+		$dir='../uploads/';
 		
 	
 		$base=$this->category->get_category_details(@$this->session_privileges[0]->role_id,@$details[0]->cat_id);
@@ -118,7 +118,7 @@ class Rest extends MY_Controller {
 		if(@!isset($details[0]->item_id)) exit;
 
 		$item_details=$this->item->get_item_details($details[0]->item_id);
-		$dir='./uploads/';
+		$dir='../uploads/';
 		
 	
 		$base=$this->category->get_category_details(@$this->session_privileges[0]->role_id,@$item_details[0]->cat_id);

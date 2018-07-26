@@ -329,7 +329,7 @@ class Form extends MY_Controller {
 			
 			#config
  			$config['file_name']          = @$_COOKIE['dms-upload-id'].'.'.@$inf['extension'];
-			$config['upload_path']          = './uploads/'.@$_COOKIE['dms-upload-cat'].'/'.@$_COOKIE['dms-upload-id'];
+			$config['upload_path']          = '../uploads/'.@$_COOKIE['dms-upload-cat'].'/'.@$_COOKIE['dms-upload-id'];
             $config['allowed_types']        = 'gif|jpg|png|jpeg|pdf|bmp';
             $config['max_size']             = 50000;
             $config['overwrite'] = TRUE;
@@ -337,8 +337,8 @@ class Form extends MY_Controller {
 			$this->load->library('upload', $config);
 			
 			#create directory
-            if(!is_dir('./uploads/'.@$_COOKIE['dms-upload-cat'].'/'.@$_COOKIE['dms-upload-id'])){
-            	mkdir('./uploads/'.@$_COOKIE['dms-upload-cat'].'/'.@$_COOKIE['dms-upload-id'],0777,true);
+            if(!is_dir('../uploads/'.@$_COOKIE['dms-upload-cat'].'/'.@$_COOKIE['dms-upload-id'])){
+            	mkdir('../uploads/'.@$_COOKIE['dms-upload-cat'].'/'.@$_COOKIE['dms-upload-id'],0777,true);
             }
 
            #upload file
@@ -392,7 +392,7 @@ class Form extends MY_Controller {
 
 			#config
  			$config['file_name']          = @$_COOKIE['dms-upload-id'].''.time().'.'.@$inf['extension'];
-			$config['upload_path']          = './uploads/'.@$_COOKIE['dms-upload-cat'].'/'.@$_COOKIE['dms-upload-id'];
+			$config['upload_path']          = '../uploads/'.@$_COOKIE['dms-upload-cat'].'/'.@$_COOKIE['dms-upload-id'];
             $config['allowed_types']        = 'gif|jpg|png|jpeg|pdf|bmp';
             $config['max_size']             = 50000;
             $config['overwrite'] = TRUE;
@@ -400,8 +400,8 @@ class Form extends MY_Controller {
 			$this->load->library('upload', $config);
 			
 			#create directory
-            if(!is_dir('./uploads/'.@$_COOKIE['dms-upload-cat'].'/'.@$_COOKIE['dms-upload-id'])){
-            	mkdir('./uploads/'.@$_COOKIE['dms-upload-cat'].'/'.@$_COOKIE['dms-upload-id'],0777,true);
+            if(!is_dir('../uploads/'.@$_COOKIE['dms-upload-cat'].'/'.@$_COOKIE['dms-upload-id'])){
+            	mkdir('../uploads/'.@$_COOKIE['dms-upload-cat'].'/'.@$_COOKIE['dms-upload-id'],0777,true);
             }
 
            #upload file

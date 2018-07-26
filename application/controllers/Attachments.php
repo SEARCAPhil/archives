@@ -69,7 +69,7 @@ class Attachments extends MY_Controller {
 	public function show_preview_main () {
 		$details = $this->item->get_item_details($this->input->get('id',true));
         $base = $this->category->get_category_details(@$this->session_privileges[0]->role_id,@$details[0]->cat_id); 
-        $dir = './uploads/';
+        $dir = '../uploads/';
         $dir.= @$base[0]->id.'/'.$this->input->get('id',true).'/'.$details[0]->file_name;
         # fileinfo
         $finfo = finfo_open(FILEINFO_MIME_TYPE);
@@ -107,7 +107,7 @@ class Attachments extends MY_Controller {
 		$item_details = $this->item->get_item_details($details[0]->item_id);
 		#upload path
 		$base = $this->category->get_category_details(@$this->session_privileges[0]->role_id,@$item_details[0]->cat_id); 
-        $dir = './uploads/';
+        $dir = '../uploads/';
 		$dir.= @$base[0]->id.'/'.$details[0]->item_id.'/'.$details[0]->filename;
 		
 		# fileinfo
