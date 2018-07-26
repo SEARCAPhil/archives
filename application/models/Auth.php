@@ -27,7 +27,7 @@ class Auth extends CI_Model {
 	
 		$this->user_id=htmlentities(htmlspecialchars($user_id));
 
-		$sql="SELECT * FROM account_profile where uid=? ORDER BY id DESC LIMIT 1";
+		$sql="SELECT account_profile.*, account_privilege.priv FROM account_profile  LEFT JOIN account_privilege on account_privilege.uid = account_profile.uid where account_profile.uid=? ORDER BY id DESC LIMIT 1";
 		$statement=$this->db->query($sql,array($this->user_id));
 		return $statement->result();		
 	}

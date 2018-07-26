@@ -12,8 +12,6 @@ class Privilege extends CI_Model {
 
 	public function _get_roles(){
 
-	
-
 		$sql="SELECT * from role";
 
 		$stmt = $this->db->query($sql);
@@ -46,11 +44,8 @@ class Privilege extends CI_Model {
 
 	public function _get_privilege_details($role_id){
 
-
-		$sql="SELECT * FROM role where id=? ORDER BY role.id DESC LIMIT 1";
-
+		$sql = "SELECT * FROM role where id=? ORDER BY role.id DESC LIMIT 1";
 		$stmt = $this->db->query($sql,array($role_id));
-
 		return $stmt->result();
 	}
 

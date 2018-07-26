@@ -11,7 +11,7 @@
 
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Home extends MY_Controller {
+class Apps extends MY_Controller {
 
 	/**
 	 * Index Page for this controller.
@@ -205,29 +205,26 @@ class Home extends MY_Controller {
 	 * 
 	 **/
 
-	public function index()
+	public function changelog()
 	{	
 
 		#detect if user is logged-out and logout parameter is give in the URI
 		if($this->input->get('logout')!=NULL){ $this->auth->logout(); unset($_SESSION);  }
-
-		# detect redirection
-		#if($this->input->get('redirect') && $this->input->get('loc') && !$this->input->get('media')) {
-		#	header('location:'.$this->input->get('loc')); 
-		#	exit; 
-		#}
 
 		#header
 		$this->load->view('pages/header.php');
 		
 		if($this->session->id==NULL){
 			//sign-in
-			$this->load->view('forms/login.php',array('data'=>$this->input->get('login_error')));
+			header('location: '.base_url());
+			exit;
 
 		}else{
 
 			//load pages
 			$this->load->view('pages/navigation.php',self::get_categories());
+			// load changelog
+			$this->load->view('pages/changelog.php',self::get_categories());
 			
 
 
@@ -239,61 +236,6 @@ class Home extends MY_Controller {
 
 
 
-
-			#ID and title must be present to view the item
-			#if not it is detected as a search call
-			if(!is_null($this->input->get('item_id',true))&&!(is_null($this->input->get('title',true)))){
-
-
-				//get item category
-				$cat_id=isset($this->item_details[0]->cat_id)?$this->item_details[0]->cat_id:NULL;
-
-				//update category details based on category_id of the Item
-				$this->category_details=$this->category->get_category_details(@$this->session_privileges[0]->role_id,$cat_id);
-
-
-				//check if readable content
-				if(@$this->category_details[0]->read_privilege){
-					$this->load->view('pages/item',self::get_item_details());
-				}else{
-					$this->load->view('errors/html/error_permission');	
-				}
-
-
-				
-			}else{
-
-				#detect search param
-				if(!is_null($this->input->get('search'))){
-					$this->load->view('pages/search.php',self::search());
-
-				}else{
-
-					#show list
-					if(count($this->category_details)>0){
-						$this->load->view('pages/list',self::get_categories());	
-					}
-
-					#no ID parameter in URI and no details available
-					if(is_null($this->input->get('id',true))){
-						$this->load->view('pages/index');
-					}
-
-
-					#with ID but no details available
-					#check as well the category accessibility
-					if(!is_null($this->input->get('id',true))&&!$this->category->is_accessible(@$this->session_privileges[0]->role_id,$this->input->get('id',true)))
-					{
-						$this->load->view('errors/html/error_permission');
-
-					}
-					
-					
-
-				}
-				
-			}
-
 			//tracking with GA
 			$this->load->view('pages/track.php',array('USER_ID'=>@$this->session->name));
 
@@ -303,4 +245,8 @@ class Home extends MY_Controller {
 		$this->load->view('pages/footer.php');
 
 	}
+
+	
+
+
 }

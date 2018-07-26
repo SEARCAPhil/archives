@@ -24,7 +24,7 @@ $(document).ready(function(){
 	*This must match against CodeIgniter's site URL
 	*/
 
-	var site_url='/document_management_system/';
+	var site_url='/archives/';
 
 	var redirect_url=getCookie('dms-upload-redirect-to')!=undefined?getCookie('dms-upload-redirect-to'):site_url+'form/success';
 
@@ -43,9 +43,9 @@ $(document).ready(function(){
 		var filteredFileExtension=[];
 
 
-		//10Mb
-		if(size>10000000){
-			alert('File must not exceed 10MB');
+		//100Mb
+		if(size>1000000000){
+			alert('File must not exceed 100MB');
 			return 0;
 		}
 
@@ -68,19 +68,14 @@ $(document).ready(function(){
 				alert('Invalid File Format!');	
 				return;
 			}else{
-
 				//no error
-				var formdata=new FormData();
+				var formdata = new FormData();
 				formdata.append('file',that.files[0]);
-
-
 
 				$('.file-div').hide();
 				$('.progress-div').show();
 
-
 				//post file
-
 				var xhr=new XMLHttpRequest();
 				xhr.open('POST',site_url+'form/file');
 

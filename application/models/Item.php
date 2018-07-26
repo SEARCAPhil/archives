@@ -16,6 +16,7 @@ class Item extends CI_Model {
 		$stmt2=$this->db->query($count_sql,array($id));
 		
 		$count=$stmt2->result()[0]->total;
+
 		$no_pages=1;
 		if($count>=20){
 				$pages=ceil($count/20);
@@ -26,12 +27,19 @@ class Item extends CI_Model {
 
 		}
 
-	
+		# results
+		$res = $stmt->result();
+		$result = [];
+		foreach($res as $key => $val){
+			$attachments = self::get_attachments($val->id);
+			$val->attachments = $attachments;
+			$result[]=$val;
+		}
 
 		#check if page request is < the actual page
 		$current_page=$this->page<=$no_pages?$this->page:$no_pages;
 
-		return array('total'=>$count,'pages'=>$no_pages,'current_page'=>$current_page,'data'=>$stmt->result());
+		return array('total'=>$count,'pages'=>$no_pages,'current_page'=>$current_page,'data'=>$result);
 	}
 
 	public function get_item_category($id){
@@ -44,7 +52,14 @@ class Item extends CI_Model {
 	public function get_item_details($id){
 		$query = "SELECT item.*,category.category,category.is_private,account_profile.profile_name FROM item LEFT JOIN category on item.cat_id=category.id LEFT JOIN account_profile on account_profile.id=item.encoded_by_id where item.id=? LIMIT 0,20";
 		$stmt=$this->db->query($query,array($id));
-		return $stmt->result();
+		$res = $stmt->result();
+		$result = [];
+		foreach($res as $key => $val){
+			$attachments = self::get_attachments($val->id);
+			$val->attachments = $attachments;
+			$result[]=$val;
+		}
+		return $result;
 	}
 
 	public function set_item($item=array(),$encoded_by_id){
@@ -63,13 +78,13 @@ class Item extends CI_Model {
 		$this->physical_condition=isset($item['physical'])?htmlentities(htmlspecialchars($item['physical'])):'';
 		$this->quantity=isset($item['quantity'])?htmlentities(htmlspecialchars($item['quantity'])):'';
 		$this->record_group=isset($item['record_group'])?htmlentities(htmlspecialchars($item['record_group'])):'';
-		$this->document_title=isset($item['title'])?htmlentities(htmlspecialchars($item['title'])):'';
+		$this->document_title=isset($item['title'])?trim($item['title']):'';
 		$this->creator=isset($item['creator'])?htmlentities(htmlspecialchars($item['creator'])):'';
 		$this->place=isset($item['place'])?htmlentities(htmlspecialchars($item['place'])):'';
 		$this->publisher=isset($item['publisher'])?htmlentities(htmlspecialchars($item['publisher'])):'';
 		$this->source_title=isset($item['source'])?htmlentities(htmlspecialchars($item['source'])):'';
 		$this->collation=isset($item['collation'])?htmlentities(htmlspecialchars($item['collation'])):'';
-		$this->content_description=isset($item['content_description'])?htmlentities(htmlspecialchars($item['content_description'])):'';
+		$this->content_description=isset($item['content_description'])?trim($item['content_description']):'';
 		$this->notes=isset($item['notes'])?htmlentities(htmlspecialchars($item['notes'])):'';
 		$this->keywords=isset($item['keywords'])?htmlentities(htmlspecialchars($item['keywords'])):'';
 		$this->provenance=isset($item['provenance'])?htmlentities(htmlspecialchars($item['provenance'])):'';
@@ -179,102 +194,77 @@ class Item extends CI_Model {
 
 
 
-	public function search_advance($role_id,$param,$page=1){
-		$this->page=(int) $page;
-		$limit=$this->page<2?0:( integer)($this->page-1)*20;
-
-		$sql_fileds='';
-		$sql_param=array();
-		$sql_logic='or';
-		$sql_operator='LIKE';
-
+	public function search_advanced($role_id,$param,$page=1){
+		$this->page	=	(int) $page;
+		$this->fields = self:: __get_fields();
+		$this->common_fields = self::__get_common_fields();
+		$limit	=	$this->page<2?0:(integer)($this->page-1)*20;
+		$sql_param =	array();
+		$sql_query = '';
+		# add role
 		array_push($sql_param, $role_id);
 
-
-		//count number of params in foreach
-		$param_counter=0;
-
-		foreach ($param as $key => $value) {
-
-			if(strlen(trim(htmlentities(htmlspecialchars($value))))<1) unset($param[$key]);
+		# clean fields
+		$__param = [];
+		foreach($param as $key => $value) {	
+			if(!empty($value['query'] && !empty($value['field']))) {
+				$__param[] = 	$value;
+			}	
 		}
 
-		//remove page
+		foreach($__param as $key => $value) {		
+				$sql = '';
+				# only certain field
+				if($value['field']!='all') { 
+					if ($key > 1) $sql.= '(';
+					$sql.= 'MATCH (';
+					$sql.=	$value['field'];
+					$sql.=	') AGAINST';
+					$sql.=	'(';
+					$sql.=	'?';
+					$sql.=	' IN BOOLEAN MODE)';
+					if ($key > 1) $sql.= ')';
+					if (!empty($value['boolean']) && isset($__param[$key+1])) $sql.=' '.$value['boolean'].' ';
+					array_push($sql_param, $value['query']);
+				}	
+
+				#all fields
+				if ($value['field'] == 'all') {
+					$sql.= '(';
+					$__field_count = (count($this->common_fields));
+					
+					$sql .= 'MATCH (';
+					foreach($this->common_fields as $key2 => $value2) {				
+						$sql.=	$value2['name'];
+						if ( $key2+1 < $__field_count) $sql.=', ';
+					}
+					$sql.=	') AGAINST';
+					$sql.=	'(';
+					$sql.=	'?';
+					$sql.=	' IN BOOLEAN MODE))';
+					array_push($sql_param, $value['query']);
+
+					if (!empty($value['boolean']) && isset($__param[$key+1])) $sql.=' AND ';
+				}
+
+				if(!empty($sql)) $sql_query.=' '.$sql;
+		}
 		
+		//remove page
 		if(isset($param['page'])) unset($param['page']);
 
-		//assign and unset logic
-
-		if(@$param['logic']=='and'||@$param['logic']=='or'||@$param['logic']=='not'){
-			$sql_logic=strip_tags(htmlentities(htmlspecialchars(utf8_encode(@$param['logic']))));
-		}
-
-		if(isset($param['logic'])) unset($param['logic']);
-
-
-
-		foreach ($param as $key => $value) {
-
-			$param_counter++;
-
-
-
-			${$key}=trim(strip_tags(htmlentities(htmlspecialchars($value))));
-
-
-			$__{$key}=explode('|',trim($value));
-
-			//filter empty
-			$__{$key}=array_filter($__{$key});
-
-
-			if($sql_logic=='not'){
-				$sql_logic='and';
-				$sql_operator='NOT LIKE';
-			}
-
-
-			if(count($__{$key})>0){
-				$sql_fileds.='(';
-					for($x=0; $x<count($__{$key});$x++){
-						
-
-						$sql_fileds.=' item.'.$key.' '.$sql_operator.' ?';
-
-						#equivalent bind param
-						array_push($sql_param,'%'.trim($__{$key}[$x]).'%');
-
-						if(count($__{$key})-1>$x){
-							 $sql_fileds.=' '.$sql_logic;
-						}
-					}
-				$sql_fileds.=')';
-			}
-
-
-			//add OR for multiple params
-			if($param_counter<count($param)) $sql_fileds.=' '.$sql_logic.' ';
-
-			
-
-		}
-
-
 		//with limit param
-		$sql_param_with_limit=$sql_param;
-		array_push($sql_param_with_limit,$limit);
+		$sql_param_with_limit = $sql_param;
+		array_push($sql_param_with_limit, $limit);
 
-		if(!empty($sql_fileds)){
-			$query = "SELECT item.*,role_category_inclusion.read_privilege FROM role_category_inclusion LEFT JOIN item on role_category_inclusion.category_id=item.cat_id where role_category_inclusion.role_id=? and role_category_inclusion.read_privilege=1 and (".$sql_fileds.") LIMIT ?,20";
-			
+		if(!empty($sql_query)){
+			$query = "SELECT item.*,role_category_inclusion.read_privilege FROM role_category_inclusion LEFT JOIN item on role_category_inclusion.category_id=item.cat_id where role_category_inclusion.role_id=? and role_category_inclusion.read_privilege=1 AND ".$sql_query." LIMIT ?,20";
 			$stmt=$this->db->query($query,$sql_param_with_limit);
 
-
-			$query2 = "SELECT count(*) as total,role_category_inclusion.read_privilege FROM role_category_inclusion LEFT JOIN item on role_category_inclusion.category_id=item.cat_id where role_category_inclusion.role_id=? and role_category_inclusion.read_privilege=1 and (".$sql_fileds.")";
-			
+			$query2 = "SELECT count(*) as total,role_category_inclusion.read_privilege FROM role_category_inclusion LEFT JOIN item on role_category_inclusion.category_id=item.cat_id where role_category_inclusion.role_id=? and role_category_inclusion.read_privilege=1 AND ".$sql_query;
+		
 			$stmt2=$this->db->query($query2,$sql_param);
 		}
-
 
 
 		if(isset($stmt2)) {
@@ -303,12 +293,71 @@ class Item extends CI_Model {
 		#check for 0 value
 		if($current_page<1) $current_page=1;
 
-		$res=array();
+		$res	=	array();
 		if(isset($stmt)) $res=$stmt->result();
 
 		return array('total'=>$count,'pages'=>$no_pages,'current_page'=>$current_page,'data'=>@$res);
 	
 	}
+
+
+	public function get_attachments($id){
+		$query = "SELECT * FROM attachments where item_id=? and status !=1";
+		$stmt = $this->db->query($query,array($id));
+
+		return array('data'=>$stmt->result());
+	}
+
+	public function __get_fields() {
+		return [
+			array('name' => 'document_title',	'value' => 'document title'),
+			array('name' => 'content_description',	'value' => 'content description'),
+			array('name' => 'publisher',	'value' => 'publisher'),
+			array('name' => 'creator',	'value' => 'creator'),
+			array('name' => 'date_range',	'value' => 'date range'),
+			array('name' => 'language',	'value' => 'language'),
+			array('name' => 'location',	'value' => 'location'),
+			array('name' => 'shelf_cabinet_number',	'value' => 'shelf cabinet number'),
+			array('name' => 'tier_number',	'value' => 'tier number'),
+			array('name' => 'box_number',	'value' => 'box number'),
+			array('name' => 'folder_number',	'value' => 'folder number'),
+			array('name' => 'record_number',	'value' => 'record number'),
+			array('name' => 'material','value' => 'material'),
+			array('name' => 'access_condition',	'value' => 'access condition'),
+			array('name' => 'physical_condition','value' => 'physical condition'),
+			array('name' => 'quantity','value' => 'quantity'),
+			array('name' => 'record_number','value' => 'record number'),
+			array('name' => 'place','value' => 'place'),
+			array('name' => 'source_title','value' => 'source title'),
+			array('name' => 'collation','value' => 'collation'),
+			array('name' => 'notes','value' => 'notes'),
+			array('name' => 'keywords','value' => 'keywords'),
+			array('name' => 'provenance','value' => 'provenance'),
+			array('name' => 'encoded_by','value' => 'encoded by'),
+			array('name' => 'remarks','value' => 'remarks'),
+		];
+	}
+
+	public function __get_common_fields() {
+		return [
+			array('name' => 'document_title',	'value' => 'document title'),
+			array('name' => 'content_description',	'value' => 'content description'),
+			array('name' => 'publisher',	'value' => 'publisher'),
+			array('name' => 'creator',	'value' => 'creator'),
+			array('name' => 'date_range',	'value' => 'date range'),
+			array('name' => 'shelf_cabinet_number',	'value' => 'shelf cabinet number'),
+			array('name' => 'tier_number',	'value' => 'tier number'),
+			array('name' => 'box_number',	'value' => 'box number'),
+			array('name' => 'folder_number',	'value' => 'folder number'),
+			array('name' => 'record_number',	'value' => 'record number'),
+			array('name' => 'record_number','value' => 'record number'),
+			array('name' => 'place','value' => 'place'),
+			array('name' => 'source_title','value' => 'source title'),
+			array('name' => 'notes','value' => 'notes'),
+			array('name' => 'keywords','value' => 'keywords'),
+		];
+	}
+
 
 	
 }

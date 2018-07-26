@@ -285,7 +285,7 @@ class Form extends MY_Controller {
             	
 
             	sleep(1);
-            	header('location:'.site_url().'form/upload');
+            	header('location:'.site_url().'form/upload_multiple');
             	
                 
         }
@@ -297,6 +297,17 @@ class Form extends MY_Controller {
 		$this->load->view('pages/navigation.php',self::get_categories());
 		if(isset($_COOKIE['dms-upload-id'])&&isset($_COOKIE['dms-upload-cat'])){
                 $this->load->view('pages/file-upload.php',array('last_id'=>@$_COOKIE['dms-upload-id']));	
+         }
+		$this->load->view('pages/footer.php');
+	}
+
+
+	public function upload_multiple(){
+
+		$this->load->view('pages/header.php');
+		$this->load->view('pages/navigation.php',self::get_categories());
+		if(isset($_COOKIE['dms-upload-id'])&&isset($_COOKIE['dms-upload-cat'])){
+                $this->load->view('pages/file-upload-multiple.php',array('last_id'=>@$_COOKIE['dms-upload-id']));	
          }
 		$this->load->view('pages/footer.php');
 	}
@@ -317,17 +328,17 @@ class Form extends MY_Controller {
 			$inf=pathinfo($_FILES['file']['name']);
 			
 			#config
- 			$config['file_name']          = @$_COOKIE['dms-upload-cat'].'.'.@$inf['extension'];
-			$config['upload_path']          = './uploads/'.@$_COOKIE['dms-upload-cat'].'/'.@$_COOKIE['dms-upload-id'];
+ 			$config['file_name']          = @$_COOKIE['dms-upload-id'].'.'.@$inf['extension'];
+			$config['upload_path']          = '../uploads/'.@$_COOKIE['dms-upload-cat'].'/'.@$_COOKIE['dms-upload-id'];
             $config['allowed_types']        = 'gif|jpg|png|jpeg|pdf|bmp';
-            $config['max_size']             = 10000;
+            $config['max_size']             = 50000;
             $config['overwrite'] = TRUE;
 
 			$this->load->library('upload', $config);
 			
 			#create directory
-            if(!is_dir('./uploads/'.@$_COOKIE['dms-upload-cat'].'/'.@$_COOKIE['dms-upload-id'])){
-            	mkdir('./uploads/'.@$_COOKIE['dms-upload-cat'].'/'.@$_COOKIE['dms-upload-id'],0777,true);
+            if(!is_dir('../uploads/'.@$_COOKIE['dms-upload-cat'].'/'.@$_COOKIE['dms-upload-id'])){
+            	mkdir('../uploads/'.@$_COOKIE['dms-upload-cat'].'/'.@$_COOKIE['dms-upload-id'],0777,true);
             }
 
            #upload file
@@ -366,6 +377,66 @@ class Form extends MY_Controller {
 
          }
 
+	}
+
+	public function file_multiple(){
+		if(isset($_COOKIE['dms-upload-id'])){
+
+			if(!isset($_FILES['file'])){
+				$error = array('error' => 'invalid file');
+                 echo json_encode($error);
+                 exit;
+			}
+
+			$inf = pathinfo($_FILES['file']['name']);
+
+			#config
+ 			$config['file_name']          = @$_COOKIE['dms-upload-id'].''.time().'.'.@$inf['extension'];
+			$config['upload_path']          = '../uploads/'.@$_COOKIE['dms-upload-cat'].'/'.@$_COOKIE['dms-upload-id'];
+            $config['allowed_types']        = 'gif|jpg|png|jpeg|pdf|bmp';
+            $config['max_size']             = 50000;
+            $config['overwrite'] = TRUE;
+
+			$this->load->library('upload', $config);
+			
+			#create directory
+            if(!is_dir('../uploads/'.@$_COOKIE['dms-upload-cat'].'/'.@$_COOKIE['dms-upload-id'])){
+            	mkdir('../uploads/'.@$_COOKIE['dms-upload-cat'].'/'.@$_COOKIE['dms-upload-id'],0777,true);
+            }
+
+           #upload file
+
+            if (!$this->upload->do_upload('file'))
+            {
+                    $error = array('error' => $this->upload->display_errors());
+                    echo json_encode($error);        
+            }
+            else
+            {
+            	
+
+            		$is_name_updated = $this->file->save(@$_COOKIE['dms-upload-id'],$_FILES['file']['name'],$config['file_name']);
+
+            		if($is_name_updated==1){
+            			$data = array('upload_data' => $this->upload->data());
+
+	                    echo json_encode(array('data'=>$this->upload->data('file_name')));
+	                    #expire the cookie
+	                    setcookie("dms-upload-id",'',1);
+	                     setcookie("dms-upload-cat",'',1);
+	                 }else{
+	                 	$error = array('error' => 'Oops Something went wrong. Please check file name and size.');
+                    	echo json_encode($error);
+	                 }
+
+                    
+
+                     
+            }
+
+            //$this->load->view('ajax/file.php');	
+
+         }
 	}
 
 

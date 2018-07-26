@@ -2,7 +2,7 @@
   ob_start();
 
   // Include the main TCPDF library (search for installation path).
-  require_once(FCPATH.'/vendor/tcpdf/tcpdf.php');
+  require_once(FCPATH.'/vendor/tecnickcom/tcpdf/tcpdf.php');
 
   global $items_header;
   $items_header=$items;
@@ -18,7 +18,7 @@
    	 
 
 
-      $header = '<img src="'.base_url().'assets/images/SEARCA.png" height="40">
+      $header = '<img src="'.base_url().'assets/images/searca-new.png" height="40">
 		 <div align="center"><b>List Report</b>
 		 <br>
 		 <font size="7">Document Management System</font><br/>
