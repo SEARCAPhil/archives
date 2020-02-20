@@ -1,6 +1,13 @@
 <div class="col col-md-10 large-scrollbar dark-scrollbar" style="height:95vh;overflow-y:auto;padding-bottom:150px;">
         <div class="col col-md-10 col-lg-offset-1 " style="margin-top: 8vh;">
            <h3>Whats new ?</h3>
+           <p style="color:#ff0662;">Released Feb 2020,  <span class="badge">v1.2.0</span></p><br/>
+           <hr>
+           <p><b><i class="material-icons">chevron_right</i> Statistics</b></p>
+           <p>You can now easily determine the total number of items per category in just a snap</p>
+           <img src="<?php echo base_url(); ?>assets/images/screenshots/stat.png" width="80%"/><br/><br/>
+
+           <br/><br/><br/><br/><br/>
            <p style="color:#ff0662;">Released June 2018,  <span class="badge">v1.2.0 beta</span></p><br/>
             <hr/>
            <p><b><i class="material-icons">chevron_right</i> Layout</b></p>

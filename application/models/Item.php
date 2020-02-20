@@ -49,6 +49,13 @@ class Item extends CI_Model {
 		return $stmt->result();
 	}
 
+	public function get_item_count_per_category($id){
+		$this->id=(int) $id;
+		$query = "SELECT count(*) as total FROM item where cat_id=?";
+		$stmt = $this->db->query($query,array($this->id));
+		return $stmt->result();
+	}
+
 	public function get_item_details($id){
 		$query = "SELECT item.*,category.category,category.is_private,account_profile.profile_name FROM item LEFT JOIN category on item.cat_id=category.id LEFT JOIN account_profile on account_profile.id=item.encoded_by_id where item.id=? LIMIT 0,20";
 		$stmt=$this->db->query($query,array($id));

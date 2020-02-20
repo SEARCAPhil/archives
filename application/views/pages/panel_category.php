@@ -108,6 +108,20 @@
 					
 				</ul>
 
+				<div class="row">
+					<span class="left-navigation-header"   data-toggle="collapse" data-target=".statistics-section"><i class="material-icons">trending_up</i> Statistics <i class="material-icons pull-right" onclick="$(this).html()=='keyboard_arrow_right'?$(this).html('keyboard_arrow_down'):$(this).html('keyboard_arrow_right')">keyboard_arrow_right</i></span>
+				</div>
+
+
+				<ul class="list-unstyled collapse statistics-section" style="height: 100%;">
+				
+						<li>
+							<a href="<?php echo base_url(); ?>statistics/documents">&emsp;Documents</a>
+						</li>
+						
+					
+				</ul>
+
 
 			</div>
 		</div>
