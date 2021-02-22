@@ -251,7 +251,7 @@ class Item extends CI_Model {
 					$sql.=	' IN BOOLEAN MODE))';
 					array_push($sql_param, $value['query']);
 
-					if (!empty($value['boolean']) && isset($__param[$key+1])) $sql.=' AND ';
+					if (!empty($value['boolean']) && isset($__param[$key+1])) $sql.=!empty($value['boolean']) ? ' '.$value['boolean'].' ' : ' AND ';
 				}
 
 				if(!empty($sql)) $sql_query.=' '.$sql;
