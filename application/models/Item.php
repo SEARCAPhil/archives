@@ -251,7 +251,7 @@ class Item extends CI_Model {
 					$sql.=	' IN BOOLEAN MODE))';
 					array_push($sql_param, $value['query']);
 
-					if (!empty($value['boolean']) && isset($__param[$key+1])) $sql.=' AND ';
+					if (!empty($value['boolean']) && isset($__param[$key+1])) $sql.=!empty($value['boolean']) ? ' '.$value['boolean'].' ' : ' AND ';
 				}
 
 				if(!empty($sql)) $sql_query.=' '.$sql;
@@ -263,6 +263,7 @@ class Item extends CI_Model {
 		//with limit param
 		$sql_param_with_limit = $sql_param;
 		array_push($sql_param_with_limit, $limit);
+		var_dump($sql_query);
 
 		if(!empty($sql_query)){
 			$query = "SELECT item.*,role_category_inclusion.read_privilege FROM role_category_inclusion LEFT JOIN item on role_category_inclusion.category_id=item.cat_id where role_category_inclusion.role_id=? and role_category_inclusion.read_privilege=1 AND ".$sql_query." LIMIT ?,20";
