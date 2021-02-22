@@ -263,7 +263,6 @@ class Item extends CI_Model {
 		//with limit param
 		$sql_param_with_limit = $sql_param;
 		array_push($sql_param_with_limit, $limit);
-		var_dump($sql_query);
 
 		if(!empty($sql_query)){
 			$query = "SELECT item.*,role_category_inclusion.read_privilege FROM role_category_inclusion LEFT JOIN item on role_category_inclusion.category_id=item.cat_id where role_category_inclusion.role_id=? and role_category_inclusion.read_privilege=1 AND ".$sql_query." LIMIT ?,20";
